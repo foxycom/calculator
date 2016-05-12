@@ -4,9 +4,6 @@ import static org.junit.Assert.assertEquals;
 
 import static com.guliash.parser.Functions.*;
 
-/**
- * Created by gulash on 07.01.16.
- */
 public class FunctionsTest extends BaseTester {
 
     @Test

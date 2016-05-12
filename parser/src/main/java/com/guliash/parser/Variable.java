@@ -3,9 +3,6 @@ package com.guliash.parser;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-/**
- * Created by gulash on 06.11.15.
- */
 public class Variable implements Parcelable {
     public String name;
     public Double value;

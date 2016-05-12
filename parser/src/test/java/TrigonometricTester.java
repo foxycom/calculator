@@ -5,9 +5,6 @@ import org.junit.Test;
 import static com.guliash.parser.Functions.*;
 import static org.junit.Assert.assertEquals;
 
-/**
- * Created by gulash on 03.01.16.
- */
 public class TrigonometricTester extends BaseTester {
 
     @Test

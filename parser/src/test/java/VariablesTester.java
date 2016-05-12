@@ -4,12 +4,10 @@ import com.guliash.parser.Variable;
 import org.junit.Test;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import static org.junit.Assert.assertEquals;
 
-/**
- * Created by gulash on 07.01.16.
- */
 public class VariablesTester extends BaseTester {
 
     @Test
@@ -34,5 +32,16 @@ public class VariablesTester extends BaseTester {
         variables.add(new Variable("exp", 3.0));
         variables.add(new Variable("y", 2.0));
         calculate("exp", variables);
+    }
+
+    /**
+     * The parser is case-sensitive. So it should be able to calculate a correct expression
+     * with same variables
+     */
+    public void sameVariablesButDifferentCaseTest() {
+        List<Variable> variables = new ArrayList<>();
+        variables.add(new Variable("x", 2d));
+        variables.add(new Variable("X", 3d));
+        assertEquals(5d, calculate("x + X", variables), EPS);
     }
 }

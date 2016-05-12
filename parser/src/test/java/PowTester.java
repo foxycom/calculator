@@ -2,20 +2,7 @@ import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
 
-/**
- * Created by gulash on 07.01.16.
- */
 public class PowTester extends BaseTester {
-
-    @Test
-    public void wow() {
-        assertEquals(1, 2);
-    }
-
-    @Test
-    public void wow() {
-        assertEquals(1, 2);
-    }
 
     @Test
     public void powTest1() {

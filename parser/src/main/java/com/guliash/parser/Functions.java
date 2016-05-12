@@ -1,8 +1,5 @@
 package com.guliash.parser;
 
-/**
- * Created by gulash on 19.12.15.
- */
 public class Functions {
 
     public static double factorial(double n) {

@@ -3,10 +3,8 @@ import com.guliash.parser.ArithmeticParser;
 import com.guliash.parser.Variable;
 
 import java.util.ArrayList;
+import java.util.List;
 
-/**
- * Created by gulash on 03.01.16.
- */
 public class BaseTester {
 
     protected static final double EPS = 1e-9;
@@ -24,11 +22,11 @@ public class BaseTester {
         return calculate(expression, new ArrayList<Variable>(), angle);
     }
 
-    protected double calculate(String expression, ArrayList<Variable> variables) {
+    protected double calculate(String expression, List<Variable> variables) {
         return calculate(expression, variables, Angle.RAD);
     }
 
-    protected double calculate(String expression, ArrayList<Variable> variables, Angle angle) {
+    protected double calculate(String expression, List<Variable> variables, Angle angle) {
         return new ArithmeticParser(expression, variables, angle).calculate();
     }
 }

@@ -4,9 +4,6 @@ import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
 
-/**
- * Created by gulash on 27.10.15.
- */
 public class BasicTester extends BaseTester {
 
     @Test
