@@ -13,6 +13,11 @@ public class PowTester extends BaseTester {
     }
 
     @Test
+    public void wow() {
+        assertEquals(1, 2);
+    }
+
+    @Test
     public void powTest1() {
         assertEquals(Math.pow(1, 2), calculate("pow(1,2)"), EPS);
     }
