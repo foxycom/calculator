@@ -7,9 +7,6 @@ import java.util.Set;
 
 import static com.guliash.parser.Functions.*;
 
-/**
- * Created by gulash on 27.10.15.
- */
 public class ArithmeticParser {
 
     private String s;
@@ -24,7 +21,7 @@ public class ArithmeticParser {
     private List<Variable> variables;
 
     public ArithmeticParser(String s, List<? extends Variable> variables, Angle angleUnits) {
-        this.s = s.toLowerCase();
+        this.s = s;
         this.variables = new ArrayList<>(variables);
         this.angleUnits = angleUnits;
         initFunctions();
