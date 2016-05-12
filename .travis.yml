@@ -1,18 +1,4 @@
-language: android
-
-env:
-  global:
-    - ADB_INSTALL_TIMEOUT=15
-
-android:
-  components:
-    - platform-tools
-    - tools
-    - build-tools-23.0.2
-    - android-23
-    - extra-google-m2repository
-    - extra-android-m2repository
-    - sys-img-armeabi-v7a-android-23
+language: java
 
 script:
-  - ./gradlew test
+  - ./gradlew check
