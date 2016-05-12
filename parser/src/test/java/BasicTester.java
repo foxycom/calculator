@@ -151,6 +151,7 @@ public class BasicTester extends BaseTester {
         assertEquals(Double.NaN, calculate("0/0"), EPS);
     }
 
+    @Test
     public void javaCornerCases2() {
         assertEquals(Double.NaN, calculate("log(2,-1)"), EPS);
     }
