@@ -38,10 +38,18 @@ public class VariablesTester extends BaseTester {
      * The parser is case-sensitive. So it should be able to calculate a correct expression
      * with same variables
      */
+    @Test
     public void sameVariablesButDifferentCaseTest() {
         List<Variable> variables = new ArrayList<>();
         variables.add(new Variable("x", 2d));
         variables.add(new Variable("X", 3d));
         assertEquals(5d, calculate("x + X", variables), EPS);
+    }
+
+    @Test
+    public void constantsShouldHaveMorePriorityThanVariables() {
+        List<Variable> variables = new ArrayList<>();
+        variables.add(new Variable("e", 2d));
+        assertEquals(Math.E, calculate("e", variables), EPS);
     }
 }
