@@ -64,4 +64,25 @@ public class NumberTester extends BaseTester {
     public void numberTest12() {
         assertEquals(2e-11, calculate("2e-0011"), EPS);
     }
+
+    @Test
+    public void eCaseDoesNotMatter() {
+        assertEquals(2E-1, calculate("2E-1"), EPS);
+    }
+
+    @Test
+    public void parserAbleToDiffExpAndE() {
+        assertEquals(Math.E * 2e-1, calculate("e*2e-1"), EPS);
+    }
+
+    @Test
+    public void exponentCalculatedCorrectly() {
+        assertEquals(2e-10, calculate("2e-10"), EPS);
+    }
+
+    @Test
+    public void zeroExponentHandledCorrectly() {
+        assertEquals(435e0, calculate("435E0"), EPS);
+    }
+
 }
