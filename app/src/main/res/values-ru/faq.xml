@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <array name="functions">
+        <!--trigonometric-->
+        <item>@string/sin</item>
+        <item>@string/cos</item>
+        <item>@string/tan</item>
+        <item>@string/cot</item>
+        <item>@string/asin</item>
+        <item>@string/acos</item>
+        <item>@string/atan</item>
+        <item>@string/acot</item>
+        <item>@string/sinh</item>
+        <item>@string/cosh</item>
+        <item>@string/tanh</item>
+        <item>@string/coth</item>
+        <!--trigonometric-->
+        <!--pow-->
+        <item>@string/pow</item>
+        <item>@string/sqrt</item>
+        <item>@string/exp</item>
+        <!--pow-->
+        <!--logs-->
+        <item>@string/log</item>
+        <item>@string/ln</item>
+        <item>@string/log10</item>
+        <!--logs-->
+        <!--math-->
+        <item>@string/abs</item>
+        <item>@string/floor</item>
+        <item>@string/ceil</item>
+        <item>@string/min</item>
+        <item>@string/max</item>
+        <item>@string/random</item>
+        <item>@string/round</item>
+        <item>@string/signum</item>
+        <item>@string/fact</item>
+        <item>@string/mod</item>
+        <!--math-->
+
+    </array>
+    <array name="description">
+        <!--trigonometric-->
+        <item>sin(x) - синус x(радианы или градусы в зависимости от режима)</item>
+        <item>cos(x) - косинус x(радианы или градусы в зависимости от режима)</item>
+        <item>tan(x) - тангенс x(радианы или градусы в зависимости от режима)</item>
+        <item>cot(x) - котангенс x(радианы или градусы в зависимости от режима)</item>
+        <item>asin(x) - арксинус x; результат лежит в пределах [-pi/2, pi/2](или [-90, 90], в зависимости от режима)</item>
+        <item>acos(x) - арккосинус x; результат лежит в пределах [0, pi](или [0, 180], в зависимости от режима)</item>
+        <item>atan(x) - арктангенс x; результат лежит в пределах (-pi/2, pi/2)(или (-90, 90), в зависимости от режима)</item>
+        <item>acot(x) - арккотангенс x; результат лежит в пределах (0, pi)(или (0, 180), в зависимости от режима)</item>
+        <item>sinh(x) - гиперболический синус x</item>
+        <item>cosh(x) - гиперболический косинус x</item>
+        <item>tanh(x) - гиперболический тангенс x</item>
+        <item>coth(x) - гиперболический котангенс x</item>
+        <!--trigonometric-->
+        <!--pow-->
+        <item>pow(x, y) - x в степени y</item>
+        <item>sqrt(x) - положительный корень квадратный x</item>
+        <item>exp(x) - e в степени x</item>
+        <!--pow-->
+        <!--logs-->
+        <item>log(x, y) - логарифм y по основанию x</item>
+        <item>ln(x) - натуральный логарифм x</item>
+        <item>log10(x) - логарифм x по основанию 10</item>
+        <!--logs-->
+        <!--math-->
+        <item>abs(x) - модуль x</item>
+        <item>floor(x) - ближайшее целое меньше или равное x</item>
+        <item>ceil(x) - ближайшее целое больше или равное x</item>
+        <item>min(x, y) - минимальное из x и y</item>
+        <item>max(x, y) - наибольшее из x и y</item>
+        <item>random() - псевдо-случайное число из интервала [0, 1)</item>
+        <item>round(x) - ближайшее к x целое</item>
+        <item>signum(x) - 0 если x = 0; 1 если x больше 0; -1 если x меньше 0</item>
+        <item>fact(x) - факториал x, где x положительное целое</item>
+        <item>mod(x, y) - остаток деления x на y, результат неотрицательный</item>
+        <!--math-->
+    </array>
+</resources>

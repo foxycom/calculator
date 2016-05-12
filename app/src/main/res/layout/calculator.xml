@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingBottom="@dimen/activity_vertical_margin"
+        android:paddingLeft="8dp"
+        android:paddingRight="8dp"
+        android:paddingTop="@dimen/activity_vertical_margin">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <EditText
+                android:id="@+id/input_field"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:maxLines="3"
+                android:inputType="textNoSuggestions"
+                android:paddingLeft="@dimen/smallPadding"
+                android:paddingRight="@dimen/smallPadding" />
+
+            <ImageView
+                android:id="@+id/backspace"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:src="@drawable/backspace"
+                android:scaleType="center"/>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <TextView
+                android:id="@+id/result_field"
+                style="@android:style/TextAppearance.Medium"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:hint="@string/result"
+                android:layout_gravity="center_vertical"
+                android:paddingLeft="@dimen/smallPadding"
+                android:paddingRight="@dimen/smallPadding"
+                android:textIsSelectable="true" />
+            <ImageView
+                android:id="@+id/equals_image_button"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:clickable="true"
+                android:src="@drawable/equals_button"
+                android:scaleType="center"/>
+        </LinearLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:orientation="vertical"
+        android:layout_weight="1"
+        android:padding="8dp">
+
+        <include layout="@layout/main_keyboard"/>
+
+        <include layout="@layout/trigonometric_keyboard"/>
+
+        <include layout="@layout/pow_keyboard"/>
+
+        <include layout="@layout/log_keyboard"/>
+
+        <include layout="@layout/math_keyboard"/>
+
+        <include layout="@layout/angle_layout"/>
+
+        <include layout="@layout/variables"/>
+
+    </LinearLayout>
+
+    <HorizontalScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginBottom="5dp">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp">
+
+            <RadioGroup
+                android:id="@+id/switchers_group"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
+
+                <RadioButton
+                    android:id="@+id/main_keyboard_switcher"
+                    style="@style/KeyboardSwitcher"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/main_cap" />
+
+                <RadioButton
+                    android:id="@+id/variables_keyboard_switcher"
+                    style="@style/KeyboardSwitcher"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/activity_horizontal_margin"
+                    android:text="@string/variables_cap"/>
+
+                <RadioButton
+                    android:id="@+id/trigonometric_keyboard_switcher"
+                    style="@style/KeyboardSwitcher"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/activity_horizontal_margin"
+                    android:text="@string/sin_cap" />
+
+                <RadioButton
+                    android:id="@+id/angle_units_switcher"
+                    style="@style/KeyboardSwitcher"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/activity_horizontal_margin"
+                    android:text="@string/angle_cap" />
+
+                <RadioButton
+                    android:id="@+id/pow_keyboard_switcher"
+                    style="@style/KeyboardSwitcher"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/activity_horizontal_margin"
+                    android:text="@string/pow_cap" />
+
+                <RadioButton
+                    android:id="@+id/log_keyboard_switcher"
+                    style="@style/KeyboardSwitcher"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/activity_horizontal_margin"
+                    android:text="@string/log_cap" />
+
+                <RadioButton
+                    android:id="@+id/math_keyboard_switcher"
+                    style="@style/KeyboardSwitcher"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/activity_horizontal_margin"
+                    android:text="@string/math_cap" />
+            </RadioGroup>
+        </LinearLayout>
+    </HorizontalScrollView>
+</LinearLayout>

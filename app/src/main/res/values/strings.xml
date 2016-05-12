@@ -1,0 +1,125 @@
+<resources>
+    <string name="app_name">Calculator</string>
+
+    <!-- digits -->
+    <string name="one">1</string>
+    <string name="two">2</string>
+    <string name="three">3</string>
+    <string name="four">4</string>
+    <string name="five">5</string>
+    <string name="six">6</string>
+    <string name="seven">7</string>
+    <string name="eight">8</string>
+    <string name="nine">9</string>
+    <string name="zero">0</string>
+    <!-- digits -->
+
+    <!-- operators -->
+    <string name="plus">+</string>
+    <string name="minus">-</string>
+    <string name="division">/</string>
+    <string name="times">*</string>
+    <string name="equals">=</string>
+    <!-- operators -->
+
+    <!--functions-->
+
+    <!--trigonometric-->
+    <string name="sin">sin</string>
+    <string name="cos">cos</string>
+    <string name="tan">tan</string>
+    <string name="cot">cot</string>
+    <string name='asin'>asin</string>
+    <string name="acos">acos</string>
+    <string name="atan">atan</string>
+    <string name="acot">acot</string>
+    <string name="sinh">sinh</string>
+    <string name="cosh">cosh</string>
+    <string name="tanh">tanh</string>
+    <string name="coth">coth</string>
+    <string name="deg">DEG</string>
+    <string name="rad">RAD</string>
+    <string name="grad">GRAD</string>
+    <string name="pi">pi</string>
+    <!--trigonometric-->
+
+    <!--pow-->
+    <string name="pow">pow</string>
+    <string name="sqrt">sqrt</string>
+    <string name="exp">exp</string>
+    <!--pow-->
+
+    <!--logs-->
+    <string name="log">log</string>
+    <string name="ln">ln</string>
+    <string name="log10">log10</string>
+    <string name="e">e</string>
+    <!--logs-->
+
+    <!--arithmetic-->
+    <string name="abs">abs</string>
+    <string name="floor">floor</string>
+    <string name="ceil">ceil</string>
+    <string name="min">min</string>
+    <string name="max">max</string>
+    <string name="random">random</string>
+    <string name="round">round</string>
+    <string name="signum">signum</string>
+    <string name="fact">fact</string>
+    <string name="mod">mod</string>
+    <!--arithmetic-->
+
+    <!--functions-->
+
+    <!--brackets-->
+    <string name="close_bracket">)</string>
+    <string name="open_bracket">(</string>
+    <!--brackets-->
+
+    <!--additional-->
+    <string name="clean">C</string>
+    <string name="error">ERROR</string>
+    <string name="point">.</string>
+    <string name="comma">,</string>
+    <!--additional-->
+
+    <string name="add_variable">Add variable</string>
+    <string name="variable_name">Name</string>
+    <string name="variable_value">Value</string>
+    <string name="calculator">CALCULATOR</string>
+    <string name="from_0_to_9">0&#8230;9</string>
+    <string name="result">Result</string>
+    <string name="save">Save</string>
+    <string name="help">Help</string>
+    <string name="open">Open</string>
+    <string name="variables">Variables</string>
+
+    <string name="action_settings">Settings</string>
+    <string name="title_activity_open">Open</string>
+    <string name="title_activity_help">Help</string>
+    <string name="title_activity_save">Save</string>
+    <string name="data_name">Name</string>
+    <string name="unique_dataset_name_error">There is a dataset named \"%s\". Do you want update it?</string>
+    <string name="OK">OK</string>
+    <string name="NO">NO</string>
+    <string name="delete">Delete</string>
+    <string name="use">Use</string>
+    <string name="edit">Edit</string>
+    <string name="expression">Expression</string>
+
+    <!--SWITCHERS-->
+    <string name="main_cap">0..9</string>
+    <string name="sin_cap">SIN</string>
+    <string name="pow_cap">POW</string>
+    <string name="angle_cap">ANGLE</string>
+    <string name="log_cap">LOG</string>
+    <string name="math_cap">MATH</string>
+    <string name="variables_cap">VARIABLES</string>
+    <!--SWITCHERS-->
+
+    <!--WARNINGS-->
+    <string name="name_is_empty">Name should not be empty</string>
+    <string name="expression_is_empty">Expression is empty</string>
+    <!--WARNINGS-->
+
+</resources>

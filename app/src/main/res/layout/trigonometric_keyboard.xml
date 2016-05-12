@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/trigonometric_keyboard"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TableLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:stretchColumns="*">
+
+        <TableRow>
+
+            <Button
+                android:id="@id/open_bracket_button"
+                style="@style/CalculatorButton"
+                android:text="@string/open_bracket" />
+
+            <Button
+                android:id="@id/close_bracket_button"
+                style="@style/CalculatorButton"
+                android:text="@string/close_bracket" />
+
+            <Button
+                android:id="@id/point_button"
+                style="@style/CalculatorButton"
+                android:text="@string/point" />
+
+            <Button
+                android:id="@id/comma_button"
+                style="@style/CalculatorButton"
+                android:text="@string/comma" />
+        </TableRow>
+
+        <TableRow>
+
+            <Button
+                android:id="@id/plus_button"
+                style="@style/CalculatorButton"
+                android:text="@string/plus" />
+
+            <Button
+                android:id="@id/minus_button"
+                style="@style/CalculatorButton"
+                android:text="@string/minus" />
+
+            <Button
+                android:id="@id/times_button"
+                style="@style/CalculatorButton"
+                android:text="@string/times" />
+
+            <Button
+                android:id="@id/division_button"
+                style="@style/CalculatorButton"
+                android:text="@string/division" />
+        </TableRow>
+
+        <TableRow>
+
+            <Button
+                android:id="@+id/sin_button"
+                style="@style/CalculatorButton"
+                android:text="@string/sin" />
+
+            <Button
+                android:id="@+id/cos_button"
+                style="@style/CalculatorButton"
+                android:text="@string/cos" />
+
+            <Button
+                android:id="@+id/tan_button"
+                style="@style/CalculatorButton"
+                android:text="@string/tan" />
+
+            <Button
+                android:id="@+id/cot_button"
+                style="@style/CalculatorButton"
+                android:text="@string/cot" />
+        </TableRow>
+
+        <TableRow>
+
+            <Button
+                android:id="@+id/asin_button"
+                style="@style/CalculatorButton"
+                android:text="@string/asin" />
+
+            <Button
+                android:id="@+id/acos_button"
+                style="@style/CalculatorButton"
+                android:text="@string/acos" />
+
+            <Button
+                android:id="@+id/atan_button"
+                style="@style/CalculatorButton"
+                android:text="@string/atan" />
+
+            <Button
+                android:id="@+id/acot_button"
+                style="@style/CalculatorButton"
+                android:text="@string/acot" />
+        </TableRow>
+
+        <TableRow>
+
+            <Button
+                android:id="@+id/sinh_button"
+                style="@style/CalculatorButton"
+                android:text="@string/sinh" />
+
+            <Button
+                android:id="@+id/cosh_button"
+                style="@style/CalculatorButton"
+                android:text="@string/cosh" />
+
+            <Button
+                android:id="@+id/tanh_button"
+                style="@style/CalculatorButton"
+                android:text="@string/tanh" />
+
+            <Button
+                android:id="@+id/coth_button"
+                style="@style/CalculatorButton"
+                android:text="@string/coth" />
+        </TableRow>
+
+        <TableRow>
+
+            <Button
+                android:id="@+id/pi_button"
+                style="@style/CalculatorButton"
+                android:text="@string/pi" />
+        </TableRow>
+    </TableLayout>
+</ScrollView>

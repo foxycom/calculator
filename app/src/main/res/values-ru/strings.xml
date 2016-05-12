@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">Калькулятор</string>
+
+    <string name="error">ОШИБКА</string>
+    <string name="add_variable">Добавить переменную</string>
+    <string name="variable_name">Имя</string>
+    <string name="variable_value">Значение</string>
+    <string name="calculator">КАЛЬКУЛЯТОР</string>
+    <string name="result">Результат</string>
+    <string name="save">Сохранить</string>
+    <string name="help">Помощь</string>
+    <string name="open">Открыть</string>
+
+    <string name="action_settings">Настройки</string>
+    <string name="title_activity_open">Открыть</string>
+    <string name="title_activity_help">Помощь</string>
+    <string name="title_activity_save">Сохранить</string>
+    <string name="data_name">Имя</string>
+    <string name="unique_dataset_name_error">Существует набор с именем \"%s\". Обновить этот набор?</string>
+    <string name="OK">OK</string>
+    <string name="NO">Нет</string>
+    <string name="delete">Удалить</string>
+    <string name="use">Выбрать</string>
+    <string name="edit">Редактировать</string>
+    <string name="expression">Выражение</string>
+    <string name="angle_cap">Углы</string>
+    <string name="variables_cap">ПЕРЕМЕННЫЕ</string>
+    <string name="name_is_empty">Имя не должно быть пустым</string>
+    <string name="expression_is_empty">Введите выражение</string>
+    <string name="variables">Variables</string>
+</resources>

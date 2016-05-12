@@ -1,0 +1,23 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".MainActivity">
+    <item android:id="@+id/open"
+        android:title="@string/open"
+        android:icon="@drawable/open_button"
+        app:showAsAction="ifRoom"
+        android:orderInCategory="0">
+    </item>
+    <item android:id="@+id/save"
+        android:title="@string/save"
+        android:icon="@drawable/save_button"
+        app:showAsAction="ifRoom"
+        android:orderInCategory="1">
+    </item>
+    <item android:id="@+id/help"
+        android:title="@string/help"
+        android:icon="@drawable/help_button"
+        app:showAsAction="ifRoom"
+        android:orderInCategory="2">
+    </item>
+</menu>

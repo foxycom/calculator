@@ -1,0 +1,17 @@
+<resources>
+
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.AppCompat.NoActionBar">
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="android:windowBackground">@color/windowBackground</item>
+    </style>
+
+    <style name="CalculatorButton" parent="android:TextAppearance.Medium">
+        <item name="android:background">@drawable/calculator_button</item>
+        <item name="android:minHeight">60dp</item>
+        <item name="android:minWidth">80dp</item>
+    </style>
+
+    <style name="KeyboardSwitcher" parent="android:TextAppearance.Medium"/>
+</resources>
