@@ -421,17 +421,17 @@ public class ArithmeticParser {
                 pow *= 0.1;
                 nextChar();
             }
-            if(ch == 'e') {
+            if(ch == 'e' || ch == 'E') {
                 res *= exponent();
             }
-        } else if(ch == 'e') {
+        } else if(ch == 'e' || ch == 'E') {
             res *= exponent();
         }
         value = res;
     }
 
     public double exponent() {
-        if(ch != 'e') {
+        if(ch != 'e' && ch != 'E') {
             error();
         }
         nextChar();
