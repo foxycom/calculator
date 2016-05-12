@@ -25,6 +25,7 @@ public class AngleTester extends BaseTester {
 
     @Test
     public void angleTest4() {
-        assertEquals(Math.cos(0.636172512), calculate("cos(40.5)", Angle.GRAD), EPS);
+        assertEquals(Math.cos(convertAngles(40.5, Angle.GRAD, Angle.RAD)),
+                calculate("cos(40.5)", Angle.GRAD), EPS);
     }
 }

@@ -7,7 +7,7 @@ import java.util.List;
 
 public class BaseTester {
 
-    protected static final double EPS = 1e-9;
+    protected static final double EPS = 1e-15;
 
     /**
      * calculates without variables and at RAD mode
