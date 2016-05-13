@@ -487,10 +487,10 @@ public class ArithmeticParser {
         } else if(ch == ',') {
             lexeme = Lexeme.COMMA;
             nextChar();
-        } else if(Character.isLetter(ch)) {
+        } else if(isWordOnlyCharacter(ch)) {
             lexeme = Lexeme.WORD;
             word = "";
-            while(Character.isLetter(ch) || Character.isDigit(ch)) {
+            while(isWordOnlyCharacter(ch) || Character.isDigit(ch)) {
                 word += ch;
                 nextChar();
             }
@@ -499,6 +499,10 @@ public class ArithmeticParser {
         } else {
             error();
         }
+    }
+
+    public static boolean isWordOnlyCharacter(char ch) {
+        return Character.isLetter(ch) || ch == '$' || ch == '_';
     }
 
     enum Lexeme {
