@@ -1,3 +1,5 @@
+package com.guliash.parser;
+
 import com.guliash.parser.Angle;
 import com.guliash.parser.ArithmeticParser;
 import com.guliash.parser.Variable;

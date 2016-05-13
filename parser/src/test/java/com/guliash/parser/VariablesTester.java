@@ -1,5 +1,4 @@
-import com.guliash.parser.ArithmeticParser;
-import com.guliash.parser.Variable;
+package com.guliash.parser;
 
 import org.junit.Test;
 

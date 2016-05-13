@@ -1,4 +1,4 @@
-import com.guliash.parser.Angle;
+package com.guliash.parser;
 
 import org.junit.Test;
 
