@@ -1,16 +1,13 @@
 package com.guliash.parser.functions;
 
-public class Sine extends BaseFunction<Double, Double> {
+public class Sine extends BaseFunction {
 
-    public Sine(String name) {
-        super(name);
+    public Sine(String name, int numberOfArgs) {
+        super(name, numberOfArgs);
     }
 
     @Override
-    public Double calc(Double... args) {
-        if(args.length > 1) {
-            throw new RuntimeException("More than one parameter for sine function");
-        }
+    protected double evaluate(double... args) {
         return Math.sin(args[0]);
     }
 }
