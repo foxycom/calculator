@@ -11,8 +11,6 @@ import static com.guliash.parser.Functions.coth;
 import static com.guliash.parser.Functions.factorial;
 import static com.guliash.parser.Functions.logarithm;
 import static com.guliash.parser.Functions.mod;
-import static java.lang.Math.E;
-import static java.lang.Math.PI;
 import static java.lang.Math.abs;
 import static java.lang.Math.acos;
 import static java.lang.Math.asin;
@@ -228,9 +226,9 @@ public class JavaEvaluator implements Evaluator {
     public double evaluateConstant(Constant constant) throws IllegalArgumentException {
         switch(constant) {
             case PI:
-                return PI;
+                return Math.PI;
             case E:
-                return E;
+                return Math.E;
         }
         throw new IllegalArgumentException(String.format("Missed switch branch for constant %s", constant.name));
     }
