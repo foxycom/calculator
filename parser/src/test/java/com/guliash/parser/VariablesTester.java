@@ -5,7 +5,6 @@ import org.junit.Test;
 import java.util.ArrayList;
 import java.util.List;
 
-import static java.lang.Math.*;
 import static org.junit.Assert.assertEquals;
 
 public class VariablesTester extends BaseParserTester {
@@ -15,7 +14,7 @@ public class VariablesTester extends BaseParserTester {
         ArrayList<Variable> variables = new ArrayList<>();
         variables.add(new Variable("x", -1.0));
         variables.add(new Variable("y", 2.0));
-        assertEquals(exp(-1d) * sin(2d), calculate("exp(x)*sin(y)", variables), EPS);
+        assertEquals(Math.exp(-1d) * Math.sin(2d), calculate("exp(x)*sin(y)", variables), EPS);
     }
 
     @Test
@@ -23,7 +22,7 @@ public class VariablesTester extends BaseParserTester {
         ArrayList<Variable> variables = new ArrayList<>();
         variables.add(new Variable("x", -1.0));
         variables.add(new Variable("y", 2.0));
-        assertEquals(min(-1.d, 2.d), calculate("min(x, y)", variables), EPS);
+        assertEquals(Math.min(-1.d, 2.d), calculate("min(x, y)", variables), EPS);
     }
 
     /**
@@ -42,7 +41,7 @@ public class VariablesTester extends BaseParserTester {
     public void constantsShouldHaveMorePriorityThanVariables() {
         List<Variable> variables = new ArrayList<>();
         variables.add(new Variable("e", 2d));
-        assertEquals(E, calculate("e", variables), EPS);
+        assertEquals(Math.E, calculate("e", variables), EPS);
     }
 
     @Test(expected = Exception.class)
@@ -114,7 +113,7 @@ public class VariablesTester extends BaseParserTester {
         double cos = 433;
         variables.add(new Variable("sin", sin));
         variables.add(new Variable("cos", cos));
-        assertEquals(cos(cos) * sin(sin), calculate("cos(cos) * sin(sin)", variables), EPS);
+        assertEquals(Math.cos(cos) * Math.sin(sin), calculate("cos(cos) * sin(sin)", variables), EPS);
     }
 
     @Test
@@ -124,7 +123,7 @@ public class VariablesTester extends BaseParserTester {
         double cos = 433;
         variables.add(new Variable("sin", sin));
         variables.add(new Variable("cos", cos));
-        assertEquals(cos(cos(sin)) * sin(cos(sin)), calculate("cos(cos(sin)) * sin(cos(sin))", variables), EPS);
+        assertEquals(Math.cos(Math.cos(sin)) * Math.sin(Math.cos(sin)), calculate("cos(cos(sin)) * sin(cos(sin))", variables), EPS);
     }
 
 }

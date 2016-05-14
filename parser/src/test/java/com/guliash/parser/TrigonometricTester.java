@@ -2,7 +2,6 @@ package com.guliash.parser;
 
 import org.junit.Test;
 
-import static com.guliash.parser.Functions.*;
 import static org.junit.Assert.assertEquals;
 
 public class TrigonometricTester extends BaseParserTester {
@@ -33,13 +32,13 @@ public class TrigonometricTester extends BaseParserTester {
 
     @Test
     public void sinTest4() {
-        assertEquals(Math.sin(convertAngles(45, Angle.DEG, Angle.RAD)),
+        assertEquals(Math.sin(Functions.convertAngles(45, Angle.DEG, Angle.RAD)),
                 calculate("sin(45)", Angle.DEG), EPS);
     }
 
     @Test
     public void sinTest5() {
-        assertEquals(Math.sin(convertAngles(45, Angle.GRAD, Angle.RAD)),
+        assertEquals(Math.sin(Functions.convertAngles(45, Angle.GRAD, Angle.RAD)),
                 calculate("sin(45)", Angle.GRAD), EPS);
     }
 
@@ -61,13 +60,13 @@ public class TrigonometricTester extends BaseParserTester {
 
     @Test
     public void cosTest4() {
-        assertEquals(Math.cos(convertAngles(45, Angle.DEG, Angle.RAD)),
+        assertEquals(Math.cos(Functions.convertAngles(45, Angle.DEG, Angle.RAD)),
                 calculate("cos(45)", Angle.DEG), EPS);
     }
 
     @Test
     public void cosTest5() {
-        assertEquals(Math.cos(convertAngles(45, Angle.GRAD, Angle.RAD)),
+        assertEquals(Math.cos(Functions.convertAngles(45, Angle.GRAD, Angle.RAD)),
                 calculate("cos(45)", Angle.GRAD), EPS);
     }
 
@@ -89,13 +88,13 @@ public class TrigonometricTester extends BaseParserTester {
 
     @Test
     public void tanTest4() {
-        assertEquals(Math.tan(convertAngles(45, Angle.DEG, Angle.RAD)),
+        assertEquals(Math.tan(Functions.convertAngles(45, Angle.DEG, Angle.RAD)),
                 calculate("tan(45)", Angle.DEG), EPS);
     }
 
     @Test
     public void tanTest5() {
-        assertEquals(Math.tan(convertAngles(45, Angle.GRAD, Angle.RAD)),
+        assertEquals(Math.tan(Functions.convertAngles(45, Angle.GRAD, Angle.RAD)),
                 calculate("tan(45)", Angle.GRAD), EPS);
     }
 
@@ -117,13 +116,13 @@ public class TrigonometricTester extends BaseParserTester {
 
     @Test
     public void cotTest4() {
-        assertEquals(1 / Math.tan(convertAngles(45, Angle.DEG, Angle.RAD)),
+        assertEquals(1 / Math.tan(Functions.convertAngles(45, Angle.DEG, Angle.RAD)),
                 calculate("cot(45)", Angle.DEG), EPS);
     }
 
     @Test
     public void cotTest5() {
-        assertEquals(1 / Math.tan(convertAngles(45, Angle.GRAD, Angle.RAD)),
+        assertEquals(1 / Math.tan(Functions.convertAngles(45, Angle.GRAD, Angle.RAD)),
                 calculate("cot(45)", Angle.GRAD), EPS);
     }
 
@@ -147,14 +146,14 @@ public class TrigonometricTester extends BaseParserTester {
 
     @Test
     public void asinTest4() {
-        assertEquals(convertAngles(Math.asin(Math.sin(convertAngles(45, Angle.DEG, Angle.RAD))),
+        assertEquals(Functions.convertAngles(Math.asin(Math.sin(Functions.convertAngles(45, Angle.DEG, Angle.RAD))),
                         Angle.RAD, Angle.DEG),
                 calculate("asin(sin(45))", Angle.DEG), EPS);
     }
 
     @Test
     public void asinTest5() {
-        assertEquals(convertAngles(Math.asin(Math.sin(convertAngles(45, Angle.GRAD, Angle.RAD))),
+        assertEquals(Functions.convertAngles(Math.asin(Math.sin(Functions.convertAngles(45, Angle.GRAD, Angle.RAD))),
                         Angle.RAD, Angle.GRAD),
                 calculate("asin(sin(45))", Angle.GRAD), EPS);
     }
@@ -179,14 +178,14 @@ public class TrigonometricTester extends BaseParserTester {
 
     @Test
     public void acosTest4() {
-        assertEquals(convertAngles(Math.acos(Math.cos(convertAngles(45, Angle.DEG, Angle.RAD))),
+        assertEquals(Functions.convertAngles(Math.acos(Math.cos(Functions.convertAngles(45, Angle.DEG, Angle.RAD))),
                         Angle.RAD, Angle.DEG),
                 calculate("acos(cos(45))", Angle.DEG), EPS);
     }
 
     @Test
     public void acosTest5() {
-        assertEquals(convertAngles(Math.acos(Math.cos(convertAngles(45, Angle.GRAD, Angle.RAD))),
+        assertEquals(Functions.convertAngles(Math.acos(Math.cos(Functions.convertAngles(45, Angle.GRAD, Angle.RAD))),
                         Angle.RAD, Angle.GRAD),
                 calculate("acos(cos(45))", Angle.GRAD), EPS);
     }
@@ -210,43 +209,43 @@ public class TrigonometricTester extends BaseParserTester {
 
     @Test
     public void atanTest4() {
-        assertEquals(convertAngles(Math.atan(Math.tan(convertAngles(45, Angle.DEG, Angle.RAD))),
+        assertEquals(Functions.convertAngles(Math.atan(Math.tan(Functions.convertAngles(45, Angle.DEG, Angle.RAD))),
                 Angle.RAD, Angle.DEG), calculate("atan(tan(45))", Angle.DEG), EPS);
     }
 
     @Test
     public void atanTest5() {
-        assertEquals(convertAngles(Math.atan(Math.tan(convertAngles(45, Angle.GRAD, Angle.RAD))),
+        assertEquals(Functions.convertAngles(Math.atan(Math.tan(Functions.convertAngles(45, Angle.GRAD, Angle.RAD))),
                 Angle.RAD, Angle.GRAD), calculate("atan(tan(45))", Angle.GRAD), EPS);
     }
 
     @Test
     public void acotTest1() {
-        assertEquals(acot((cot(Math.PI / 2))),
+        assertEquals(Functions.acot((Functions.cot(Math.PI / 2))),
                 calculate("acot(cot(pi/2))", Angle.RAD), EPS);
     }
 
     @Test
     public void acotTest2() {
-        assertEquals(acot(cot(Math.PI / 4)),
+        assertEquals(Functions.acot(Functions.cot(Math.PI / 4)),
                 calculate("acot(cot(pi / 4))", Angle.RAD), EPS);
     }
 
     @Test
     public void acotTest3() {
-        assertEquals(acot(cot(0)), calculate("acot(cot(0))", Angle.RAD), EPS);
+        assertEquals(Functions.acot(Functions.cot(0)), calculate("acot(cot(0))", Angle.RAD), EPS);
     }
 
     @Test
     public void acotTest4() {
-        assertEquals(convertAngles(acot(cot(convertAngles(45, Angle.DEG, Angle.RAD))),
+        assertEquals(Functions.convertAngles(Functions.acot(Functions.cot(Functions.convertAngles(45, Angle.DEG, Angle.RAD))),
                 Angle.RAD, Angle.DEG),
                 calculate("acot(cot(45))", Angle.DEG), EPS);
     }
 
     @Test
     public void acotTest5() {
-        assertEquals(convertAngles(acot(cot(convertAngles(45, Angle.GRAD, Angle.RAD))),
+        assertEquals(Functions.convertAngles(Functions.acot(Functions.cot(Functions.convertAngles(45, Angle.GRAD, Angle.RAD))),
                 Angle.RAD, Angle.GRAD),
                 calculate("acot(cot(45))", Angle.GRAD), EPS);
     }

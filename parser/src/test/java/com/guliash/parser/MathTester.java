@@ -4,8 +4,6 @@ import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
 
-import static com.guliash.parser.Functions.*;
-
 public class MathTester extends BaseParserTester {
 
     @Test
@@ -125,27 +123,27 @@ public class MathTester extends BaseParserTester {
 
     @Test
     public void factTest1() {
-        assertEquals(factorial(10), calculate("fact(10)"), EPS);
+        assertEquals(Functions.factorial(10), calculate("fact(10)"), EPS);
     }
 
     @Test
     public void factTest2() {
-        assertEquals(factorial(0), calculate("fact(0)"), EPS);
+        assertEquals(Functions.factorial(0), calculate("fact(0)"), EPS);
     }
 
     @Test
     public void factTest3() {
-        assertEquals(factorial(20), calculate("fact(20)"), EPS);
+        assertEquals(Functions.factorial(20), calculate("fact(20)"), EPS);
     }
 
     @Test
     public void factTest4() {
-        assertEquals(factorial(30), calculate("fact(30)"), EPS);
+        assertEquals(Functions.factorial(30), calculate("fact(30)"), EPS);
     }
 
     @Test
     public void modTest1() {
-        assertEquals(mod(5, -2), calculate("mod(5, -2)"), EPS);
+        assertEquals(Functions.mod(5, -2), calculate("mod(5, -2)"), EPS);
     }
 
     @Test
