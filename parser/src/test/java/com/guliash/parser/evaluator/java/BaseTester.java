@@ -1,8 +1,9 @@
-package com.guliash.parser;
+package com.guliash.parser.evaluator.java;
 
 import com.guliash.parser.Angle;
 import com.guliash.parser.ArithmeticParser;
 import com.guliash.parser.Variable;
+import com.guliash.parser.evaluator.JavaEvaluator;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -29,6 +30,6 @@ public class BaseTester {
     }
 
     protected double calculate(String expression, List<Variable> variables, Angle angle) {
-        return new ArithmeticParser(expression, variables, angle).calculate();
+        return new ArithmeticParser(expression, variables, new JavaEvaluator(angle)).calculate();
     }
 }

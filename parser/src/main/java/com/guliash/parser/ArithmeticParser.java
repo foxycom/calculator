@@ -1,11 +1,9 @@
 package com.guliash.parser;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import com.guliash.parser.evaluator.Evaluator;
 
-import static com.guliash.parser.Functions.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class ArithmeticParser {
 
@@ -15,62 +13,15 @@ public class ArithmeticParser {
     private double value;
     private Lexeme lexeme;
     private String word;
-    private Angle angleUnits;
-    private Set<String> functions;
-    private Set<String> constants;
+
+    private Evaluator evaluator;
+
     private List<Variable> variables;
 
-    public ArithmeticParser(String s, List<? extends Variable> variables, Angle angleUnits) {
+    public ArithmeticParser(String s, List<? extends Variable> variables, Evaluator evaluator) {
         this.s = s;
         this.variables = new ArrayList<>(variables);
-        this.angleUnits = angleUnits;
-        initFunctions();
-        initConstants();
-    }
-
-    public void initFunctions() {
-        functions = new HashSet<>();
-        //trigonometric
-        functions.add("sin");
-        functions.add("cos");
-        functions.add("tan");
-        functions.add("cot");
-        functions.add("asin");
-        functions.add("acos");
-        functions.add("atan");
-        functions.add("acot");
-        functions.add("cosh");
-        functions.add("sinh");
-        functions.add("tanh");
-        functions.add("coth");
-
-        //pow
-        functions.add("pow");
-        functions.add("sqrt");
-        functions.add("exp");
-
-        //log
-        functions.add("log");
-        functions.add("ln");
-        functions.add("log10");
-
-        //math
-        functions.add("abs");
-        functions.add("floor");
-        functions.add("ceil");
-        functions.add("min");
-        functions.add("max");
-        functions.add("random");
-        functions.add("round");
-        functions.add("signum");
-        functions.add("fact");
-        functions.add("mod");
-    }
-
-    public void initConstants() {
-        constants = new HashSet<>();
-        constants.add("pi");
-        constants.add("e");
+        this.evaluator = evaluator;
     }
 
     public double calculate() {
@@ -100,7 +51,11 @@ public class ArithmeticParser {
     }
 
     private void error() {
-        throw new ArithmeticParserException();
+        throw new ArithmeticParserException("error");
+    }
+
+    private void error(String message) {
+        throw new ArithmeticParserException(message);
     }
 
     private double expression() {
@@ -156,22 +111,22 @@ public class ArithmeticParser {
             verifyAndRead(Lexeme.CLOSE_BRACKET);
             return res;
         } else if(lexeme == Lexeme.WORD) {
-            if(functions.contains(word)) {
-                if(isTrigonometricFunction()) {
-                    return readTrigonometricFunction();
-                } else if(isPowFunction()) {
-                    return readPowFunction();
-                } else if(isLogFunction()) {
-                    return readLogFunction();
-                } else if(isMathFunction()) {
-                    return readMathFunction();
+            String temp = word;
+            nextLexeme();
+            if(lexeme == Lexeme.OPEN_BRACKET) {
+                List<Double> args = readFunctionArgs();
+                return evaluator.evaluateFunction(temp, args);
+            } else if(evaluator.hasConstant(temp)) {
+                return evaluator.evaluateConstant(temp);
+            } else if(isVariable(temp)) {
+                Variable variable = getVariable(temp);
+                if (variable != null) {
+                    return variable.value;
+                } else {
+                    error(String.format("Can't find variable %s", temp));
                 }
-            } else if(constants.contains(word)) {
-                return readConstant();
-            } else if(isVariable()) {
-                return readVariable();
             } else {
-                error();
+                error(String.format("Can't find nor variable nor function with %s name", temp));
             }
         } else {
             error();
@@ -179,219 +134,23 @@ public class ArithmeticParser {
         return 0.0;
     }
 
-    public boolean isTrigonometricFunction() {
-        return word.equals("sin") || word.equals("cos") || word.equals("tan") || word.equals("cot")
-                || word.equals("asin") || word.equals("acos") || word.equals("atan") ||
-                word.equals("acot") || word.equals("cosh") || word.equals("sinh") ||
-                word.equals("tanh") || word.equals("coth") || word.equals("pi");
-    }
-
-    public boolean isPowFunction() {
-        return word.equals("pow") || word.equals("sqrt") || word.equals("exp");
-    }
-
-    public boolean isLogFunction() {
-        return word.equals("log") || word.equals("ln") || word.equals("log10");
-    }
-
-    public boolean isMathFunction() {
-        return word.equals("abs") || word.equals("floor") || word.equals("ceil") ||
-                word.equals("min") || word.equals("max") || word.equals("random") ||
-                word.equals("round") || word.equals("signum") || word.equals("fact") ||
-                word.equals("mod");
-    }
-
-    public boolean isVariable() {
-        return getVariable(word) != null;
-    }
-
-    public double readConstant() {
-        String constantName = word;
-        nextLexeme();
-        double val = 0.0;
-        switch(constantName) {
-            case "pi":
-                val = Math.PI;
-                break;
-            case "e":
-                val = Math.E;
-                break;
-        }
-        return val;
-    }
-
-    public double readVariable() {
-        Variable variable = getVariable(word);
-        if(variable == null) {
-            error();
-        }
-        nextLexeme();
-        return variable.value;
-    }
-
-    public double readTrigonometricFunction() {
-        String funcName = word;
-        nextLexeme();
-        if(funcName.equals("pi")) {
-            return Math.PI;
-        }
+    public List<Double> readFunctionArgs() {
         verifyAndRead(Lexeme.OPEN_BRACKET);
-        double val = expression();
+        List<Double> args = new ArrayList<>();
+        while(lexeme  != Lexeme.CLOSE_BRACKET) {
+            args.add(expression());
+            if(lexeme == Lexeme.COMMA) {
+                nextLexeme();
+            } else if(lexeme != Lexeme.CLOSE_BRACKET) {
+                error();
+            }
+        }
         verifyAndRead(Lexeme.CLOSE_BRACKET);
-        switch(funcName) {
-            case "sin":
-                val = Math.sin(convertAngles(val, angleUnits, Angle.RAD));
-                break;
-            case "cos":
-                val = Math.cos(convertAngles(val, angleUnits, Angle.RAD));
-                break;
-            case "tan":
-                val = Math.tan(convertAngles(val, angleUnits, Angle.RAD));
-                break;
-            case "cot":
-                val = 1.0 / Math.tan(convertAngles(val, angleUnits, Angle.RAD));
-                break;
-            case "asin":
-                val = convertAngles(Math.asin(val), Angle.RAD, angleUnits);
-                break;
-            case "acos":
-                val = convertAngles(Math.acos(val), Angle.RAD, angleUnits);
-                break;
-            case "atan":
-                val = convertAngles(Math.atan(val), Angle.RAD, angleUnits);
-                break;
-            case "acot":
-                val = convertAngles(Math.PI / 2 - Math.atan(val), Angle.RAD, angleUnits);
-                break;
-            case "sinh":
-                val = Math.sinh(val);
-                break;
-            case "cosh":
-                val = Math.cosh(val);
-                break;
-            case "tanh":
-                val = Math.tanh(val);
-                break;
-            case "coth":
-                val = 1 / Math.tanh(val);
-                break;
-        }
-        return val;
-
+        return args;
     }
 
-    public double readPowFunction() {
-        String funcName = word;
-        nextLexeme();
-        verifyAndRead(Lexeme.OPEN_BRACKET);
-        double res = 0.0;
-        switch(funcName) {
-            case "pow":
-                double x = expression();
-                verifyAndRead(Lexeme.COMMA);
-                double y = expression();
-                verifyAndRead(Lexeme.CLOSE_BRACKET);
-                res = Math.pow(x, y);
-                break;
-            case "sqrt":
-                res = Math.sqrt(expression());
-                verifyAndRead(Lexeme.CLOSE_BRACKET);
-                break;
-            case "exp":
-                res = Math.exp(expression());
-                verifyAndRead(Lexeme.CLOSE_BRACKET);
-                break;
-        }
-        return res;
-    }
-
-    public double readLogFunction() {
-        String funcName = word;
-        nextLexeme();
-        verifyAndRead(Lexeme.OPEN_BRACKET);
-        double res = 0.0;
-        switch (funcName) {
-            case "ln":
-                res = Math.log(expression());
-                verifyAndRead(Lexeme.CLOSE_BRACKET);
-                break;
-            case "log":
-                double x = expression();
-                verifyAndRead(Lexeme.COMMA);
-                double y = expression();
-                verifyAndRead(Lexeme.CLOSE_BRACKET);
-                res = Math.log(y) / Math.log(x);
-                break;
-            case "log10":
-                res = Math.log10(expression());
-                verifyAndRead(Lexeme.CLOSE_BRACKET);
-                break;
-        }
-        return res;
-    }
-
-    public double readMathFunction() {
-        String funcName = word;
-        nextLexeme();
-        verifyAndRead(Lexeme.OPEN_BRACKET);
-        double res = 0.0;
-        double x, y;
-        switch (funcName) {
-            case "abs":
-                res = Math.abs(expression());
-                verifyAndRead(Lexeme.CLOSE_BRACKET);
-                break;
-            case "floor":
-                res = Math.floor(expression());
-                verifyAndRead(Lexeme.CLOSE_BRACKET);
-                break;
-            case "ceil":
-                res = Math.ceil(expression());
-                verifyAndRead(Lexeme.CLOSE_BRACKET);
-                break;
-            case "min":
-                x = expression();
-                verifyAndRead(Lexeme.COMMA);
-                y = expression();
-                verifyAndRead(Lexeme.CLOSE_BRACKET);
-                res = Math.min(x, y);
-                break;
-            case "max":
-                x = expression();
-                verifyAndRead(Lexeme.COMMA);
-                y = expression();
-                verifyAndRead(Lexeme.CLOSE_BRACKET);
-                res = Math.max(x, y);
-                break;
-            case "random":
-                verifyAndRead(Lexeme.CLOSE_BRACKET);
-                res = Math.random();
-                break;
-            case "round":
-                res = Math.round(expression());
-                verifyAndRead(Lexeme.CLOSE_BRACKET);
-                break;
-            case "signum":
-                res = Math.signum(expression());
-                verifyAndRead(Lexeme.CLOSE_BRACKET);
-                break;
-            case "fact":
-                x = expression();
-                if(x < 0) {
-                    error();
-                }
-                res = Functions.factorial(x);
-                verifyAndRead(Lexeme.CLOSE_BRACKET);
-                break;
-            case "mod":
-                x = expression();
-                verifyAndRead(Lexeme.COMMA);
-                y = expression();
-                verifyAndRead(Lexeme.CLOSE_BRACKET);
-                res = Functions.mod(x, y);
-                break;
-        }
-        return res;
+    public boolean isVariable(String word) {
+        return getVariable(word) != null;
     }
 
     private Variable getVariable(String name) {
@@ -520,6 +279,9 @@ public class ArithmeticParser {
 
     public class ArithmeticParserException extends RuntimeException {
 
+        public ArithmeticParserException(String message) {
+            super(message);
+        }
     }
 
 

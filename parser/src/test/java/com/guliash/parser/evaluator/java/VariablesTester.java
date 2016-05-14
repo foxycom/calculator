@@ -1,36 +1,31 @@
-package com.guliash.parser;
+package com.guliash.parser.evaluator.java;
+
+import com.guliash.parser.Variable;
 
 import org.junit.Test;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import static java.lang.Math.*;
 import static org.junit.Assert.assertEquals;
 
 public class VariablesTester extends BaseTester {
 
     @Test
-    public void variablesTest1() {
+    public void variablesReadCorrectly1() {
         ArrayList<Variable> variables = new ArrayList<>();
         variables.add(new Variable("x", -1.0));
         variables.add(new Variable("y", 2.0));
-        assertEquals(Math.exp(-1d) * Math.sin(2d), calculate("exp(x)*sin(y)", variables), EPS);
+        assertEquals(exp(-1d) * sin(2d), calculate("exp(x)*sin(y)", variables), EPS);
     }
 
     @Test
-    public void variablesTest2() {
+    public void variablesReadCorrectly2() {
         ArrayList<Variable> variables = new ArrayList<>();
         variables.add(new Variable("x", -1.0));
         variables.add(new Variable("y", 2.0));
-        assertEquals(Math.min(-1.d, 2.d), calculate("min(x, y)", variables), EPS);
-    }
-
-    @Test(expected = ArithmeticParser.ArithmeticParserException.class)
-    public void variablesTest3() {
-        ArrayList<Variable> variables = new ArrayList<>();
-        variables.add(new Variable("exp", 3.0));
-        variables.add(new Variable("y", 2.0));
-        calculate("exp", variables);
+        assertEquals(min(-1.d, 2.d), calculate("min(x, y)", variables), EPS);
     }
 
     /**
@@ -49,10 +44,10 @@ public class VariablesTester extends BaseTester {
     public void constantsShouldHaveMorePriorityThanVariables() {
         List<Variable> variables = new ArrayList<>();
         variables.add(new Variable("e", 2d));
-        assertEquals(Math.E, calculate("e", variables), EPS);
+        assertEquals(E, calculate("e", variables), EPS);
     }
 
-    @Test(expected = ArithmeticParser.ArithmeticParserException.class)
+    @Test(expected = Exception.class)
     public void variableNameMustNotBeginWithDigit() {
         List<Variable> variables = new ArrayList<>();
         variables.add(new Variable("1_32ab", 2d));
@@ -97,7 +92,7 @@ public class VariablesTester extends BaseTester {
         assertEquals(j2ev / J2eV, calculate("j2ev / J2eV", variables), EPS);
     }
 
-    @Test(expected = ArithmeticParser.ArithmeticParserException.class)
+    @Test(expected = Exception.class)
     public void testVariablesCaseSensitivenessWrongVariable() {
         double j2ev = 45d;
         List<Variable> variables = new ArrayList<>();
@@ -105,5 +100,33 @@ public class VariablesTester extends BaseTester {
         calculate("J2eV", variables);
     }
 
+
+    @Test
+    public void variableNameCanMatchFunctionName() {
+        ArrayList<Variable> variables = new ArrayList<>();
+        variables.add(new Variable("exp", 3.0));
+        variables.add(new Variable("y", 2.0));
+        assertEquals(3.0, calculate("exp", variables), EPS);
+    }
+
+    @Test
+    public void variableNameCanMatchFunctionName2() {
+        ArrayList<Variable> variables = new ArrayList<>();
+        double sin = 433;
+        double cos = 433;
+        variables.add(new Variable("sin", sin));
+        variables.add(new Variable("cos", cos));
+        assertEquals(cos(cos) * sin(sin), calculate("cos(cos) * sin(sin)", variables), EPS);
+    }
+
+    @Test
+    public void variableNameCanMatchFunctionName3() {
+        ArrayList<Variable> variables = new ArrayList<>();
+        double sin = 433;
+        double cos = 433;
+        variables.add(new Variable("sin", sin));
+        variables.add(new Variable("cos", cos));
+        assertEquals(cos(cos(sin)) * sin(cos(sin)), calculate("cos(cos(sin)) * sin(cos(sin))", variables), EPS);
+    }
 
 }

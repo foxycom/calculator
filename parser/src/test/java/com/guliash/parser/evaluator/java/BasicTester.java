@@ -1,6 +1,11 @@
-package com.guliash.parser;
+package com.guliash.parser.evaluator.java;
+
+import com.guliash.parser.ArithmeticParser;
+import com.guliash.parser.Variable;
 
 import org.junit.Test;
+
+import java.util.ArrayList;
 
 import static org.junit.Assert.assertEquals;
 
@@ -154,6 +159,21 @@ public class BasicTester extends BaseTester {
     @Test
     public void javaCornerCases2() {
         assertEquals(Double.NaN, calculate("log(2,-1)"), EPS);
+    }
+
+    @Test(expected = Exception.class)
+    public void betweenTwoWordsNoSpacesAllowed() {
+        ArrayList<Variable> variables = new ArrayList<>();
+        variables.add(new Variable("$_31dasd", 0d));
+        variables.add(new Variable("faf31fa_", 0d));
+        calculate("$_31dasd faf31fa_");
+    }
+
+    @Test(expected = Exception.class)
+    public void illegalCharactersInWordNotAllowed() {
+        ArrayList<Variable> variables = new ArrayList<>();
+        variables.add(new Variable("f&4f^af31fa_", 0d));
+        calculate("f&4f^af31fa_");
     }
 
 }

@@ -1,5 +1,8 @@
-package com.guliash.parser;
+package com.guliash.parser.evaluator.java;
 
+import com.guliash.parser.ArithmeticParser;
+
+import org.junit.Assert;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
@@ -8,7 +11,7 @@ public class HelperFunctionsTester extends BaseTester {
 
     @Test
     public void checkWordCharacterUnderscoreIsOk() {
-        assertEquals(ArithmeticParser.isWordOnlyCharacter('_'), true);
+        Assert.assertEquals(ArithmeticParser.isWordOnlyCharacter('_'), true);
     }
 
     @Test

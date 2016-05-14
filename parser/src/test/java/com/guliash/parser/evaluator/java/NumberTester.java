@@ -1,4 +1,6 @@
-package com.guliash.parser;
+package com.guliash.parser.evaluator.java;
+
+import com.guliash.parser.ArithmeticParser;
 
 import org.junit.Test;
 

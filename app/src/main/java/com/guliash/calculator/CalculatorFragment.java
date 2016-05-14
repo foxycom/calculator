@@ -17,6 +17,7 @@ import android.widget.Toast;
 
 import com.guliash.parser.Angle;
 import com.guliash.parser.ArithmeticParser;
+import com.guliash.parser.evaluator.JavaEvaluator;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -467,7 +468,7 @@ public class CalculatorFragment extends Fragment implements VariablesAdapterRemo
             CalculatorApplication application = (CalculatorApplication)getActivity().getApplication();
             try {
                 ArithmeticParser arithmeticParser = new ArithmeticParser(expression,
-                    Helper.stringValueVariablesToSimple(mDataset.variables), application.angleUnits);
+                    Helper.stringValueVariablesToSimple(mDataset.variables), new JavaEvaluator(application.angleUnits));
                 mResultField.setText(Double.toString(arithmeticParser.calculate()));
             } catch(Exception e) {
                 mResultField.setText(R.string.error);
