@@ -1,5 +1,10 @@
 package com.guliash.parser;
 
+import static java.lang.Math.atan;
+import static java.lang.Math.log;
+import static java.lang.Math.tan;
+import static java.lang.Math.tanh;
+
 public class Functions {
 
     public static double factorial(double n) throws IllegalArgumentException {
@@ -50,12 +55,25 @@ public class Functions {
         return 0.0;
     }
 
-    public static double atanToAcot(double atan) {
-        return Math.PI / 2 - atan;
+    /**
+     * Acot in rads
+     * @param val
+     * @return acot in rads
+     */
+    public static double acot(double val) {
+        return Math.PI / 2 - atan(val);
     }
 
     public static double cot(double rads) {
-        return 1 / Math.tan(rads);
+        return 1.0 / tan(rads);
+    }
+
+    public static double coth(double val) {
+        return 1 / tanh(val);
+    }
+
+    public static double logarithm(double x, double y) {
+        return log(y) / log(x);
     }
 
 }

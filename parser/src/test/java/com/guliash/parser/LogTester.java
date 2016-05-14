@@ -1,10 +1,10 @@
-package com.guliash.parser.evaluator.java;
+package com.guliash.parser;
 
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
 
-public class LogTester extends BaseTester {
+public class LogTester extends BaseParserTester {
 
     @Test
     public void logTest1() {

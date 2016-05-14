@@ -1,6 +1,4 @@
-package com.guliash.parser.evaluator.java;
-
-import com.guliash.parser.Variable;
+package com.guliash.parser;
 
 import org.junit.Test;
 
@@ -10,7 +8,7 @@ import java.util.List;
 import static java.lang.Math.*;
 import static org.junit.Assert.assertEquals;
 
-public class VariablesTester extends BaseTester {
+public class VariablesTester extends BaseParserTester {
 
     @Test
     public void variablesReadCorrectly1() {

@@ -1,13 +1,11 @@
-package com.guliash.parser.evaluator.java;
-
-import com.guliash.parser.Angle;
+package com.guliash.parser;
 
 import org.junit.Test;
 
 import static com.guliash.parser.Functions.*;
 import static org.junit.Assert.assertEquals;
 
-public class TrigonometricTester extends BaseTester {
+public class TrigonometricTester extends BaseParserTester {
 
     @Test
     public void trigonometricTest1() {
@@ -224,32 +222,32 @@ public class TrigonometricTester extends BaseTester {
 
     @Test
     public void acotTest1() {
-        assertEquals(atanToAcot(Math.atan(cot(Math.PI / 2))),
+        assertEquals(acot((cot(Math.PI / 2))),
                 calculate("acot(cot(pi/2))", Angle.RAD), EPS);
     }
 
     @Test
     public void acotTest2() {
-        assertEquals(atanToAcot(Math.atan(cot(Math.PI / 4))),
+        assertEquals(acot(cot(Math.PI / 4)),
                 calculate("acot(cot(pi / 4))", Angle.RAD), EPS);
     }
 
     @Test
     public void acotTest3() {
-        assertEquals(atanToAcot(Math.atan(cot(0))), calculate("acot(cot(0))", Angle.RAD), EPS);
+        assertEquals(acot(cot(0)), calculate("acot(cot(0))", Angle.RAD), EPS);
     }
 
     @Test
     public void acotTest4() {
-        assertEquals(convertAngles(atanToAcot(Math.atan(cot(convertAngles(
-                        45, Angle.DEG, Angle.RAD)))), Angle.RAD, Angle.DEG),
+        assertEquals(convertAngles(acot(cot(convertAngles(45, Angle.DEG, Angle.RAD))),
+                Angle.RAD, Angle.DEG),
                 calculate("acot(cot(45))", Angle.DEG), EPS);
     }
 
     @Test
     public void acotTest5() {
-        assertEquals(convertAngles(atanToAcot(Math.atan(cot(convertAngles(
-                        45, Angle.GRAD, Angle.RAD)))), Angle.RAD, Angle.GRAD),
+        assertEquals(convertAngles(acot(cot(convertAngles(45, Angle.GRAD, Angle.RAD))),
+                Angle.RAD, Angle.GRAD),
                 calculate("acot(cot(45))", Angle.GRAD), EPS);
     }
 

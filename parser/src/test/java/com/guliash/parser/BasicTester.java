@@ -1,7 +1,4 @@
-package com.guliash.parser.evaluator.java;
-
-import com.guliash.parser.ArithmeticParser;
-import com.guliash.parser.Variable;
+package com.guliash.parser;
 
 import org.junit.Test;
 
@@ -9,7 +6,7 @@ import java.util.ArrayList;
 
 import static org.junit.Assert.assertEquals;
 
-public class BasicTester extends BaseTester {
+public class BasicTester extends BaseParserTester {
 
     @Test
     public void additionTest1() {

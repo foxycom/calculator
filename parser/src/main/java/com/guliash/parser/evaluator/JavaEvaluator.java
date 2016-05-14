@@ -1,11 +1,16 @@
 package com.guliash.parser.evaluator;
 
 import com.guliash.parser.Angle;
-import com.guliash.parser.Functions;
 
 import java.util.List;
 
+import static com.guliash.parser.Functions.acot;
 import static com.guliash.parser.Functions.convertAngles;
+import static com.guliash.parser.Functions.cot;
+import static com.guliash.parser.Functions.coth;
+import static com.guliash.parser.Functions.factorial;
+import static com.guliash.parser.Functions.logarithm;
+import static com.guliash.parser.Functions.mod;
 import static java.lang.Math.E;
 import static java.lang.Math.PI;
 import static java.lang.Math.abs;
@@ -129,7 +134,7 @@ public class JavaEvaluator implements Evaluator {
             case TAN:
                 return tan(convertAngles(args.get(0), angleUnits, Angle.RAD));
             case COT:
-                return 1.0 / tan(convertAngles(args.get(0), angleUnits, Angle.RAD));
+                return cot(convertAngles(args.get(0), angleUnits, Angle.RAD));
             case ASIN:
                 return convertAngles(asin(args.get(0)), Angle.RAD, angleUnits);
             case ACOS:
@@ -137,7 +142,7 @@ public class JavaEvaluator implements Evaluator {
             case ATAN:
                 return convertAngles(atan(args.get(0)), Angle.RAD, angleUnits);
             case ACOT:
-                return convertAngles(PI / 2 - atan(args.get(0)), Angle.RAD, angleUnits);
+                return convertAngles(acot(args.get(0)), Angle.RAD, angleUnits);
             case SINH:
                 return sinh(args.get(0));
             case COSH:
@@ -145,7 +150,7 @@ public class JavaEvaluator implements Evaluator {
             case TANH:
                 return tanh(args.get(0));
             case COTH:
-                return 1 / tanh(args.get(0));
+                return coth(args.get(0));
 
             case POW:
                 return pow(args.get(0), args.get(1));
@@ -157,7 +162,7 @@ public class JavaEvaluator implements Evaluator {
             case LN:
                 return log(args.get(0));
             case LOG:
-                return log(args.get(1)) / log(args.get(0));
+                return logarithm(args.get(0), args.get(1));
             case LOG10:
                 return log10(args.get(0));
 
@@ -178,9 +183,9 @@ public class JavaEvaluator implements Evaluator {
             case SIGNUM:
                 return signum(args.get(0));
             case FACT:
-                return Functions.factorial(args.get(0));
+                return factorial(args.get(0));
             case MOD:
-                return Functions.mod(args.get(0), args.get(1));
+                return mod(args.get(0), args.get(1));
         }
         throw new IllegalArgumentException(String.format("Missed switch branch for function %s", function.name));
     }

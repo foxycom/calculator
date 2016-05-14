@@ -1,13 +1,11 @@
-package com.guliash.parser.evaluator.java;
-
-import com.guliash.parser.Angle;
+package com.guliash.parser;
 
 import org.junit.Test;
 
 import static com.guliash.parser.Functions.convertAngles;
 import static org.junit.Assert.assertEquals;
 
-public class AngleTester extends BaseTester {
+public class AngleTester extends BaseParserTester {
 
     @Test
     public void angleTest1() {

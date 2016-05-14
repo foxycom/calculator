@@ -1,4 +1,4 @@
-package com.guliash.parser.evaluator.java;
+package com.guliash.parser;
 
 import org.junit.Test;
 
@@ -7,7 +7,7 @@ import static org.junit.Assert.assertEquals;
 
 import static com.guliash.parser.Functions.*;
 
-public class FunctionsTest extends BaseTester {
+public class FunctionsTest extends BaseParserTester {
 
     @Test
     public void functionsTest1() {

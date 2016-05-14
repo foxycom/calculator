@@ -1,10 +1,10 @@
-package com.guliash.parser.evaluator.java;
+package com.guliash.parser;
 
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
 
-public class PowTester extends BaseTester {
+public class PowTester extends BaseParserTester {
 
     @Test
     public void powTest1() {

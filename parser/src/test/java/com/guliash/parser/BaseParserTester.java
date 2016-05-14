@@ -1,14 +1,11 @@
-package com.guliash.parser.evaluator.java;
+package com.guliash.parser;
 
-import com.guliash.parser.Angle;
-import com.guliash.parser.ArithmeticParser;
-import com.guliash.parser.Variable;
 import com.guliash.parser.evaluator.JavaEvaluator;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class BaseTester {
+public class BaseParserTester {
 
     protected static final double EPS = 1e-15;
 

@@ -1,13 +1,11 @@
-package com.guliash.parser.evaluator.java;
-
-import com.guliash.parser.ArithmeticParser;
+package com.guliash.parser;
 
 import org.junit.Assert;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
 
-public class HelperFunctionsTester extends BaseTester {
+public class HelperFunctionsTester extends BaseParserTester {
 
     @Test
     public void checkWordCharacterUnderscoreIsOk() {

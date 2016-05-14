@@ -1,12 +1,10 @@
-package com.guliash.parser.evaluator.java;
-
-import com.guliash.parser.ArithmeticParser;
+package com.guliash.parser;
 
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
 
-public class NumberTester extends BaseTester {
+public class NumberTester extends BaseParserTester {
     @Test
     public void numberTest1() {
         assertEquals(1e+9, calculate("1e+9"), EPS);
