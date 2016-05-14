@@ -8,7 +8,7 @@ public interface Evaluator {
 
     double evaluateConstant(String name) throws IllegalArgumentException;
 
-    boolean hasFunction(String name, List<Double> args) throws IllegalArgumentException;
+    boolean hasFunction(String name, List<Double> args);
 
     boolean hasConstant(String name);
 

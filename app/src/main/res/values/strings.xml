@@ -120,6 +120,8 @@
     <!--WARNINGS-->
     <string name="name_is_empty">Name should not be empty</string>
     <string name="expression_is_empty">Expression is empty</string>
+    <string name="variable_name_not_correct">Variable name \"%s\" not correct. Check help please for name conventions.</string>
+    <string name="variable_name_clashes_constant">Variable name \"%s\" clashes with constant name.</string>
     <!--WARNINGS-->
 
 </resources>

@@ -17,6 +17,9 @@ import android.widget.Toast;
 
 import com.guliash.parser.Angle;
 import com.guliash.parser.ArithmeticParser;
+import com.guliash.parser.Variable;
+import com.guliash.parser.Verify;
+import com.guliash.parser.evaluator.Evaluator;
 import com.guliash.parser.evaluator.JavaEvaluator;
 
 import java.util.ArrayList;
@@ -459,16 +462,35 @@ public class CalculatorFragment extends Fragment implements VariablesAdapterRemo
     private View.OnClickListener mEqualsButtonClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
+            CalculatorApplication application = (CalculatorApplication)getActivity().getApplication();
+            Evaluator evaluator = new JavaEvaluator(application.angleUnits);
             String expression = mInputField.getText().toString();
+
             if(TextUtils.isEmpty(expression)) {
-                Toast.makeText(getActivity().getApplicationContext(), R.string.expression_is_empty,
+                Toast.makeText(application.getApplicationContext(), R.string.expression_is_empty,
                         Toast.LENGTH_SHORT).show();
                 return;
             }
-            CalculatorApplication application = (CalculatorApplication)getActivity().getApplication();
+
+            List<Variable> variables = Helper.stringValueVariablesToSimple(mDataset.variables);
+            for(Variable variable : variables) {
+                if(!Verify.variable(variable)) {
+                    Toast.makeText(application.getApplicationContext(), getString(
+                            R.string.variable_name_not_correct, variable.name), Toast.LENGTH_LONG).show();
+                    return;
+                }
+            }
+
+            for(Variable variable : variables) {
+                if(Verify.variableNameClashesWithConstants(variable, evaluator)) {
+                    Toast.makeText(getActivity().getApplicationContext(), getString(
+                            R.string.variable_name_clashes_constant, variable.name), Toast.LENGTH_LONG).show();
+                    return;
+                }
+            }
+
             try {
-                ArithmeticParser arithmeticParser = new ArithmeticParser(expression,
-                    Helper.stringValueVariablesToSimple(mDataset.variables), new JavaEvaluator(application.angleUnits));
+                ArithmeticParser arithmeticParser = new ArithmeticParser(expression, variables, evaluator);
                 mResultField.setText(Double.toString(arithmeticParser.calculate()));
             } catch(Exception e) {
                 mResultField.setText(R.string.error);

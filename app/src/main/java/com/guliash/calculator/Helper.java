@@ -18,8 +18,8 @@ public class Helper {
         return DateFormat.getDateTimeInstance(DateFormat.SHORT, DateFormat.SHORT).format(timestamp);
     }
 
-    public static ArrayList<Variable> stringValueVariablesToSimple(ArrayList<StringValueVariable> list) {
-        ArrayList<Variable> variables = new ArrayList<>();
+    public static List<Variable> stringValueVariablesToSimple(ArrayList<StringValueVariable> list) {
+        List<Variable> variables = new ArrayList<>();
         for(StringValueVariable variable : list) {
             variables.add(new Variable(variable.name, Double.parseDouble(variable.strVal)));
         }

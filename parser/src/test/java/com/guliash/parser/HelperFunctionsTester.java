@@ -9,32 +9,32 @@ public class HelperFunctionsTester extends BaseParserTester {
 
     @Test
     public void checkWordCharacterUnderscoreIsOk() {
-        Assert.assertEquals(ArithmeticParser.isWordOnlyCharacter('_'), true);
+        Assert.assertEquals(Verify.isWordOnlyCharacter('_'), true);
     }
 
     @Test
     public void checkWordCharacterDollarIsOk() {
-        assertEquals(ArithmeticParser.isWordOnlyCharacter('$'), true);
+        assertEquals(Verify.isWordOnlyCharacter('$'), true);
     }
 
     @Test
     public void checkWordCharacterLetterIsOk1() {
-        assertEquals(ArithmeticParser.isWordOnlyCharacter('b'), true);
+        assertEquals(Verify.isWordOnlyCharacter('b'), true);
     }
 
     @Test
     public void checkWordCharacterLetterIsOk2() {
-        assertEquals(ArithmeticParser.isWordOnlyCharacter('ш'), true);
+        assertEquals(Verify.isWordOnlyCharacter('ш'), true);
     }
 
     @Test
     public void checkWordCharacterSpaceIsBad() {
-        assertEquals(ArithmeticParser.isWordOnlyCharacter(' '), false);
+        assertEquals(Verify.isWordOnlyCharacter(' '), false);
     }
 
     @Test
     public void checkWordCharacterDigitIsBad() {
-        assertEquals(ArithmeticParser.isWordOnlyCharacter('9'), false);
+        assertEquals(Verify.isWordOnlyCharacter('9'), false);
     }
 
 }

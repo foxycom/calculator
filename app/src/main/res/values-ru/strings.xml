@@ -27,7 +27,12 @@
     <string name="expression">Выражение</string>
     <string name="angle_cap">Углы</string>
     <string name="variables_cap">ПЕРЕМЕННЫЕ</string>
+
+    <string name="variables">Переменные</string>
+
+    <!-- WARNINGS -->
     <string name="name_is_empty">Имя не должно быть пустым</string>
     <string name="expression_is_empty">Введите выражение</string>
-    <string name="variables">Variables</string>
+    <string name="variable_name_not_correct">Имя переменной \"%s\" неверное. Загляните в справку чтобы увидеть формат имени.</string>
+    <string name="variable_name_clashes_constant">Имя переменной \"%s\" совпадает с именем константы.</string>
 </resources>

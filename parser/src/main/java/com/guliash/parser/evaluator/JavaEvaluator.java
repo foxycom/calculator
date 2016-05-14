@@ -175,7 +175,7 @@ public class JavaEvaluator implements Evaluator {
     }
 
     @Override
-    public boolean hasFunction(String name, List<Double> args) throws IllegalArgumentException {
+    public boolean hasFunction(String name, List<Double> args) {
         for(Function function : Function.values()) {
             if(function.name.equals(name) && function.cntOfArgs == args.size()) {
                 return true;
