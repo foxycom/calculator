@@ -12,9 +12,11 @@ import java.util.List;
 public class DBHelper extends SQLiteOpenHelper {
 
     private static final int DATABASE_VERSION = 1;
+
     private static final String VARIABLES_TABLE = "variables";
     private static final String EXPRESSIONS_TABLE = "expressions";
     private static final String MAIN_TABLE = "main";
+
     private static final String CREATE_MAIN_TABLE = "create table %s (id integer primary key " +
             "autoincrement,name text unique,date integer);";
     private static final String CREATE_VARIABLES_TABLE = "create table %s (id integer,name text," +
@@ -72,17 +74,17 @@ public class DBHelper extends SQLiteOpenHelper {
         return id;
     }
 
-    private void addDataToVariablesAndExpTables(long id, String expression, List<? extends StringValueVariable> variables) {
+    private void addDataToVariablesAndExpTables(long id, String expression, List<? extends VariableWrapper> variables) {
         SQLiteDatabase db = getWritableDatabase();
         ContentValues cv = new ContentValues();
         cv.put("id", id);
         cv.put("exp", expression);
         db.insert(EXPRESSIONS_TABLE, null, cv);
-        for(StringValueVariable variable : variables) {
+        for(VariableWrapper variable : variables) {
             cv = new ContentValues();
             cv.put("id", id);
             cv.put("name", variable.name);
-            cv.put("value", variable.strVal);
+            cv.put("value", variable.value);
             db.insert(VARIABLES_TABLE, null, cv);
         }
         db.close();
@@ -162,8 +164,8 @@ public class DBHelper extends SQLiteOpenHelper {
         return res;
     }
 
-    private ArrayList<StringValueVariable> getVariables(long id) {
-        ArrayList<StringValueVariable> variables = new ArrayList<>();
+    private ArrayList<VariableWrapper> getVariables(long id) {
+        ArrayList<VariableWrapper> variables = new ArrayList<>();
         SQLiteDatabase db = getWritableDatabase();
         Cursor cursor = db.query(VARIABLES_TABLE, new String[]{"name", "value"}, "id = ?",
                 new String[]{String.valueOf(id)},null, null, null);
@@ -171,7 +173,7 @@ public class DBHelper extends SQLiteOpenHelper {
             int nameColIndex = cursor.getColumnIndex("name");
             int valueColIndex = cursor.getColumnIndex("value");
             do {
-                variables.add(new StringValueVariable(cursor.getString(nameColIndex),
+                variables.add(new VariableWrapper(cursor.getString(nameColIndex),
                         cursor.getString(valueColIndex)));
             } while(cursor.moveToNext());
         }

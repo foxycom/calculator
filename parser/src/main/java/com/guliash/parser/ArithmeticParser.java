@@ -18,6 +18,8 @@ public class ArithmeticParser {
 
     private List<Variable> variables;
 
+    private static final List<Variable> EMPTY_VARIABLES_LIST = new ArrayList<>(0);
+
     public ArithmeticParser(String s, List<? extends Variable> variables, Evaluator evaluator) {
         this.s = s;
         this.variables = new ArrayList<>(variables);
@@ -121,7 +123,8 @@ public class ArithmeticParser {
             } else if(isVariable(temp)) {
                 Variable variable = getVariable(temp);
                 if (variable != null) {
-                    return variable.value;
+                    return new ArithmeticParser(variable.value, EMPTY_VARIABLES_LIST, evaluator)
+                            .calculate();
                 } else {
                     error(String.format("Can't find variable %s", temp));
                 }

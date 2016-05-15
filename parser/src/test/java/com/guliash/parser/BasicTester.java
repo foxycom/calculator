@@ -161,15 +161,15 @@ public class BasicTester extends BaseParserTester {
     @Test(expected = Exception.class)
     public void betweenTwoWordsNoSpacesAllowed() {
         ArrayList<Variable> variables = new ArrayList<>();
-        variables.add(new Variable("$_31dasd", 0d));
-        variables.add(new Variable("faf31fa_", 0d));
+        variables.add(new Variable("$_31dasd", Double.toString(0d)));
+        variables.add(new Variable("faf31fa_", Double.toString(0d)));
         calculate("$_31dasd faf31fa_");
     }
 
     @Test(expected = Exception.class)
     public void illegalCharactersInWordNotAllowed() {
         ArrayList<Variable> variables = new ArrayList<>();
-        variables.add(new Variable("f&4f^af31fa_", 0d));
+        variables.add(new Variable("f&4f^af31fa_", Double.toString(0d)));
         calculate("f&4f^af31fa_");
     }
 

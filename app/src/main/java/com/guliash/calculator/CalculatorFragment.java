@@ -36,8 +36,8 @@ public class CalculatorFragment extends Fragment implements VariablesAdapterRemo
     private RecyclerView mVariablesRV;
 
 
-    private static final List<StringValueVariable> DEFAULT_VARIABLES_LIST =
-            Arrays.asList(new StringValueVariable("x", "0"), new StringValueVariable("y", "0"));
+    private static final List<VariableWrapper> DEFAULT_VARIABLES_LIST =
+            Arrays.asList(new VariableWrapper("x", "0"), new VariableWrapper("y", "0"));
 
     private CalculatorDataset mDataset;
 
@@ -126,7 +126,7 @@ public class CalculatorFragment extends Fragment implements VariablesAdapterRemo
                 return;
             }
 
-            List<Variable> variables = Helper.stringValueVariablesToSimple(mDataset.variables);
+            List<? extends Variable> variables = mDataset.variables;
             for(Variable variable : variables) {
                 if(!Verify.variable(variable)) {
                     Toast.makeText(application.getApplicationContext(), getString(
@@ -155,7 +155,7 @@ public class CalculatorFragment extends Fragment implements VariablesAdapterRemo
     private View.OnClickListener mAddVariableButtonClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            mDataset.variables.add(new StringValueVariable("", "0"));
+            mDataset.variables.add(new VariableWrapper("", "0"));
             mAdapter.notifyItemInserted(mDataset.variables.size() - 1);
         }
     };

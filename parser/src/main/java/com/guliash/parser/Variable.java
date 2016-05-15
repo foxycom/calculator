@@ -1,17 +1,15 @@
 package com.guliash.parser;
 
-import android.os.Parcel;
-import android.os.Parcelable;
-
-public class Variable implements Parcelable {
+public class Variable {
     public String name;
-    public Double value;
-    public Variable(String name, Double value) {
+    public String value;
+
+    public Variable() {}
+
+    public Variable(String name, String value) {
         this.name = name;
         this.value = value;
     }
-
-    public Variable() {}
 
     @Override
     public int hashCode() {
@@ -26,32 +24,6 @@ public class Variable implements Parcelable {
 
     @Override
     public String toString() {
-        return name + " " + value.toString();
+        return name + " " + value;
     }
-
-    public Variable(Parcel parcel) {
-        name = parcel.readString();
-        value = parcel.readDouble();
-    }
-
-    @Override
-    public void writeToParcel(Parcel dest, int flags) {
-        dest.writeString(name);
-        dest.writeDouble(value);
-    }
-
-    @Override
-    public int describeContents() {
-        return 0;
-    }
-
-    public static final Parcelable.Creator<Variable> CREATOR = new Parcelable.Creator<Variable>() {
-        public Variable createFromParcel(Parcel in) {
-            return new Variable(in);
-        }
-
-        public Variable[] newArray(int size) {
-            return new Variable[size];
-        }
-    };
 }

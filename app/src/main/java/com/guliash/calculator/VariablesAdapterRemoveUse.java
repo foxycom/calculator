@@ -15,7 +15,7 @@ import java.util.List;
 
 public class VariablesAdapterRemoveUse extends RecyclerView.Adapter<VariablesAdapterRemoveUse.ViewHolder> {
 
-    @Nullable private List<StringValueVariable> mVariables;
+    @Nullable private List<VariableWrapper> mVariables;
     @NonNull private Callbacks mListener;
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
@@ -30,7 +30,7 @@ public class VariablesAdapterRemoveUse extends RecyclerView.Adapter<VariablesAda
         }
     }
 
-    public VariablesAdapterRemoveUse(@Nullable List<StringValueVariable> variables,
+    public VariablesAdapterRemoveUse(@Nullable List<VariableWrapper> variables,
                                      @NonNull Callbacks listener) {
         this.mVariables = variables;
         this.mListener = listener;
@@ -71,7 +71,7 @@ public class VariablesAdapterRemoveUse extends RecyclerView.Adapter<VariablesAda
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 final  int position = holder.getAdapterPosition();
                 if(position != RecyclerView.NO_POSITION) {
-                    mVariables.get(position).strVal = s.toString();
+                    mVariables.get(position).value = s.toString();
                 }
             }
 
@@ -107,9 +107,9 @@ public class VariablesAdapterRemoveUse extends RecyclerView.Adapter<VariablesAda
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        StringValueVariable variable = mVariables.get(position);
+        VariableWrapper variable = mVariables.get(position);
         holder.nameEditText.setText(variable.name);
-        holder.valueEditText.setText(variable.strVal);
+        holder.valueEditText.setText(variable.value);
     }
 
     @Override

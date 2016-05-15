@@ -9,9 +9,9 @@ public class CalculatorDataset implements Parcelable {
     public String expression;
     public String datasetName;
     public long timestamp;
-    public ArrayList<StringValueVariable> variables;
+    public ArrayList<VariableWrapper> variables;
 
-    public CalculatorDataset(String expression, String datasetName, ArrayList<StringValueVariable> variables,
+    public CalculatorDataset(String expression, String datasetName, ArrayList<VariableWrapper> variables,
                              long timestamp) {
         this.expression = expression;
         this.datasetName = datasetName;
@@ -23,7 +23,7 @@ public class CalculatorDataset implements Parcelable {
         expression = parcel.readString();
         datasetName = parcel.readString();
         timestamp = parcel.readLong();
-        variables = parcel.readArrayList(StringValueVariable.class.getClassLoader());
+        variables = parcel.readArrayList(VariableWrapper.class.getClassLoader());
     }
 
     @Override
