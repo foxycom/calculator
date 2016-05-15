@@ -18,8 +18,7 @@ public class Variable {
 
     @Override
     public boolean equals(Object o) {
-        Variable obj = (Variable)o;
-        return obj.equals(name);
+        return (o instanceof Variable) && ((Variable)o).name.equals(name);
     }
 
     @Override

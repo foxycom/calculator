@@ -175,4 +175,14 @@ public class BasicTester extends BaseParserTester {
         calculate("f&4f^af31fa_");
     }
 
+    @Test
+    public void sequentMulAndSub() {
+        assertEquals(2*-2, calculate("2*-2"), EPS);
+    }
+
+    @Test(expected = Exception.class)
+    public void sequentMuls() {
+        calculate("2**2");
+    }
+
 }

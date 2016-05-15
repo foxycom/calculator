@@ -5,25 +5,39 @@ import com.guliash.parser.evaluator.Evaluator;
 import com.guliash.parser.exceptions.ArithmeticParserException;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 public class ArithmeticParser {
 
     private Evaluator evaluator;
 
-    private List<Variable> variables;
+    private Collection<Variable> variables;
 
     private Stemmer stemmer;
 
     private static final List<Variable> EMPTY_VARIABLES_LIST = new ArrayList<>(0);
 
-    public ArithmeticParser(String s, List<? extends Variable> variables, Evaluator evaluator) {
+    public ArithmeticParser(String s, Collection<? extends Variable> variables, Evaluator evaluator) {
         this.stemmer = new Stemmer(s);
         this.variables = new ArrayList<>(variables);
         this.evaluator = evaluator;
     }
 
+    private void calculateVariablesValues() {
+        VariablesResolver variablesResolver = new VariablesResolver(variables, evaluator);
+        List<Variable> topologicallySortedVariables = variablesResolver.resolveDependencies();
+        List<Variable> calculatedList = new ArrayList<>();
+        for(Variable variable : topologicallySortedVariables) {
+            ArithmeticParser parser = new ArithmeticParser(variable.value, calculatedList, evaluator);
+            variable.value = Double.toString(parser.calculate());
+            calculatedList.add(variable);
+        }
+    }
+
     public double calculate() {
+        calculateVariablesValues();
+
         stemmer.start();
         double res = expression();
         if(stemmer.getLexeme() != Lexeme.END_OF_LINE) {
