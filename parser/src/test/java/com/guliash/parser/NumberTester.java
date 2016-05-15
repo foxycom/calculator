@@ -1,5 +1,7 @@
 package com.guliash.parser;
 
+import com.guliash.parser.exceptions.ArithmeticParserException;
+
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
@@ -20,12 +22,12 @@ public class NumberTester extends BaseParserTester {
         assertEquals(1e9, calculate("1e9"), EPS);
     }
 
-    @Test(expected = ArithmeticParser.ArithmeticParserException.class)
+    @Test(expected = ArithmeticParserException.class)
     public void numberTest4() {
         calculate("1e++9");
     }
 
-    @Test(expected = ArithmeticParser.ArithmeticParserException.class)
+    @Test(expected = ArithmeticParserException.class)
     public void numberTest5() {
         calculate("1e--9");
     }
@@ -45,12 +47,12 @@ public class NumberTester extends BaseParserTester {
         assertEquals(0.02, calculate("2e-2"), EPS);
     }
 
-    @Test(expected = ArithmeticParser.ArithmeticParserException.class)
+    @Test(expected = ArithmeticParserException.class)
     public void numberTest9() {
         calculate("2e-2.");
     }
 
-    @Test(expected = ArithmeticParser.ArithmeticParserException.class)
+    @Test(expected = ArithmeticParserException.class)
     public void numberTest10() {
         calculate("2e-2e2");
     }

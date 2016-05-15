@@ -1,5 +1,7 @@
 package com.guliash.parser;
 
+import com.guliash.parser.exceptions.ArithmeticParserException;
+
 import org.junit.Test;
 
 import java.util.ArrayList;
@@ -28,37 +30,37 @@ public class BasicTester extends BaseParserTester {
         assertEquals(1e+9 + 1e-9, calculate("1e+9 + 1e-9"), EPS);
     }
 
-    @Test(expected = ArithmeticParser.ArithmeticParserException.class)
+    @Test(expected = ArithmeticParserException.class)
     public void badBracket1() {
         calculate("1e9 + 1 + 20 + 1e-9 + ()");
     }
 
-    @Test(expected = ArithmeticParser.ArithmeticParserException.class)
+    @Test(expected = ArithmeticParserException.class)
     public void badBracket2() {
         calculate("((((((((()))))))))");
     }
 
-    @Test(expected = ArithmeticParser.ArithmeticParserException.class)
+    @Test(expected = ArithmeticParserException.class)
     public void badBracket3() {
         calculate("))((");
     }
 
-    @Test(expected = ArithmeticParser.ArithmeticParserException.class)
+    @Test(expected = ArithmeticParserException.class)
     public void badBracket4() {
         calculate("((4)*(2)*3");
     }
 
-    @Test(expected = ArithmeticParser.ArithmeticParserException.class)
+    @Test(expected = ArithmeticParserException.class)
     public void badBracket5() {
         calculate("(([]))");
     }
 
-    @Test(expected = ArithmeticParser.ArithmeticParserException.class)
+    @Test(expected = ArithmeticParserException.class)
     public void badBracket6() {
         calculate("((()))((()))(()()()");
     }
 
-    @Test(expected = ArithmeticParser.ArithmeticParserException.class)
+    @Test(expected = ArithmeticParserException.class)
     public void badBracket7() {
         calculate("(1)(2)");
     }
@@ -98,12 +100,12 @@ public class BasicTester extends BaseParserTester {
                 calculate("1 +         2 + 3 *    4 *  (  2  + 3)"), EPS);
     }
 
-    @Test(expected = ArithmeticParser.ArithmeticParserException.class)
+    @Test(expected = ArithmeticParserException.class)
     public void spacesTest2() {
         calculate("1e43 434434");
     }
 
-    @Test(expected = ArithmeticParser.ArithmeticParserException.class)
+    @Test(expected = ArithmeticParserException.class)
     public void spacesTest3() {
         calculate("1. 2323");
     }
@@ -118,12 +120,12 @@ public class BasicTester extends BaseParserTester {
         assertEquals(-1, calculate("1+-+2"), EPS);
     }
 
-    @Test(expected = ArithmeticParser.ArithmeticParserException.class)
+    @Test(expected = ArithmeticParserException.class)
     public void operatorsTest3() {
         calculate("1**2");
     }
 
-    @Test(expected = ArithmeticParser.ArithmeticParserException.class)
+    @Test(expected = ArithmeticParserException.class)
     public void operatorsTest4() {
         calculate("1*/2");
     }
@@ -138,12 +140,12 @@ public class BasicTester extends BaseParserTester {
         assertEquals(2, calculate("1*--2"), EPS);
     }
 
-    @Test(expected = ArithmeticParser.ArithmeticParserException.class)
+    @Test(expected = ArithmeticParserException.class)
     public void operatorsTest7() {
         calculate("1++*2");
     }
 
-    @Test(expected = ArithmeticParser.ArithmeticParserException.class)
+    @Test(expected = ArithmeticParserException.class)
     public void operatorsTest8() {
         calculate("1+*2");
     }
