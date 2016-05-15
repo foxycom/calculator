@@ -58,103 +58,21 @@
                 android:scaleType="center"/>
         </LinearLayout>
     </LinearLayout>
-
-    <LinearLayout
+    <LinearLayout android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:orientation="vertical"
-        android:layout_weight="1"
-        android:padding="8dp">
-
-        <include layout="@layout/main_keyboard"/>
-
-        <include layout="@layout/trigonometric_keyboard"/>
-
-        <include layout="@layout/pow_keyboard"/>
-
-        <include layout="@layout/log_keyboard"/>
-
-        <include layout="@layout/math_keyboard"/>
-
-        <include layout="@layout/angle_layout"/>
-
-        <include layout="@layout/variables"/>
-
-    </LinearLayout>
-
-    <HorizontalScrollView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="8dp"
-        android:layout_marginRight="8dp"
-        android:layout_marginBottom="5dp">
-
-        <LinearLayout
-            android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:id="@+id/variables_layout">
+        <android.support.v7.widget.RecyclerView
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:id="@+id/variables_rv"
+            android:scrollbars="vertical">
+        </android.support.v7.widget.RecyclerView>
+        <Button
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="8dp">
-
-            <RadioGroup
-                android:id="@+id/switchers_group"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="horizontal">
-
-                <RadioButton
-                    android:id="@+id/main_keyboard_switcher"
-                    style="@style/KeyboardSwitcher"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/main_cap" />
-
-                <RadioButton
-                    android:id="@+id/variables_keyboard_switcher"
-                    style="@style/KeyboardSwitcher"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="@dimen/activity_horizontal_margin"
-                    android:text="@string/variables_cap"/>
-
-                <RadioButton
-                    android:id="@+id/trigonometric_keyboard_switcher"
-                    style="@style/KeyboardSwitcher"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="@dimen/activity_horizontal_margin"
-                    android:text="@string/sin_cap" />
-
-                <RadioButton
-                    android:id="@+id/angle_units_switcher"
-                    style="@style/KeyboardSwitcher"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="@dimen/activity_horizontal_margin"
-                    android:text="@string/angle_cap" />
-
-                <RadioButton
-                    android:id="@+id/pow_keyboard_switcher"
-                    style="@style/KeyboardSwitcher"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="@dimen/activity_horizontal_margin"
-                    android:text="@string/pow_cap" />
-
-                <RadioButton
-                    android:id="@+id/log_keyboard_switcher"
-                    style="@style/KeyboardSwitcher"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="@dimen/activity_horizontal_margin"
-                    android:text="@string/log_cap" />
-
-                <RadioButton
-                    android:id="@+id/math_keyboard_switcher"
-                    style="@style/KeyboardSwitcher"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="@dimen/activity_horizontal_margin"
-                    android:text="@string/math_cap" />
-            </RadioGroup>
-        </LinearLayout>
-    </HorizontalScrollView>
+            android:text="@string/add_variable"
+            android:id="@+id/add_variable_button"/>
+    </LinearLayout>
 </LinearLayout>

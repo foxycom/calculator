@@ -17,6 +17,7 @@
     <color name="colorPrimary">@color/md_grey_900</color>
     <color name="colorPrimaryDark">@color/md_black_1000</color>
     <color name="windowBackground">#303030</color>
+    <color name="accent">#FFEA00</color>
     <color name="primaryText">#FFFFFFFF</color>
     <color name="secondaryText">#AAFFFFFF</color>
     <color name="disabledText">#5BFFFFFF</color>

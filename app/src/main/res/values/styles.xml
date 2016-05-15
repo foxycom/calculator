@@ -6,12 +6,4 @@
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="android:windowBackground">@color/windowBackground</item>
     </style>
-
-    <style name="CalculatorButton">
-        <item name="android:background">@drawable/calculator_button</item>
-        <item name="android:minHeight">48dp</item>
-        <item name="android:minWidth">56dp</item>
-    </style>
-    <style name="KeyboardSwitcher" parent="android:TextAppearance.Medium">
-    </style>
 </resources>
