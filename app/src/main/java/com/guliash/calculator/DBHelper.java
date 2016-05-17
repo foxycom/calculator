@@ -74,13 +74,13 @@ public class DBHelper extends SQLiteOpenHelper {
         return id;
     }
 
-    private void addDataToVariablesAndExpTables(long id, String expression, List<? extends VariableWrapper> variables) {
+    private void addDataToVariablesAndExpTables(long id, String expression, List<? extends StringVariableWrapper> variables) {
         SQLiteDatabase db = getWritableDatabase();
         ContentValues cv = new ContentValues();
         cv.put("id", id);
         cv.put("exp", expression);
         db.insert(EXPRESSIONS_TABLE, null, cv);
-        for(VariableWrapper variable : variables) {
+        for(StringVariableWrapper variable : variables) {
             cv = new ContentValues();
             cv.put("id", id);
             cv.put("name", variable.name);
@@ -164,8 +164,8 @@ public class DBHelper extends SQLiteOpenHelper {
         return res;
     }
 
-    private ArrayList<VariableWrapper> getVariables(long id) {
-        ArrayList<VariableWrapper> variables = new ArrayList<>();
+    private ArrayList<StringVariableWrapper> getVariables(long id) {
+        ArrayList<StringVariableWrapper> variables = new ArrayList<>();
         SQLiteDatabase db = getWritableDatabase();
         Cursor cursor = db.query(VARIABLES_TABLE, new String[]{"name", "value"}, "id = ?",
                 new String[]{String.valueOf(id)},null, null, null);
@@ -173,7 +173,7 @@ public class DBHelper extends SQLiteOpenHelper {
             int nameColIndex = cursor.getColumnIndex("name");
             int valueColIndex = cursor.getColumnIndex("value");
             do {
-                variables.add(new VariableWrapper(cursor.getString(nameColIndex),
+                variables.add(new StringVariableWrapper(cursor.getString(nameColIndex),
                         cursor.getString(valueColIndex)));
             } while(cursor.moveToNext());
         }

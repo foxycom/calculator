@@ -15,18 +15,18 @@ public class BaseParserTester {
      * @return result
      */
     protected double calculate(String expression) {
-        return calculate(expression, new ArrayList<Variable>(), Angle.RAD);
+        return calculate(expression, new ArrayList<StringVariable>(), Angle.RAD);
     }
 
     protected double calculate(String expression, Angle angle) {
-        return calculate(expression, new ArrayList<Variable>(), angle);
+        return calculate(expression, new ArrayList<StringVariable>(), angle);
     }
 
-    protected double calculate(String expression, List<Variable> variables) {
+    protected double calculate(String expression, List<StringVariable> variables) {
         return calculate(expression, variables, Angle.RAD);
     }
 
-    protected double calculate(String expression, List<Variable> variables, Angle angle) {
-        return new ArithmeticParser(expression, variables, new JavaEvaluator(angle)).calculate();
+    protected double calculate(String expression, List<StringVariable> variables, Angle angle) {
+        return ArithmeticParser.calculate(expression, variables, new JavaEvaluator(angle));
     }
 }

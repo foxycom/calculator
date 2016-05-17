@@ -5,39 +5,35 @@ import com.guliash.parser.evaluator.Evaluator;
 import com.guliash.parser.exceptions.ArithmeticParserException;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 
 public class ArithmeticParser {
 
     private Evaluator evaluator;
 
-    private Collection<Variable> variables;
+    private List<DoubleVariable> variables;
 
     private Stemmer stemmer;
 
-    private static final List<Variable> EMPTY_VARIABLES_LIST = new ArrayList<>(0);
-
-    public ArithmeticParser(String s, Collection<? extends Variable> variables, Evaluator evaluator) {
+    public ArithmeticParser(String s, List<DoubleVariable> variables, Evaluator evaluator) {
         this.stemmer = new Stemmer(s);
-        this.variables = new ArrayList<>(variables);
+        this.variables = variables;
         this.evaluator = evaluator;
     }
 
-    private void calculateVariablesValues() {
+    public static double calculate(String s, List<StringVariable> variables, Evaluator evaluator) {
         VariablesResolver variablesResolver = new VariablesResolver(variables, evaluator);
-        List<Variable> topologicallySortedVariables = variablesResolver.resolveDependencies();
-        List<Variable> calculatedList = new ArrayList<>();
-        for(Variable variable : topologicallySortedVariables) {
+        List<StringVariable> topologicallySortedVariables = variablesResolver.resolveDependencies();
+        List<DoubleVariable> calculatedList = new ArrayList<>();
+        for(StringVariable variable : topologicallySortedVariables) {
             ArithmeticParser parser = new ArithmeticParser(variable.value, calculatedList, evaluator);
-            variable.value = Double.toString(parser.calculate());
-            calculatedList.add(variable);
+            DoubleVariable doubleVariable = new DoubleVariable(variable.name, parser.calculate());
+            calculatedList.add(doubleVariable);
         }
+        return new ArithmeticParser(s, calculatedList, evaluator).calculate();
     }
 
     public double calculate() {
-        calculateVariablesValues();
-
         stemmer.start();
         double res = expression();
         if(stemmer.getLexeme() != Lexeme.END_OF_LINE) {
@@ -107,10 +103,9 @@ public class ArithmeticParser {
             } else if(evaluator.hasConstant(temp)) {
                 return evaluator.evaluateConstant(temp);
             } else if(hasVariable(temp)) {
-                Variable variable = getVariable(temp);
+                DoubleVariable variable = getVariable(temp);
                 if (variable != null) {
-                    return new ArithmeticParser(variable.value, EMPTY_VARIABLES_LIST, evaluator)
-                            .calculate();
+                   return variable.value;
                 } else {
                     error(String.format("Can't find variable %s", temp));
                 }
@@ -142,8 +137,8 @@ public class ArithmeticParser {
         return getVariable(word) != null;
     }
 
-    private Variable getVariable(String name) {
-        for(Variable variable : variables) {
+    private DoubleVariable getVariable(String name) {
+        for(DoubleVariable variable : variables) {
             if(variable.name.equals(name)) {
                 return variable;
             }

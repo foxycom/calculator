@@ -71,7 +71,7 @@ public class SaveActivity extends AppCompatActivity implements VariablesAdapterR
     private View.OnClickListener mAddVariableClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            mDataset.variables.add(new VariableWrapper("", "0"));
+            mDataset.variables.add(new StringVariableWrapper("", "0"));
             mAdapter.notifyItemInserted(mDataset.variables.size() - 1);
         }
     };

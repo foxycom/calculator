@@ -1,12 +1,13 @@
 package com.guliash.parser;
 
-public class Variable {
+public class DoubleVariable {
+
     public String name;
-    public String value;
+    public double value;
 
-    public Variable() {}
+    public DoubleVariable() {}
 
-    public Variable(String name, String value) {
+    public DoubleVariable(String name, double value) {
         this.name = name;
         this.value = value;
     }
@@ -18,11 +19,12 @@ public class Variable {
 
     @Override
     public boolean equals(Object o) {
-        return (o instanceof Variable) && ((Variable)o).name.equals(name);
+        return (o instanceof StringVariable) && ((StringVariable)o).name.equals(name);
     }
 
     @Override
     public String toString() {
         return name + " " + value;
     }
+
 }

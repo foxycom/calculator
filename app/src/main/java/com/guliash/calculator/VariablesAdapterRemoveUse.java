@@ -15,7 +15,7 @@ import java.util.List;
 
 public class VariablesAdapterRemoveUse extends RecyclerView.Adapter<VariablesAdapterRemoveUse.ViewHolder> {
 
-    @Nullable private List<VariableWrapper> mVariables;
+    @Nullable private List<StringVariableWrapper> mVariables;
     @NonNull private Callbacks mListener;
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
@@ -30,7 +30,7 @@ public class VariablesAdapterRemoveUse extends RecyclerView.Adapter<VariablesAda
         }
     }
 
-    public VariablesAdapterRemoveUse(@Nullable List<VariableWrapper> variables,
+    public VariablesAdapterRemoveUse(@Nullable List<StringVariableWrapper> variables,
                                      @NonNull Callbacks listener) {
         this.mVariables = variables;
         this.mListener = listener;
@@ -107,7 +107,7 @@ public class VariablesAdapterRemoveUse extends RecyclerView.Adapter<VariablesAda
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        VariableWrapper variable = mVariables.get(position);
+        StringVariableWrapper variable = mVariables.get(position);
         holder.nameEditText.setText(variable.name);
         holder.valueEditText.setText(variable.value);
     }

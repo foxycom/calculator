@@ -15,7 +15,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.guliash.parser.ArithmeticParser;
-import com.guliash.parser.Variable;
+import com.guliash.parser.StringVariable;
 import com.guliash.parser.Verify;
 import com.guliash.parser.evaluator.Evaluator;
 import com.guliash.parser.evaluator.JavaEvaluator;
@@ -36,8 +36,8 @@ public class CalculatorFragment extends Fragment implements VariablesAdapterRemo
     private RecyclerView mVariablesRV;
 
 
-    private static final List<VariableWrapper> DEFAULT_VARIABLES_LIST =
-            Arrays.asList(new VariableWrapper("x", "0"), new VariableWrapper("y", "0"));
+    private static final List<StringVariableWrapper> DEFAULT_VARIABLES_LIST =
+            Arrays.asList(new StringVariableWrapper("x", "0"), new StringVariableWrapper("y", "0"));
 
     private CalculatorDataset mDataset;
 
@@ -126,8 +126,8 @@ public class CalculatorFragment extends Fragment implements VariablesAdapterRemo
                 return;
             }
 
-            List<? extends Variable> variables = mDataset.variables;
-            for(Variable variable : variables) {
+            List<? extends StringVariable> variables = mDataset.variables;
+            for(StringVariable variable : variables) {
                 if(!Verify.variable(variable)) {
                     Toast.makeText(application.getApplicationContext(), getString(
                             R.string.variable_name_not_correct, variable.name), Toast.LENGTH_LONG).show();
@@ -135,7 +135,7 @@ public class CalculatorFragment extends Fragment implements VariablesAdapterRemo
                 }
             }
 
-            for(Variable variable : variables) {
+            for(StringVariable variable : variables) {
                 if(Verify.variableNameClashesWithConstants(variable, evaluator)) {
                     Toast.makeText(getActivity().getApplicationContext(), getString(
                             R.string.variable_name_clashes_constant, variable.name), Toast.LENGTH_LONG).show();
@@ -144,8 +144,8 @@ public class CalculatorFragment extends Fragment implements VariablesAdapterRemo
             }
 
             try {
-                ArithmeticParser arithmeticParser = new ArithmeticParser(expression, variables, evaluator);
-                mResultField.setText(Double.toString(arithmeticParser.calculate()));
+                double result = ArithmeticParser.calculate(expression, (List<StringVariable>)variables, evaluator);
+                mResultField.setText(Double.toString(result));
             } catch(Exception e) {
                 mResultField.setText(R.string.error);
             }
@@ -155,7 +155,7 @@ public class CalculatorFragment extends Fragment implements VariablesAdapterRemo
     private View.OnClickListener mAddVariableButtonClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            mDataset.variables.add(new VariableWrapper("", "0"));
+            mDataset.variables.add(new StringVariableWrapper("", "0"));
             mAdapter.notifyItemInserted(mDataset.variables.size() - 1);
         }
     };

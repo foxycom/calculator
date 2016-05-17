@@ -8,7 +8,7 @@ import java.util.Set;
 
 public class Verify {
 
-    public static boolean variable(Variable variable) {
+    public static boolean variable(StringVariable variable) {
         String name = variable.name;
         if(name == null || name.length() == 0) {
             return false;
@@ -25,12 +25,12 @@ public class Verify {
         return true;
     }
 
-    public static boolean variableNameClashesWithConstants(Variable variable, Evaluator evaluator) {
+    public static boolean variableNameClashesWithConstants(StringVariable variable, Evaluator evaluator) {
         return evaluator.hasConstant(variable.name);
     }
 
-    public static boolean variablesNamesClashWithConstants(Collection<Variable> variables, Evaluator evaluator) {
-        for(Variable variable : variables) {
+    public static boolean variablesNamesClashWithConstants(Collection<StringVariable> variables, Evaluator evaluator) {
+        for(StringVariable variable : variables) {
             if(variableNameClashesWithConstants(variable, evaluator)) {
                 return true;
             }
@@ -42,9 +42,9 @@ public class Verify {
         return Character.isLetter(ch) || ch == '$' || ch == '_';
     }
 
-    public static boolean checkVariablesUnique(Collection<Variable> variables) {
-        Set<Variable> variableSet = new HashSet<>();
-        for(Variable variable : variables) {
+    public static boolean checkVariablesUnique(Collection<StringVariable> variables) {
+        Set<StringVariable> variableSet = new HashSet<>();
+        for(StringVariable variable : variables) {
             if(variableSet.contains(variable)) {
                 return false;
             }

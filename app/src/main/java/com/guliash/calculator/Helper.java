@@ -15,7 +15,7 @@ public class Helper {
         return DateFormat.getDateTimeInstance(DateFormat.SHORT, DateFormat.SHORT).format(timestamp);
     }
 
-    public static String variablesToString(List<VariableWrapper> variables) {
+    public static String variablesToString(List<StringVariableWrapper> variables) {
         String[] tokens = new String[variables.size()];
         for(int i = 0; i < variables.size(); i++) {
             tokens[i] = variableToString(variables.get(i));
@@ -23,7 +23,7 @@ public class Helper {
         return TextUtils.join("; ", tokens);
     }
 
-    public static String variableToString(VariableWrapper variable) {
+    public static String variableToString(StringVariableWrapper variable) {
         return variable.name + " = " + variable.value;
     }
 }
