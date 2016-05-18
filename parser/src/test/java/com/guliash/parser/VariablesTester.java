@@ -219,5 +219,4 @@ public class VariablesTester extends BaseParserTester {
                 EPS);
     }
 
-
 }

@@ -19,6 +19,10 @@ import com.guliash.parser.StringVariable;
 import com.guliash.parser.Verify;
 import com.guliash.parser.evaluator.Evaluator;
 import com.guliash.parser.evaluator.JavaEvaluator;
+import com.guliash.parser.exceptions.CyclicVariablesDependencyException;
+import com.guliash.parser.exceptions.VariableNotFoundException;
+import com.guliash.parser.exceptions.WordNotFoundException;
+import com.guliash.parser.stemmer.InvalidNumberException;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -146,8 +150,16 @@ public class CalculatorFragment extends Fragment implements VariablesAdapterRemo
             try {
                 double result = ArithmeticParser.calculate(expression, (List<StringVariable>)variables, evaluator);
                 mResultField.setText(Double.toString(result));
-            } catch(Exception e) {
-                mResultField.setText(R.string.error);
+            } catch(CyclicVariablesDependencyException e) {
+                mResultField.setText(getString(R.string.cyclic_variables, e.firstName, e.secondName));
+            } catch (VariableNotFoundException e) {
+                mResultField.setText(getString(R.string.variable_not_found, e.getName()));
+            } catch (WordNotFoundException e) {
+                mResultField.setText(getString(R.string.word_not_found, e.getWord()));
+            } catch (InvalidNumberException e) {
+                mResultField.setText(getString(R.string.invalid_number));
+            } catch (Exception e) {
+                mResultField.setText(getString(R.string.bad_expression));
             }
         }
     };

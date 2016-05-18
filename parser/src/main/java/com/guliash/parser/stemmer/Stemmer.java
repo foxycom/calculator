@@ -1,7 +1,6 @@
 package com.guliash.parser.stemmer;
 
 import com.guliash.parser.Verify;
-import com.guliash.parser.exceptions.ArithmeticParserException;
 
 public class Stemmer {
 
@@ -80,13 +79,13 @@ public class Stemmer {
         } else if(ch == '\n') {
             lexeme = Lexeme.END_OF_LINE;
         } else {
-            throw new StemmerBadSymbolException(pos, ch);
+            throw new StemmerBadSymbolException(pos - 1, ch);
         }
     }
 
     private void number() {
         if(!Character.isDigit(ch)) {
-            throw new StemmerBadSymbolException(pos - 1, ch);
+            throw new InvalidNumberException(pos - 1);
         }
         double res = 0;
         while(Character.isDigit(ch)) {
@@ -113,7 +112,7 @@ public class Stemmer {
 
     private double exponent() {
         if(ch != 'e' && ch != 'E') {
-            throw new RuntimeException()
+            throw new InvalidNumberException(pos - 1);
         }
         readChar();
         double m = 10;
@@ -126,10 +125,10 @@ public class Stemmer {
             m = 10;
             readChar();
         } else if(!Character.isDigit(ch)) {
-            error();
+            throw new InvalidNumberException(pos - 1);
         }
         if(!Character.isDigit(ch)) {
-            error();
+            throw new InvalidNumberException(pos - 1);
         }
         while(Character.isDigit(ch)) {
             pow2 *= 10;
@@ -144,7 +143,7 @@ public class Stemmer {
         if(this.lexeme == lexeme) {
             readLexeme();
         } else {
-            error("verify");
+            throw new VerifyAssertionException(lexeme, this.lexeme);
         }
     }
 

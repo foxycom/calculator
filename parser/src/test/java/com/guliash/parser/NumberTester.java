@@ -1,7 +1,8 @@
 package com.guliash.parser;
 
-import com.guliash.parser.exceptions.ArithmeticParserException;
+import com.guliash.parser.stemmer.InvalidNumberException;
 import com.guliash.parser.stemmer.StemmerBadSymbolException;
+import com.guliash.parser.stemmer.VerifyAssertionException;
 
 import org.junit.Test;
 
@@ -23,12 +24,12 @@ public class NumberTester extends BaseParserTester {
         assertEquals(1e9, calculate("1e9"), EPS);
     }
 
-    @Test(expected = ArithmeticParserException.class)
+    @Test(expected = InvalidNumberException.class)
     public void numberTest4() {
         calculate("1e++9");
     }
 
-    @Test(expected = ArithmeticParserException.class)
+    @Test(expected = InvalidNumberException.class)
     public void numberTest5() {
         calculate("1e--9");
     }
@@ -53,7 +54,7 @@ public class NumberTester extends BaseParserTester {
         calculate("2e-2.");
     }
 
-    @Test(expected = ArithmeticParserException.class)
+    @Test(expected = VerifyAssertionException.class)
     public void numberTest10() {
         calculate("2e-2e2");
     }
