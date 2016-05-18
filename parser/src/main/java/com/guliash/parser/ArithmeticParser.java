@@ -1,8 +1,12 @@
 package com.guliash.parser;
 
-import com.guliash.parser.Stemmer.Lexeme;
+import com.guliash.parser.exceptions.VariableNotFoundException;
+import com.guliash.parser.exceptions.WordNotFoundException;
+import com.guliash.parser.stemmer.Stemmer;
+import com.guliash.parser.stemmer.Stemmer.Lexeme;
 import com.guliash.parser.evaluator.Evaluator;
 import com.guliash.parser.exceptions.ArithmeticParserException;
+import com.guliash.parser.stemmer.VerifyAssertionException;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -37,7 +41,7 @@ public class ArithmeticParser {
         stemmer.start();
         double res = expression();
         if(stemmer.getLexeme() != Lexeme.END_OF_LINE) {
-            error();
+            throw  new VerifyAssertionException(Lexeme.END_OF_LINE, stemmer.getLexeme());
         }
         return res;
     }
@@ -107,15 +111,15 @@ public class ArithmeticParser {
                 if (variable != null) {
                    return variable.value;
                 } else {
-                    error(String.format("Can't find variable %s", temp));
+                    throw new VariableNotFoundException(temp);
                 }
             } else {
-                error(String.format("Can't find nor variable nor function with %s name", temp));
+                throw new WordNotFoundException(temp);
             }
         } else {
-            error();
+            //TODO?
+            throw new ArithmeticParserException("error");
         }
-        return 0.0;
     }
 
     public List<Double> readFunctionArgs() {
@@ -126,7 +130,7 @@ public class ArithmeticParser {
             if(stemmer.getLexeme() == Lexeme.COMMA) {
                 stemmer.readLexeme();
             } else if(stemmer.getLexeme() != Lexeme.CLOSE_BRACKET) {
-                error();
+                throw new VerifyAssertionException(Lexeme.CLOSE_BRACKET, stemmer.getLexeme());
             }
         }
         stemmer.verifyAndRead(Lexeme.CLOSE_BRACKET);
@@ -144,14 +148,6 @@ public class ArithmeticParser {
             }
         }
         return null;
-    }
-
-    private void error() {
-        throw new ArithmeticParserException("error");
-    }
-
-    private void error(String message) {
-        throw new ArithmeticParserException(message);
     }
 
 }

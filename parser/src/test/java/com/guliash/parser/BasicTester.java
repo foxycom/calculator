@@ -1,6 +1,8 @@
 package com.guliash.parser;
 
 import com.guliash.parser.exceptions.ArithmeticParserException;
+import com.guliash.parser.stemmer.StemmerBadSymbolException;
+import com.guliash.parser.stemmer.VerifyAssertionException;
 
 import org.junit.Test;
 
@@ -45,12 +47,12 @@ public class BasicTester extends BaseParserTester {
         calculate("))((");
     }
 
-    @Test(expected = ArithmeticParserException.class)
+    @Test(expected = VerifyAssertionException.class)
     public void badBracket4() {
         calculate("((4)*(2)*3");
     }
 
-    @Test(expected = ArithmeticParserException.class)
+    @Test(expected = StemmerBadSymbolException.class)
     public void badBracket5() {
         calculate("(([]))");
     }
@@ -60,7 +62,7 @@ public class BasicTester extends BaseParserTester {
         calculate("((()))((()))(()()()");
     }
 
-    @Test(expected = ArithmeticParserException.class)
+    @Test(expected = RuntimeException.class)
     public void badBracket7() {
         calculate("(1)(2)");
     }
@@ -100,12 +102,12 @@ public class BasicTester extends BaseParserTester {
                 calculate("1 +         2 + 3 *    4 *  (  2  + 3)"), EPS);
     }
 
-    @Test(expected = ArithmeticParserException.class)
+    @Test(expected = RuntimeException.class)
     public void spacesTest2() {
         calculate("1e43 434434");
     }
 
-    @Test(expected = ArithmeticParserException.class)
+    @Test(expected = RuntimeException.class)
     public void spacesTest3() {
         calculate("1. 2323");
     }

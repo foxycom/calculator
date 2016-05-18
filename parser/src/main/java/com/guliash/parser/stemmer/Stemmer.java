@@ -1,6 +1,6 @@
-package com.guliash.parser;
+package com.guliash.parser.stemmer;
 
-import com.guliash.parser.exceptions.ArithmeticParserException;
+import com.guliash.parser.Verify;
 
 public class Stemmer {
 
@@ -11,7 +11,7 @@ public class Stemmer {
     private String word;
     private double number;
 
-    enum Lexeme {
+    public enum Lexeme {
         NUMBER,
         DIVISION,
         MULTIPLICATION,
@@ -79,13 +79,13 @@ public class Stemmer {
         } else if(ch == '\n') {
             lexeme = Lexeme.END_OF_LINE;
         } else {
-            error();
+            throw new StemmerBadSymbolException(pos - 1, ch);
         }
     }
 
     private void number() {
         if(!Character.isDigit(ch)) {
-            error();
+            throw new InvalidNumberException(pos - 1);
         }
         double res = 0;
         while(Character.isDigit(ch)) {
@@ -112,7 +112,7 @@ public class Stemmer {
 
     private double exponent() {
         if(ch != 'e' && ch != 'E') {
-            error();
+            throw new InvalidNumberException(pos - 1);
         }
         readChar();
         double m = 10;
@@ -125,10 +125,10 @@ public class Stemmer {
             m = 10;
             readChar();
         } else if(!Character.isDigit(ch)) {
-            error();
+            throw new InvalidNumberException(pos - 1);
         }
         if(!Character.isDigit(ch)) {
-            error();
+            throw new InvalidNumberException(pos - 1);
         }
         while(Character.isDigit(ch)) {
             pow2 *= 10;
@@ -143,7 +143,7 @@ public class Stemmer {
         if(this.lexeme == lexeme) {
             readLexeme();
         } else {
-            error("verify");
+            throw new VerifyAssertionException(lexeme, this.lexeme);
         }
     }
 
@@ -157,14 +157,6 @@ public class Stemmer {
 
     public double getNumber() {
         return number;
-    }
-
-    private void error() {
-        throw new ArithmeticParserException("error");
-    }
-
-    private void error(String message) {
-        throw new ArithmeticParserException(message);
     }
 
 }

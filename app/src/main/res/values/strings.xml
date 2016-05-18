@@ -124,4 +124,12 @@
     <string name="variable_name_clashes_constant">Variable name \"%s\" clashes with constant name.</string>
     <!--WARNINGS-->
 
+    <!--ERRORS-->
+    <string name="cyclic_variables">Cyclic dependency found for variables %1$s and %2$s</string>
+    <string name="variable_not_found">Variable %1$s was not found</string>
+    <string name="word_not_found">No word %1$s was found</string>
+    <string name="bad_expression">Bad expression</string>
+    <string name="invalid_number">Invalid number</string>
+    <!--ERRORS-->
+
 </resources>
