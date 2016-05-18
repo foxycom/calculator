@@ -1,6 +1,7 @@
 package com.guliash.parser;
 
 import com.guliash.parser.exceptions.ArithmeticParserException;
+import com.guliash.parser.stemmer.StemmerBadSymbolException;
 
 import org.junit.Test;
 
@@ -50,7 +51,7 @@ public class BasicTester extends BaseParserTester {
         calculate("((4)*(2)*3");
     }
 
-    @Test(expected = ArithmeticParserException.class)
+    @Test(expected = StemmerBadSymbolException.class)
     public void badBracket5() {
         calculate("(([]))");
     }

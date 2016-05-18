@@ -1,7 +1,8 @@
 package com.guliash.parser;
 
 import com.guliash.parser.evaluator.Evaluator;
-import com.guliash.parser.exceptions.CyclicVariablesDependency;
+import com.guliash.parser.exceptions.CyclicVariablesDependencyException;
+import com.guliash.parser.stemmer.Stemmer;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -10,7 +11,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import static com.guliash.parser.Stemmer.Lexeme;
+import static com.guliash.parser.stemmer.Stemmer.Lexeme;
 
 public class VariablesResolver {
 
@@ -66,8 +67,7 @@ public class VariablesResolver {
         for(StringVariable adjVar : graph.get(current)) {
             State state = stateMap.get(adjVar);
             if(state == State.ACTIVE) {
-                throw new CyclicVariablesDependency(String.format(
-                        "Cyclic dependency found for variables %s and %s", current.name, adjVar.name));
+                throw new CyclicVariablesDependencyException(current.name, adjVar.name);
             }
             if(state == State.NOT_VISITED) {
                 dfs(graph, adjVar, stateMap, topologicallySortedList);

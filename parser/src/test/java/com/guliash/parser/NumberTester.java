@@ -1,6 +1,7 @@
 package com.guliash.parser;
 
 import com.guliash.parser.exceptions.ArithmeticParserException;
+import com.guliash.parser.stemmer.StemmerBadSymbolException;
 
 import org.junit.Test;
 
@@ -47,7 +48,7 @@ public class NumberTester extends BaseParserTester {
         assertEquals(0.02, calculate("2e-2"), EPS);
     }
 
-    @Test(expected = ArithmeticParserException.class)
+    @Test(expected = StemmerBadSymbolException.class)
     public void numberTest9() {
         calculate("2e-2.");
     }

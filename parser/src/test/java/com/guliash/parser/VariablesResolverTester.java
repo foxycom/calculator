@@ -2,7 +2,7 @@ package com.guliash.parser;
 
 import com.guliash.parser.evaluator.Evaluator;
 import com.guliash.parser.evaluator.JavaEvaluator;
-import com.guliash.parser.exceptions.CyclicVariablesDependency;
+import com.guliash.parser.exceptions.CyclicVariablesDependencyException;
 
 import org.junit.Test;
 
@@ -87,7 +87,7 @@ public class VariablesResolverTester {
         assertEquals(need, resolver.findDependencies(x));
     }
 
-    @Test(expected = CyclicVariablesDependency.class)
+    @Test(expected = CyclicVariablesDependencyException.class)
     public void checkThatCycleIsDetected() {
         List<StringVariable> variables = new ArrayList<>();
         Evaluator evaluator = new JavaEvaluator(Angle.RAD);
@@ -124,7 +124,7 @@ public class VariablesResolverTester {
         new VariablesResolver(variables, evaluator).resolveDependencies();
     }
 
-    @Test(expected = CyclicVariablesDependency.class)
+    @Test(expected = CyclicVariablesDependencyException.class)
     public void willFailOnLoop() {
         List<StringVariable> variables = new ArrayList<>();
         Evaluator evaluator = new JavaEvaluator(Angle.RAD);
