@@ -219,9 +219,4 @@ public class VariablesTester extends BaseParserTester {
                 EPS);
     }
 
-    @Test
-    public void test() {
-        assertEquals(0, 1);
-    }
-
 }
