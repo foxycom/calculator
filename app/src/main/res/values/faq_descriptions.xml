@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="faq_functions_desc">
+        The calculator has many math functions. For example sin, cos, abs, log and etc..
+        \nThe format of a functions is - \'function_name(arg1, arg2, &#8230;, arg_n)\'.
+        \nYou can use any of the functions listed below. A wrong name or a wrong number of parameters will throw an error.
+        \nThe calculator is case-sensitive, so \'SiN\' and \'sin\' are actually different words (the latter is a function, but the former is not)
+    </string>
+    <string name="faq_variables_desc"></string>
+    <string name="faq_numbers_desc"></string>
+    <string name="faq_constants_desc"></string>
+
+</resources>

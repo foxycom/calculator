@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <array name="faq_functions_examples">
+        <item>
+            sin(x) - the sine of x
+            \nExample: \'sin(45)\'
+        </item>
+        <item>
+            cos(x) - the cosine of x
+            \nExample: \'cos(45)\'
+        </item>
+        <item>
+            tan(x) - the tangent of x
+            \nExample: \'tan(45)\'
+        </item>
+        <item>
+            cot(x) - the cotangent of x
+            \nExample: \'cot(45)\'
+        </item>
+        <item>
+            asin(x) - the arc sine of x
+            \nThe result is in the range -pi/2&#8230;pi/2(or -90...90, depends on the mode)
+            \nExample: \'asin(0.5)\'
+        </item>
+        <item>
+            acos(x) - the arc cosine of x
+            \nThe result is in the range 0...pi(or 0...180, depends on the mode)
+            \nExample: \'acos(0.5)\'
+        </item>
+        <item>atan(x) - the arc tangent of x
+            \nthe result is in the range -pi/2...pi/2(or -90...90, depends on the mode)
+            \nExample: \'atan(33)\'
+        </item>
+        <item>
+            acot(x) - the arc cotangent of x
+            \nthe result is in the range 0...pi(or 0...180, depends on the mode)
+            \nExample: \'acot(33)\'
+        </item>
+        <item>
+            sinh(x) - the hyperbolic sine of x
+            \nExample: \'sinh(25)\'
+        </item>
+        <item>
+            cosh(x) - the hyperbolic cosine of x
+            \nExample: \'cosh(25)\'
+        </item>
+        <item>
+            tanh(x) - the hyperbolic tangent of x
+            \nExample: \'tanh(32)\'
+        </item>
+        <item>
+            coth(x) - the hyperbolic cotangent of x
+            \nExample: \'coth(32)\'
+        </item>
+    </array>
+    <array name="faq_variables_examples"></array>
+    <array name="faq_numbers_examples"></array>
+    <array name="faq_constants_examples"></array>
+</resources>

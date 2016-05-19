@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="faq_functions_name">Functions</string>
+    <string name="faq_variables_name">Variables</string>
+    <string name="faq_numbers_name">Numbers</string>
+    <string name="faq_constants_name">Constants</string>
+</resources>
