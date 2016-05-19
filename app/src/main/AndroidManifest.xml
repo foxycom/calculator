@@ -10,9 +10,9 @@
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:theme="@style/AppTheme"
-        android:name="com.guliash.calculator.CalculatorApplication">
+        android:name=".CalculatorApplication">
         <activity
-            android:name="com.guliash.calculator.MainActivity"
+            android:name=".MainActivity"
             android:label="@string/app_name"
             android:windowSoftInputMode="stateAlwaysHidden|adjustPan">
             <intent-filter>
@@ -22,17 +22,15 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="com.guliash.calculator.SaveActivity"
-            android:label="@string/title_activity_save" >
-        </activity>
+            android:name=".SaveActivity"
+            android:label="@string/title_activity_save" />
         <activity
-            android:name="com.guliash.calculator.OpenActivity"
-            android:label="@string/title_activity_open" >
-        </activity>
+            android:name=".OpenActivity"
+            android:label="@string/title_activity_open" />
         <activity
-            android:name="com.guliash.calculator.HelpActivity"
-            android:label="@string/title_activity_help" >
-        </activity>
+            android:name=".HelpActivity"
+            android:label="@string/title_activity_help" />
+        <activity android:name=".DescriptionActivity"/>
     </application>
 
 </manifest>
