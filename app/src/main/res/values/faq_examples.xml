@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <array name="faq_functions_examples">
+        <!--TRIGONOMETRIC-->
         <item>
             sin(x) - the sine of x
             \nExample: \'sin(45)\'
@@ -19,21 +20,22 @@
         </item>
         <item>
             asin(x) - the arc sine of x
-            \nThe result is in the range -pi/2&#8230;pi/2(or -90...90, depends on the mode)
+            \nThe result is in the interval [-pi/2,pi/2](or [-90,90], depends on the mode)
             \nExample: \'asin(0.5)\'
         </item>
         <item>
             acos(x) - the arc cosine of x
-            \nThe result is in the range 0...pi(or 0...180, depends on the mode)
+            \nThe result is in the interval [0,pi](or [0,180], depends on the mode)
             \nExample: \'acos(0.5)\'
         </item>
-        <item>atan(x) - the arc tangent of x
-            \nthe result is in the range -pi/2...pi/2(or -90...90, depends on the mode)
+        <item>
+            atan(x) - the arc tangent of x
+            \nThe result is in the interval (-pi/2,pi/2)(or (-90,90), depends on the mode)
             \nExample: \'atan(33)\'
         </item>
         <item>
             acot(x) - the arc cotangent of x
-            \nthe result is in the range 0...pi(or 0...180, depends on the mode)
+            \nThe result is in the interval (0,pi)(or (0,180), depends on the mode)
             \nExample: \'acot(33)\'
         </item>
         <item>
@@ -52,8 +54,124 @@
             coth(x) - the hyperbolic cotangent of x
             \nExample: \'coth(32)\'
         </item>
+        <!--TRIGONOMETRIC-->
+
+        <!--POW-->
+        <item>
+            pow(x, y) - x raised to the power of y
+            \nExample: \'pow(3, 2)\'
+        </item>
+        <item>
+            sqrt(x) - positive square root of x
+            \nExample: \'sqrt(2)\'
+        </item>
+        <item>
+            exp(x) - e raised to the power of x
+            \nExample: \'exp(2)\'
+        </item>
+        <!--POW-->
+
+        <!--LOG-->
+        <item>
+            log(x, y) - the base x logarithm of y
+            \nExample: \'log(3, 9)\'
+        </item>
+        <item>
+            ln(x) - the natural logarithm of x
+            \nExample: \'ln(5)\'
+        </item>
+        <item>
+            log10(x) - the base 10 logarithm of x
+            \nExample: \'log10(5)\'
+        </item>
+        <!--LOG-->
+
+        <!--MATH-->
+        <item>
+            abs(x) - the absolute value of x
+            \nExample: \'abs(-2)\'
+        </item>
+        <item>
+            floor(x) - the largest integer which is less than or equal to x
+            \nExample: \'floor(23.3)\'
+        </item>
+        <item>
+            ceil(x) - the smallest integer which is more than or equal to x
+            \nExample: \'ceil(23.3)\'
+        </item>
+        <item>
+            min(x, y) - the smallest of x and y
+            \nExample: \'min(3, 4)\'
+        </item>
+        <item>
+            max(x, y) - the largest of x and y
+            \nExample: \'max(5, 6)\'
+        </item>
+        <item>
+            random() - a random number greater than or equal to 0 and less than 1
+            \nExample: \'random()\'
+        </item>
+        <item>
+            round(x) - the closest integer to x
+            \nExample: \'round(5.5)\'
+        </item>
+        <item>
+            signum(x) - 0 if x = 0; 1 if x greater than 0; -1 if x less than 0
+            \nExample: \'signum(-2)\'
+        </item>
+        <item>
+            fact(x) - the factorial of x where x is a non-negative integer
+            \nExample: \'fact(5)\'
+        </item>
+        <item>
+            mod(x, y) - x mod y; the result is always positive
+            \nExample: \'mod(7, 5)\'
+        </item>
+        <!--MATH-->
     </array>
-    <array name="faq_variables_examples"></array>
-    <array name="faq_numbers_examples"></array>
-    <array name="faq_constants_examples"></array>
+    <array name="faq_variables_examples">
+        <item>
+            x = 2;
+            \ny = sin(3 * cos(25) * min(3, 2))
+            \nz = x + y
+            \nd = x * z
+        </item>
+        <item>
+            mass = 35
+            \nspeed = 3e8
+            \nenergy = mass * pow(speed, 2)
+        </item>
+        <item>
+            gravity = 6.674e-11
+            \nm1 = 25
+            \nm2 = 35
+            \ndist = 1000
+            \nforce = gravity * m1 * m2 / pow(dist, 2)
+        </item>
+    </array>
+    <array name="faq_numbers_examples">
+        <item>
+            \'1.5\'
+        </item>
+        <item>
+            \'10.25e-3\'
+        </item>
+        <item>
+            \'10.25e10\'
+        </item>
+        <item>
+            \'10e+3\'
+        </item>
+        <item>
+            \'32.0051\'
+        </item>
+    </array>
+    <array name="faq_constants_examples">
+        <item>
+            pow(pi, 2)
+        </item>
+        <item>
+            exp(e)
+        </item>
+    </array>
 </resources>
