@@ -6,6 +6,9 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
+import com.guliash.calculator.structures.CalculatorDataset;
+import com.guliash.calculator.structures.StringVariableWrapper;
+
 import java.util.ArrayList;
 import java.util.List;
 

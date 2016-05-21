@@ -1,4 +1,4 @@
-package com.guliash.calculator;
+package com.guliash.calculator.ui.activities;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -9,22 +9,26 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 
+import com.guliash.calculator.Constants;
+import com.guliash.calculator.DBHelper;
+import com.guliash.calculator.ui.adapters.DatasetsAdapterCV;
+import com.guliash.calculator.R;
+import com.guliash.calculator.structures.CalculatorDataset;
+
 import java.util.ArrayList;
 
 public class OpenActivity extends AppCompatActivity implements DatasetsAdapterCV.Callbacks {
 
-    private Toolbar toolbar;
     private ArrayList<CalculatorDataset> mDatasets;
     private DBHelper mDbHelper;
     private RecyclerView mRecyclerView;
-    private RecyclerView.LayoutManager mLayoutManager;
     private DatasetsAdapterCV mAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_open);
-        toolbar = (Toolbar) findViewById(R.id.toolbar);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         toolbar.setNavigationIcon(R.drawable.back_button);
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
@@ -33,10 +37,11 @@ public class OpenActivity extends AppCompatActivity implements DatasetsAdapterCV
                 onBackPressed();
             }
         });
+
         mDbHelper = new DBHelper(this);
+
         mRecyclerView = (RecyclerView)findViewById(R.id.rv);
-        mLayoutManager = new LinearLayoutManager(this);
-        mRecyclerView.setLayoutManager(mLayoutManager);
+        mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
     }
 
     @Override

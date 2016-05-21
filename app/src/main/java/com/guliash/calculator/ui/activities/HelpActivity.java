@@ -1,4 +1,4 @@
-package com.guliash.calculator;
+package com.guliash.calculator.ui.activities;
 
 import android.content.Intent;
 import android.content.res.Resources;
@@ -11,6 +11,9 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+
+import com.guliash.calculator.R;
+import com.guliash.calculator.structures.Topic;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -25,6 +28,7 @@ public class HelpActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_help);
+
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         toolbar.setNavigationIcon(R.drawable.back_button);
@@ -34,15 +38,21 @@ public class HelpActivity extends AppCompatActivity {
                 onBackPressed();
             }
         });
+
         mTopics = getTopics();
         mTopicsList = (ListView) findViewById(R.id.topics_list);
-        mTopicsList.setAdapter(new ArrayAdapter<>(this, R.layout.topic_item, mTopics));
         mTopicsList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                itemClicked(mTopics.get(position));
             }
         });
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        mTopicsList.setAdapter(new ArrayAdapter<>(this, R.layout.topic_item, mTopics));
     }
 
     private ArrayList<Topic> getTopics() {

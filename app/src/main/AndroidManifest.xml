@@ -12,7 +12,7 @@
         android:theme="@style/AppTheme"
         android:name=".CalculatorApplication">
         <activity
-            android:name=".MainActivity"
+            android:name=".ui.activities.MainActivity"
             android:label="@string/app_name"
             android:windowSoftInputMode="stateAlwaysHidden|adjustPan">
             <intent-filter>
@@ -22,15 +22,15 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".SaveActivity"
+            android:name=".ui.activities.SaveActivity"
             android:label="@string/title_activity_save" />
         <activity
-            android:name=".OpenActivity"
+            android:name=".ui.activities.OpenActivity"
             android:label="@string/title_activity_open" />
         <activity
-            android:name=".HelpActivity"
+            android:name=".ui.activities.HelpActivity"
             android:label="@string/title_activity_help" />
-        <activity android:name=".DescriptionActivity"/>
+        <activity android:name=".ui.activities.DescriptionActivity"/>
     </application>
 
 </manifest>

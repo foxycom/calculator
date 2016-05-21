@@ -1,4 +1,4 @@
-package com.guliash.calculator;
+package com.guliash.calculator.structures;
 
 import android.os.Parcel;
 import android.os.Parcelable;
