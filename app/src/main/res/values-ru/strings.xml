@@ -3,7 +3,10 @@
 
     <string name="app_name">Калькулятор</string>
 
-    <string name="error">ОШИБКА</string>
+    <string name="deg">Градусы</string>
+    <string name="rad">Радианы</string>
+    <string name="grad">Грады</string>
+
     <string name="add_variable">Добавить переменную</string>
     <string name="variable_name">Имя</string>
     <string name="variable_value">Значение</string>
@@ -13,6 +16,7 @@
     <string name="help">Помощь</string>
     <string name="open">Открыть</string>
     <string name="settings">Настройки</string>
+    <string name="description">Описание</string>
 
     <string name="action_settings">Настройки</string>
     <string name="title_activity_open">Открыть</string>
@@ -26,8 +30,6 @@
     <string name="use">Выбрать</string>
     <string name="edit">Редактировать</string>
     <string name="expression">Выражение</string>
-    <string name="angle_cap">Углы</string>
-    <string name="variables_cap">ПЕРЕМЕННЫЕ</string>
 
     <string name="variables">Переменные</string>
 
@@ -38,6 +40,14 @@
     <string name="variable_name_clashes_constant">Имя переменной \"%s\" совпадает с именем константы.</string>
     <string name="variables_names_not_unique">Имена переменных не различны</string>
     <!-- WARNINGS -->
+
+    <!--ERRORS-->
+    <string name="cyclic_variables">Циклическая зависимость между переменными %1$s и %2$s</string>
+    <string name="variable_not_found">Переменная %1$s не найдена</string>
+    <string name="word_not_found">Не найдено слово %1$s</string>
+    <string name="bad_expression">Неправильное выражение</string>
+    <string name="invalid_number">Некорректное число</string>
+    <!--ERRORS-->
 
     <!--DESC-->
     <string name="desc">Описание:</string>
