@@ -35,4 +35,9 @@
     <string name="expression_is_empty">Введите выражение</string>
     <string name="variable_name_not_correct">Имя переменной \"%s\" неверное. Загляните в справку чтобы увидеть формат имени.</string>
     <string name="variable_name_clashes_constant">Имя переменной \"%s\" совпадает с именем константы.</string>
+
+    <!--DESC-->
+    <string name="desc">Описание:</string>
+    <string name="examples">Примеры:</string>
+    <!--DESC-->
 </resources>

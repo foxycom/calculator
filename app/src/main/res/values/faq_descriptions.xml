@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="faq_functions_desc">
+        The calculator has many math functions. For example sin, cos, abs, log and etc..
+        \nThe format of a functions is - \'function_name(arg1, arg2, &#8230;, arg_n)\'.
+        \nYou can use any of the functions listed below. If either name or number of arguments is wrong an error message will be shown.
+        \nThe calculator is case-sensitive, so \'SiN\' and \'sin\' are actually different words (the latter is a function, but the former is not)
+        \nYou can combine functions, for example, \'sin(cos(pow(3, 2) + abs(-3)))\'.
+    </string>
+    <string name="faq_variables_desc">
+        You can define variables. A variable has name and value.
+        \nA variable name can consist of digits, letters, $ and _. The first letter must not be digit.
+        \nA variable value can be any correct expression, for example \'sin(2.5)\'.
+        \nA variable value can contain other variables, for example \'x = y + z\'.
+        \nThere must not be a cyclic dependency between variables, for example \'x = y; y = x;\' otherwise error message will be shown.
+    </string>
+    <string name="faq_numbers_desc">
+        You can use any real numbers. The decimal point is used as the separator.
+        \nNumber has one or more digits, may contain a decimal point, may contain scientific notation.
+        \nScientific notation is written using \'E\' or \'e\' and an integer after, for example
+        10e3 = 10 * 1000 or 10e-3 = 10 * 0.001
+    </string>
+    <string name="faq_constants_desc">
+        The calculator contains \'pi\' and \'e\' constants. \'pi\' is the ratio of a circle\'s circumference to its diameter.
+        \'e\' is the base of the natural logarithm.
+    </string>
+
+</resources>

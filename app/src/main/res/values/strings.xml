@@ -132,4 +132,8 @@
     <string name="invalid_number">Invalid number</string>
     <!--ERRORS-->
 
+    <!--DESC-->
+    <string name="desc">Description:</string>
+    <string name="examples">Examples:</string>
+    <!--DESC-->
 </resources>

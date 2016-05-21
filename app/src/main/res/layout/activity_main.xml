@@ -11,6 +11,8 @@
         class="com.guliash.calculator.CalculatorFragment"
         android:id="@+id/calculator_fragment"
         android:layout_width="match_parent"
+        android:layout_marginLeft="@dimen/activity_horizontal_margin"
+        android:layout_marginRight="@dimen/activity_horizontal_margin"
         android:layout_height="0dp"
         android:layout_weight="1"/>
 </LinearLayout>

@@ -6,4 +6,23 @@
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="android:windowBackground">@color/windowBackground</item>
     </style>
+
+    <style name="TextLargePrimary" parent="TextAppearance.AppCompat.Large">
+        <item name="android:textColor">@color/text_primary</item>
+    </style>
+
+    <style name="TextMediumPrimary" parent="TextAppearance.AppCompat.Medium">
+        <item name="android:textColor">@color/text_primary</item>
+    </style>
+    <style name="TextSmallPrimary" parent="TextAppearance.AppCompat.Small">
+        <item name="android:textColor">@color/text_primary</item>
+    </style>
+
+    <style name="TextMediumSecondary" parent="TextAppearance.AppCompat.Medium">
+        <item name="android:textColor">@color/text_secondary</item>
+    </style>
+    <style name="TextSmallSecondary" parent="TextAppearance.AppCompat.Small">
+        <item name="android:textColor">@color/text_secondary</item>
+    </style>
+
 </resources>

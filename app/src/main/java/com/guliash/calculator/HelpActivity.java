@@ -1,44 +1,31 @@
 package com.guliash.calculator;
 
+import android.content.Intent;
 import android.content.res.Resources;
 import android.content.res.TypedArray;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
 
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
+import java.util.Arrays;
+import java.util.List;
 
 public class HelpActivity extends AppCompatActivity {
 
-    private Toolbar toolbar;
-    private RecyclerView mRecyclerView;
-    private FunctionsAdapter mAdapter;
-    private RecyclerView.LayoutManager mLayoutManager;
-    public static class Function {
-        public String name, description;
-        public Function(String name, String description) {
-            this.name = name;
-            this.description = description;
-        }
-
-        @Override
-        public String toString() {
-            return name + " = " + description;
-        }
-    }
+    private ListView mTopicsList;
+    private List<Topic> mTopics;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_help);
-        toolbar = (Toolbar) findViewById(R.id.toolbar); // Attaching the layout to the toolbar object
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         toolbar.setNavigationIcon(R.drawable.back_button);
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
@@ -47,28 +34,33 @@ public class HelpActivity extends AppCompatActivity {
                 onBackPressed();
             }
         });
-        mRecyclerView = (RecyclerView)findViewById(R.id.rv);
-        mAdapter = new FunctionsAdapter(getFunctions());
-        mLayoutManager = new LinearLayoutManager(this);
-        mRecyclerView.setLayoutManager(mLayoutManager);
-        mRecyclerView.setAdapter(mAdapter);
-    }
-
-    private ArrayList<Function> getFunctions() {
-        Resources res = getResources();
-        TypedArray functionsNames = res.obtainTypedArray(R.array.functions);
-        TypedArray descriptions = res.obtainTypedArray(R.array.description);
-        ArrayList<Function> functions = new ArrayList<>();
-        for(int i = 0; i < functionsNames.length(); i++) {
-            functions.add(new Function(functionsNames.getString(i), descriptions.getString(i)));
-        }
-        Collections.sort(functions, new Comparator<Function>() {
+        mTopics = getTopics();
+        mTopicsList = (ListView) findViewById(R.id.topics_list);
+        mTopicsList.setAdapter(new ArrayAdapter<>(this, R.layout.topic_item, mTopics));
+        mTopicsList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
-            public int compare(Function lhs, Function rhs) {
-                return lhs.name.compareTo(rhs.name);
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+               itemClicked(mTopics.get(position));
             }
         });
-        return functions;
+    }
+
+    private ArrayList<Topic> getTopics() {
+        Resources res = getResources();
+        TypedArray names = res.obtainTypedArray(R.array.names);
+        TypedArray descriptions = res.obtainTypedArray(R.array.descriptions);
+        TypedArray examples = res.obtainTypedArray(R.array.examples);
+        ArrayList<Topic> topics = new ArrayList<>();
+        int n = names.length();
+        for(int i = 0; i < n; i++) {
+            int id = examples.getResourceId(i, 0);
+            topics.add(new Topic(names.getString(i), descriptions.getString(i),
+                    new ArrayList<>(Arrays.asList(res.getStringArray(id)))));
+        }
+        names.recycle();
+        descriptions.recycle();
+        examples.recycle();
+        return topics;
     }
 
     @Override
@@ -78,15 +70,9 @@ public class HelpActivity extends AppCompatActivity {
         return true;
     }
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-
-        return super.onOptionsItemSelected(item);
+    private void itemClicked(Topic topic) {
+        Intent intent = new Intent(this, DescriptionActivity.class);
+        intent.putExtra(DescriptionActivity.TOPIC, topic);
+        startActivity(intent);
     }
 }

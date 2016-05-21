@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <array name="names">
+        <item>@string/faq_functions_name</item>
+        <item>@string/faq_variables_name</item>
+        <item>@string/faq_numbers_name</item>
+        <item>@string/faq_constants_name</item>
+    </array>
+    <array name="descriptions">
+        <item>@string/faq_functions_desc</item>
+        <item>@string/faq_variables_desc</item>
+        <item>@string/faq_numbers_desc</item>
+        <item>@string/faq_constants_desc</item>
+    </array>
+    <array name="examples">
+        <item>@array/faq_functions_examples</item>
+        <item>@array/faq_variables_examples</item>
+        <item>@array/faq_numbers_examples</item>
+        <item>@array/faq_constants_examples</item>
+    </array>
+</resources>

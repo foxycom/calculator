@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="faq_functions_name">Функции</string>
+    <string name="faq_variables_name">Переменные</string>
+    <string name="faq_numbers_name">Числа</string>
+    <string name="faq_constants_name">Константы</string>
+</resources>

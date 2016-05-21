@@ -9,8 +9,6 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:paddingBottom="@dimen/activity_vertical_margin"
-        android:paddingLeft="8dp"
-        android:paddingRight="8dp"
         android:paddingTop="@dimen/activity_vertical_margin">
 
         <LinearLayout
@@ -21,11 +19,10 @@
                 android:id="@+id/input_field"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:hint="@string/expression"
                 android:layout_weight="1"
                 android:maxLines="3"
-                android:inputType="textNoSuggestions"
-                android:paddingLeft="@dimen/smallPadding"
-                android:paddingRight="@dimen/smallPadding" />
+                android:inputType="textNoSuggestions" />
 
             <ImageView
                 android:id="@+id/backspace"
@@ -46,8 +43,6 @@
                 android:layout_weight="1"
                 android:hint="@string/result"
                 android:layout_gravity="center_vertical"
-                android:paddingLeft="@dimen/smallPadding"
-                android:paddingRight="@dimen/smallPadding"
                 android:textIsSelectable="true" />
             <ImageView
                 android:id="@+id/equals_image_button"
@@ -67,8 +62,7 @@
             android:layout_height="0dp"
             android:layout_weight="1"
             android:id="@+id/variables_rv"
-            android:scrollbars="vertical">
-        </android.support.v7.widget.RecyclerView>
+            android:scrollbars="vertical"/>
         <Button
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
