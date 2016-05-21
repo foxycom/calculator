@@ -28,7 +28,7 @@ public class SaveActivity extends AppCompatActivity implements VariablesAdapterR
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_save);
-        toolbar = (Toolbar) findViewById(R.id.toolbar); // Attaching the layout to the toolbar object
+        toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         toolbar.setNavigationIcon(R.drawable.back_button);
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {

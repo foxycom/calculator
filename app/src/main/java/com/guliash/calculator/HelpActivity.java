@@ -5,27 +5,27 @@ import android.content.res.Resources;
 import android.content.res.TypedArray;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
-public class HelpActivity extends AppCompatActivity implements TopicsAdapter.Callbacks {
+public class HelpActivity extends AppCompatActivity {
 
-    private Toolbar toolbar;
-    private RecyclerView mRecyclerView;
-    private TopicsAdapter mAdapter;
-    private RecyclerView.LayoutManager mLayoutManager;
+    private ListView mTopicsList;
+    private List<Topic> mTopics;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_help);
-        toolbar = (Toolbar) findViewById(R.id.toolbar); // Attaching the layout to the toolbar object
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         toolbar.setNavigationIcon(R.drawable.back_button);
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
@@ -34,11 +34,15 @@ public class HelpActivity extends AppCompatActivity implements TopicsAdapter.Cal
                 onBackPressed();
             }
         });
-        mRecyclerView = (RecyclerView)findViewById(R.id.rv);
-        mAdapter = new TopicsAdapter(this, getTopics());
-        mLayoutManager = new LinearLayoutManager(this);
-        mRecyclerView.setLayoutManager(mLayoutManager);
-        mRecyclerView.setAdapter(mAdapter);
+        mTopics = getTopics();
+        mTopicsList = (ListView) findViewById(R.id.topics_list);
+        mTopicsList.setAdapter(new ArrayAdapter<>(this, R.layout.topic_item, mTopics));
+        mTopicsList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+               itemClicked(mTopics.get(position));
+            }
+        });
     }
 
     private ArrayList<Topic> getTopics() {
@@ -66,8 +70,7 @@ public class HelpActivity extends AppCompatActivity implements TopicsAdapter.Cal
         return true;
     }
 
-    @Override
-    public void itemClicked(Topic topic) {
+    private void itemClicked(Topic topic) {
         Intent intent = new Intent(this, DescriptionActivity.class);
         intent.putExtra(DescriptionActivity.TOPIC, topic);
         startActivity(intent);

@@ -4,15 +4,16 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.text.TextUtils;
 import android.view.View;
-import android.widget.ArrayAdapter;
-import android.widget.ListView;
 import android.widget.TextView;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class DescriptionActivity extends AppCompatActivity {
 
-    private TextView mDescText, mNameText;
-    private ListView mExamplesList;
+    private TextView mDescText, mNameText, mExamplesText;
 
     private Topic mTopic;
 
@@ -23,7 +24,7 @@ public class DescriptionActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_desc);
 
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar); // Attaching the layout to the toolbar object
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         toolbar.setNavigationIcon(R.drawable.back_button);
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
@@ -39,11 +40,19 @@ public class DescriptionActivity extends AppCompatActivity {
 
         mNameText = (TextView)findViewById(R.id.name);
         mDescText = (TextView)findViewById(R.id.desc);
-        mExamplesList = (ListView)findViewById(R.id.examples);
+        mExamplesText = (TextView) findViewById(R.id.examples);
 
         mNameText.setText(mTopic.name);
         mDescText.setText(mTopic.description);
-        mExamplesList.setAdapter(new ArrayAdapter<>(this, android.R.layout.simple_list_item_1,
-                mTopic.examples));
+        mExamplesText.setText(TextUtils.join("\n\n", transformExamples()));
     }
+
+    private List<String> transformExamples() {
+        List<String> examples = new ArrayList<>();
+        for(String example : mTopic.examples) {
+            examples.add("●  " + example);
+        }
+        return examples;
+    }
+
 }
