@@ -1,4 +1,4 @@
-package com.guliash.calculator;
+package com.guliash.calculator.ui.activities;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
@@ -13,22 +13,31 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.guliash.calculator.Constants;
+import com.guliash.calculator.DBHelper;
+import com.guliash.calculator.Helper;
+import com.guliash.calculator.R;
+import com.guliash.calculator.structures.CalculatorDataset;
+import com.guliash.calculator.structures.StringVariableWrapper;
+import com.guliash.calculator.ui.adapters.VariablesAdapterRemove;
+
 public class SaveActivity extends AppCompatActivity implements VariablesAdapterRemove.Callbacks {
 
-    private Toolbar toolbar;
-    private RecyclerView mVariablesRV;
-    private Button mAddButton, mSaveButton;
     private EditText mExpressionEditText, mDatasetNameEditText;
     private VariablesAdapterRemove mAdapter;
     private CalculatorDataset mDataset;
-    private RecyclerView.LayoutManager mLayoutManager;
     private DBHelper mDbHelper;
+    private RecyclerView mVariablesRV;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_save);
-        toolbar = (Toolbar) findViewById(R.id.toolbar);
+
+        Bundle args = (savedInstanceState != null ? savedInstanceState : getIntent().getExtras());
+        mDataset = args.getParcelable(Constants.DATASET);
+
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         toolbar.setNavigationIcon(R.drawable.back_button);
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
@@ -37,27 +46,30 @@ public class SaveActivity extends AppCompatActivity implements VariablesAdapterR
                 onBackPressed();
             }
         });
-        mVariablesRV = (RecyclerView)findViewById(R.id.variables_rv);
-        mAddButton = (Button)findViewById(R.id.add);
-        mSaveButton = (Button)findViewById(R.id.save);
+
+        Button addButton = (Button) findViewById(R.id.add);
+        Button saveButton = (Button) findViewById(R.id.save);
+        addButton.setOnClickListener(mAddVariableClickListener);
+        saveButton.setOnClickListener(mSaveClickListener);
+
         mExpressionEditText = (EditText)findViewById(R.id.expression);
         mDatasetNameEditText = (EditText)findViewById(R.id.dataset_name);
-        if(savedInstanceState != null) {
-            mDataset = savedInstanceState.getParcelable(Constants.DATASET);
-        } else {
-            Bundle bundle = getIntent().getExtras();
-            mDataset = bundle.getParcelable(Constants.DATASET);
-        }
-        mLayoutManager = new LinearLayoutManager(this);
-        mVariablesRV.setLayoutManager(mLayoutManager);
-        mAdapter = new VariablesAdapterRemove(mDataset.variables, this);
-        mVariablesRV.setAdapter(mAdapter);
+
+        mVariablesRV = (RecyclerView) findViewById(R.id.variables_rv);
+        mVariablesRV.setLayoutManager(new LinearLayoutManager(this));
+
+        mDbHelper = new DBHelper(this);
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+
         mExpressionEditText.setText(mDataset.expression);
         mDatasetNameEditText.setText(mDataset.datasetName);
-        mAddButton.setOnClickListener(mAddVariableClickListener);
-        mSaveButton.setOnClickListener(mSaveClickListener);
-        mDbHelper = new DBHelper(this);
 
+        mAdapter = new VariablesAdapterRemove(mDataset.variables, this);
+        mVariablesRV.setAdapter(mAdapter);
     }
 
     @Override

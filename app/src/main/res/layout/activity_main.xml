@@ -8,7 +8,7 @@
         android:id="@+id/toolbar">
     </include>
     <fragment
-        class="com.guliash.calculator.CalculatorFragment"
+        class="com.guliash.calculator.ui.fragments.CalculatorFragment"
         android:id="@+id/calculator_fragment"
         android:layout_width="match_parent"
         android:layout_marginLeft="@dimen/activity_horizontal_margin"

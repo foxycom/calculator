@@ -2,6 +2,8 @@ package com.guliash.calculator;
 
 import android.text.TextUtils;
 
+import com.guliash.calculator.structures.StringVariableWrapper;
+
 import java.text.DateFormat;
 import java.util.List;
 

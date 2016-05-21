@@ -1,4 +1,4 @@
-package com.guliash.calculator;
+package com.guliash.calculator.ui.fragments;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -14,6 +14,12 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.guliash.calculator.CalculatorApplication;
+import com.guliash.calculator.Constants;
+import com.guliash.calculator.R;
+import com.guliash.calculator.ui.adapters.VariablesAdapterRemoveUse;
+import com.guliash.calculator.structures.CalculatorDataset;
+import com.guliash.calculator.structures.StringVariableWrapper;
 import com.guliash.parser.ArithmeticParser;
 import com.guliash.parser.StringVariable;
 import com.guliash.parser.Verify;
