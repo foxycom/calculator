@@ -99,7 +99,7 @@
     <string name="title_activity_help">Help</string>
     <string name="title_activity_save">Save</string>
     <string name="data_name">Name</string>
-    <string name="unique_dataset_name_error">There is a dataset named \"%s\". Do you want update it?</string>
+    <string name="unique_dataset_name_error">There is a dataset named \"%1$s\". Do you want update it?</string>
     <string name="OK">OK</string>
     <string name="NO">NO</string>
     <string name="delete">Delete</string>
@@ -136,4 +136,15 @@
     <string name="desc">Description:</string>
     <string name="examples">Examples:</string>
     <!--DESC-->
+
+    <!--DIALOGS-->
+    <string name="dialog_error">Error</string>
+    <!--DIALOGS-->
+
+    <!--REVIEW-->
+    <string name="review_title">Review</string>
+    <string name="review_message">Please write a review. It will help to improve the app!</string>
+    <string name="review_positive">OK</string>
+    <string name="review_negative">NO</string>
+    <!--REVIEW-->
 </resources>

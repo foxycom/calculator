@@ -1,9 +1,8 @@
 package com.guliash.calculator.ui.activities;
 
-import android.app.AlertDialog;
-import android.content.DialogInterface;
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
@@ -20,14 +19,19 @@ import com.guliash.calculator.R;
 import com.guliash.calculator.structures.CalculatorDataset;
 import com.guliash.calculator.structures.StringVariableWrapper;
 import com.guliash.calculator.ui.adapters.VariablesAdapterRemove;
+import com.guliash.calculator.ui.fragments.AlertDialogFragment;
 
-public class SaveActivity extends AppCompatActivity implements VariablesAdapterRemove.Callbacks {
+public class SaveActivity extends BaseActivity implements VariablesAdapterRemove.Callbacks,
+        AlertDialogFragment.Callbacks {
 
     private EditText mExpressionEditText, mDatasetNameEditText;
     private VariablesAdapterRemove mAdapter;
     private CalculatorDataset mDataset;
     private DBHelper mDbHelper;
     private RecyclerView mVariablesRV;
+
+    private static final int DIALOG_REVIEW_ID = 1;
+    private static final int DIALOG_DATASET_UNIQUE = 2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -99,31 +103,16 @@ public class SaveActivity extends AppCompatActivity implements VariablesAdapterR
                 return;
             }
             if(mDbHelper.getIdOfRowWithName(mDataset.datasetName) != -1) {
-                AlertDialog.Builder builder = new AlertDialog.Builder(SaveActivity.this);
-                builder.setMessage(String.format(getString(R.string.unique_dataset_name_error),
-                        mDataset.datasetName));
-                builder.setCancelable(true);
-                builder.setPositiveButton(R.string.OK, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        dialog.dismiss();
-                        mDbHelper.updateData(mDataset);
-                        setResult(RESULT_OK);
-                        finish();
-                    }
-                });
-                builder.setNegativeButton(R.string.NO, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        dialog.dismiss();
-                    }
-                });
-                builder.show();
+                showAlertDialog(getString(R.string.dialog_error),
+                        getString(R.string.unique_dataset_name_error, mDataset.datasetName),
+                        getString(R.string.OK), getString(R.string.NO), null, true, DIALOG_DATASET_UNIQUE);
             } else {
                 mDataset.timestamp = Helper.getCurrentTimestamp();
                 mDbHelper.addDataset(mDataset);
                 setResult(RESULT_OK);
-                finish();
+                if(showReviewDialogIfNeed()) {
+                    finish();
+                }
             }
         }
     };
@@ -133,5 +122,70 @@ public class SaveActivity extends AppCompatActivity implements VariablesAdapterR
         mDataset.variables.remove(position);
         mAdapter.notifyItemRemoved(position);
         mAdapter.notifyItemRangeChanged(position, mDataset.variables.size());
+    }
+
+    private boolean showReviewDialogIfNeed() {
+        boolean reviewed = getApp().getBooleanField(Constants.REVIEW, false);
+        if(!reviewed) {
+            showAlertDialog(getString(R.string.review_title), getString(R.string.review_message),
+                    getString(R.string.review_positive), getString(R.string.review_negative), null, true,
+                    DIALOG_REVIEW_ID);
+        }
+        return reviewed;
+    }
+
+    private void openReview() {
+        final String appPackageName = getPackageName();
+        try {
+            startActivity(new Intent(Intent.ACTION_VIEW,
+                    Uri.parse("market://details?id=" + appPackageName)));
+        } catch (android.content.ActivityNotFoundException e) {
+            startActivity(new Intent(Intent.ACTION_VIEW,
+                    Uri.parse("https://play.google.com/store/apps/details?id=" + appPackageName)));
+        }
+    }
+
+
+    @Override
+    public void onPositive(int id) {
+        switch (id) {
+            case DIALOG_REVIEW_ID:
+                getApp().setBooleanField(Constants.REVIEW, true);
+                openReview();
+                finish();
+                break;
+            case DIALOG_DATASET_UNIQUE:
+                mDbHelper.updateData(mDataset);
+                setResult(RESULT_OK);
+                if(showReviewDialogIfNeed()) {
+                    finish();
+                }
+                break;
+        }
+    }
+
+    @Override
+    public void onNegative(int id) {
+        switch (id) {
+            case DIALOG_REVIEW_ID:
+                getApp().setBooleanField(Constants.REVIEW, true);
+                finish();
+                break;
+        }
+    }
+
+    @Override
+    public void onNeutral(int id) {
+
+    }
+
+    @Override
+    public void onCancel(int id) {
+
+    }
+
+    @Override
+    public void onDismiss(int id) {
+
     }
 }

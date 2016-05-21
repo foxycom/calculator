@@ -2,7 +2,6 @@ package com.guliash.calculator.ui.activities;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -11,13 +10,13 @@ import android.view.View;
 
 import com.guliash.calculator.Constants;
 import com.guliash.calculator.DBHelper;
-import com.guliash.calculator.ui.adapters.DatasetsAdapterCV;
 import com.guliash.calculator.R;
 import com.guliash.calculator.structures.CalculatorDataset;
+import com.guliash.calculator.ui.adapters.DatasetsAdapterCV;
 
 import java.util.ArrayList;
 
-public class OpenActivity extends AppCompatActivity implements DatasetsAdapterCV.Callbacks {
+public class OpenActivity extends BaseActivity implements DatasetsAdapterCV.Callbacks {
 
     private ArrayList<CalculatorDataset> mDatasets;
     private DBHelper mDbHelper;

@@ -35,4 +35,16 @@ public class CalculatorApplication extends Application {
         editor.putInt(ANGLE, angleUnit.ordinal());
         editor.commit();
     }
+
+    public boolean getBooleanField(String key, boolean defValue) {
+        SharedPreferences prefs = this.getSharedPreferences(APP_PREFERENCES, Context.MODE_PRIVATE);
+        return prefs.getBoolean(key, defValue);
+    }
+
+    public void setBooleanField(String key, boolean value) {
+        SharedPreferences prefs = this.getSharedPreferences(APP_PREFERENCES, Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = prefs.edit();
+        editor.putBoolean(key, value);
+        editor.commit();
+    }
 }
