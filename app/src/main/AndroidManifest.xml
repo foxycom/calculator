@@ -23,7 +23,8 @@
         </activity>
         <activity
             android:name=".ui.activities.SaveActivity"
-            android:label="@string/title_activity_save" />
+            android:label="@string/title_activity_save"
+            android:windowSoftInputMode="stateAlwaysHidden|adjustPan"/>
         <activity
             android:name=".ui.activities.OpenActivity"
             android:label="@string/title_activity_open" />
