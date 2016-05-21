@@ -12,6 +12,7 @@
     <string name="save">Сохранить</string>
     <string name="help">Помощь</string>
     <string name="open">Открыть</string>
+    <string name="settings">Настройки</string>
 
     <string name="action_settings">Настройки</string>
     <string name="title_activity_open">Открыть</string>

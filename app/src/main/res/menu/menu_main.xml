@@ -20,4 +20,10 @@
         app:showAsAction="ifRoom"
         android:orderInCategory="2">
     </item>
+    <item android:id="@+id/settings"
+        android:title="@string/settings"
+        android:icon="@drawable/settings_button"
+        app:showAsAction="ifRoom"
+        android:orderInCategory="3">
+    </item>
 </menu>

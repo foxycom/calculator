@@ -32,6 +32,8 @@
             android:name=".ui.activities.HelpActivity"
             android:label="@string/title_activity_help" />
         <activity android:name=".ui.activities.DescriptionActivity"/>
+        <activity android:name=".ui.activities.SettingsActivity"
+            android:label="@string/settings"/>
     </application>
 
 </manifest>

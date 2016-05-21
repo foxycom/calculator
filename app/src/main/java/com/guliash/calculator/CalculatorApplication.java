@@ -34,6 +34,7 @@ public class CalculatorApplication extends Application {
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.putInt(ANGLE, angleUnit.ordinal());
         editor.commit();
+        this.angleUnits = angleUnit;
     }
 
     public boolean getBooleanField(String key, boolean defValue) {

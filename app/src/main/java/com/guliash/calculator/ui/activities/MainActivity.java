@@ -42,7 +42,14 @@ public class MainActivity extends BaseActivity {
         if(id == R.id.help) {
             showHelpActivity();
         }
+        if(id == R.id.settings) {
+            showSettingsActivity();
+        }
         return super.onOptionsItemSelected(item);
+    }
+
+    private void showSettingsActivity() {
+        startActivity(new Intent(this, SettingsActivity.class));
     }
 
     @Override
