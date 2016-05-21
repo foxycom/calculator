@@ -42,7 +42,7 @@ public class Verify {
         return Character.isLetter(ch) || ch == '$' || ch == '_';
     }
 
-    public static boolean checkVariablesUnique(Collection<StringVariable> variables) {
+    public static boolean checkVariablesUnique(Collection<? extends StringVariable> variables) {
         Set<StringVariable> variableSet = new HashSet<>();
         for(StringVariable variable : variables) {
             if(variableSet.contains(variable)) {

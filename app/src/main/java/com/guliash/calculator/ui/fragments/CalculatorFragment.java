@@ -153,6 +153,12 @@ public class CalculatorFragment extends Fragment implements VariablesAdapterRemo
                 }
             }
 
+            if(!Verify.checkVariablesUnique(mDataset.variables)) {
+                Toast.makeText(getActivity().getApplicationContext(),
+                        getString(R.string.variables_names_not_unique),Toast.LENGTH_LONG).show();
+                return;
+            }
+
             try {
                 double result = ArithmeticParser.calculate(expression, (List<StringVariable>)variables, evaluator);
                 mResultField.setText(Double.toString(result));
