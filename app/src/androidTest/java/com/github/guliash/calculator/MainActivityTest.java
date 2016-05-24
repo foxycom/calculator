@@ -30,7 +30,6 @@ import static android.support.test.espresso.action.ViewActions.typeText;
 import static android.support.test.espresso.assertion.ViewAssertions.matches;
 import static android.support.test.espresso.matcher.ViewMatchers.withId;
 import static android.support.test.espresso.matcher.ViewMatchers.withText;
-import static org.hamcrest.core.AnyOf.anyOf;
 
 @RunWith(AndroidJUnit4.class)
 public class MainActivityTest {
@@ -63,7 +62,7 @@ public class MainActivityTest {
         Intents.init();
 
         try {
-            onView(anyOf(withId(R.id.open), withText(R.string.open))).perform(click());
+            onView(withId(R.id.open)).perform(click());
         } catch (NoMatchingViewException e) {
             openActionBarOverflowOrOptionsMenu(getInstrumentation().getTargetContext());
             onView(withText(R.string.open)).perform(click());
@@ -79,7 +78,7 @@ public class MainActivityTest {
         Intents.init();
 
         try {
-            onView(anyOf(withId(R.id.help), withText(R.string.help))).perform(click());
+            onView(withId(R.id.help)).perform(click());
         } catch (NoMatchingViewException e) {
             openActionBarOverflowOrOptionsMenu(getInstrumentation().getTargetContext());
             onView(withText(R.string.help)).perform(click());
@@ -95,7 +94,7 @@ public class MainActivityTest {
         Intents.init();
 
         try {
-            onView(anyOf(withId(R.id.save), withText(R.string.save))).perform(click());
+            onView(withId(R.id.save)).perform(click());
         } catch (NoMatchingViewException e) {
             openActionBarOverflowOrOptionsMenu(getInstrumentation().getTargetContext());
             onView(withText(R.string.save)).perform(click());
@@ -111,7 +110,7 @@ public class MainActivityTest {
         Intents.init();
 
         try {
-            onView(anyOf(withId(R.id.settings), withText(R.string.settings))).perform(click());
+            onView(withId(R.id.settings)).perform(click());
         } catch (NoMatchingViewException e) {
             openActionBarOverflowOrOptionsMenu(getInstrumentation().getTargetContext());
             onView(withText(R.string.settings)).perform(click());
