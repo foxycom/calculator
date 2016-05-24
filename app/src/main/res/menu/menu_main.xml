@@ -5,25 +5,25 @@
     <item android:id="@+id/open"
         android:title="@string/open"
         android:icon="@drawable/open_button"
-        app:showAsAction="ifRoom"
+        app:showAsAction="ifRoom|withText"
         android:orderInCategory="0">
     </item>
     <item android:id="@+id/save"
         android:title="@string/save"
         android:icon="@drawable/save_button"
-        app:showAsAction="ifRoom"
+        app:showAsAction="ifRoom|withText"
         android:orderInCategory="1">
     </item>
     <item android:id="@+id/help"
         android:title="@string/help"
         android:icon="@drawable/help_button"
-        app:showAsAction="ifRoom"
+        app:showAsAction="ifRoom|withText"
         android:orderInCategory="2">
     </item>
     <item android:id="@+id/settings"
         android:title="@string/settings"
         android:icon="@drawable/settings_button"
-        app:showAsAction="ifRoom"
+        app:showAsAction="ifRoom|withText"
         android:orderInCategory="3">
     </item>
 </menu>
