@@ -23,8 +23,13 @@ import static android.support.test.espresso.Espresso.openActionBarOverflowOrOpti
 import static android.support.test.espresso.action.ViewActions.click;
 import static android.support.test.espresso.action.ViewActions.typeText;
 import static android.support.test.espresso.assertion.ViewAssertions.matches;
+import static android.support.test.espresso.contrib.RecyclerViewActions.actionOnItemAtPosition;
+import static android.support.test.espresso.contrib.RecyclerViewActions.scrollToPosition;
+import static android.support.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static android.support.test.espresso.matcher.ViewMatchers.withId;
 import static android.support.test.espresso.matcher.ViewMatchers.withText;
+import static com.github.guliash.calculator.Matchers.atPosition;
+import static com.github.guliash.calculator.Matchers.atPositionDoesNotExist;
 import static com.github.guliash.calculator.Matchers.withDoubleText;
 
 @RunWith(AndroidJUnit4.class)
@@ -115,6 +120,19 @@ public class MainActivityTest {
         Intents.release();
     }
 
+    @Test
+    public void checkThatAddVariableButtonAddsVariable() {
+        onView(withId(R.id.add_variable_button)).perform(click());
+        onView(withId(R.id.variables_rv)).perform(scrollToPosition(2));
+        onView(withId(R.id.variables_rv)).check(matches(atPosition(2, isDisplayed())));
+    }
+
+    @Test
+    public void checkThatRemoveVariableWorks() {
+        onView(withId(R.id.variables_rv)).perform(actionOnItemAtPosition(1,
+                Actions.clickChildViewWithId(R.id.remove_button)));
+        onView(withId(R.id.variables_rv)).check(matches(atPositionDoesNotExist(1)));
+    }
 
 
 
