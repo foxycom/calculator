@@ -142,5 +142,4 @@ public class MainActivityTest {
                 Actions.clickChildViewWithId(R.id.check_button)));
         onView(withId(R.id.input_field)).check(matches(withText("y")));
     }
-    
 }
