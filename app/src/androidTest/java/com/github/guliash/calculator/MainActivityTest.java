@@ -129,11 +129,18 @@ public class MainActivityTest {
 
     @Test
     public void checkThatRemoveVariableWorks() {
+        onView(withId(R.id.variables_rv)).perform(scrollToPosition(1));
         onView(withId(R.id.variables_rv)).perform(actionOnItemAtPosition(1,
                 Actions.clickChildViewWithId(R.id.remove_button)));
         onView(withId(R.id.variables_rv)).check(matches(atPositionDoesNotExist(1)));
     }
 
-
-
+    @Test
+    public void checkThatUseButtonEntersVariableName() {
+        onView(withId(R.id.variables_rv)).perform(scrollToPosition(1));
+        onView(withId(R.id.variables_rv)).perform(actionOnItemAtPosition(1,
+                Actions.clickChildViewWithId(R.id.check_button)));
+        onView(withId(R.id.input_field)).check(matches(withText("y")));
+    }
+    
 }
