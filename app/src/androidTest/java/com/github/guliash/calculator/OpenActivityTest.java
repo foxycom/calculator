@@ -1,7 +1,6 @@
 package com.github.guliash.calculator;
 
 import android.content.Intent;
-import android.support.test.InstrumentationRegistry;
 import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
 
@@ -19,18 +18,24 @@ import org.junit.runner.RunWith;
 
 import java.util.ArrayList;
 
+import static android.support.test.InstrumentationRegistry.getInstrumentation;
 import static android.support.test.espresso.Espresso.onView;
+import static android.support.test.espresso.assertion.ViewAssertions.matches;
+import static android.support.test.espresso.contrib.RecyclerViewActions.actionOnItemAtPosition;
 import static android.support.test.espresso.contrib.RecyclerViewActions.scrollTo;
+import static android.support.test.espresso.contrib.RecyclerViewActions.scrollToPosition;
 import static android.support.test.espresso.matcher.ViewMatchers.hasDescendant;
+import static android.support.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static android.support.test.espresso.matcher.ViewMatchers.withId;
 import static android.support.test.espresso.matcher.ViewMatchers.withText;
+import static com.github.guliash.calculator.Actions.clickChildViewWithId;
 
 @RunWith(AndroidJUnit4.class)
 public class OpenActivityTest {
 
     @Rule
     public ActivityTestRule<OpenActivity> mActivityRule = new ActivityTestRule<>(
-            OpenActivity.class, false, false);
+            OpenActivity.class, true, false);
 
     private DBHelper mDbHelper;
 
@@ -42,7 +47,7 @@ public class OpenActivityTest {
 
     @Before
     public void addDatasets() {
-        mDbHelper = new DBHelper(InstrumentationRegistry.getInstrumentation().getTargetContext()
+        mDbHelper = new DBHelper(getInstrumentation().getTargetContext()
                 .getApplicationContext());
         ArrayList<StringVariableWrapper> variables1 = new ArrayList<>();
         variables1.add(new StringVariableWrapper("x", "1"));
@@ -72,10 +77,22 @@ public class OpenActivityTest {
         onView(withId(R.id.rv)).perform(scrollTo(hasDescendant(withText("first"))));
     }
 
+    @Test
+    public void checkThatOverflowButtonOpensPopupMenu() {
+        onView(withId(R.id.rv)).perform(scrollToPosition(0));
+        onView(withId(R.id.rv)).perform(actionOnItemAtPosition(0, clickChildViewWithId(R.id.overflow_button)));
+        onView(withText(R.string.use)).check(matches(isDisplayed()));
+        onView(withText(R.string.edit)).check(matches(isDisplayed()));
+        onView(withText(R.string.delete)).check(matches(isDisplayed()));
+    }
+
     @After
     public void removeDatasets() {
         mDbHelper.deleteData(mCalculatorDataset1.datasetName);
         mDbHelper.deleteData(mCalculatorDataset2.datasetName);
+        mDbHelper.deleteData(mCalculatorDataset3.datasetName);
+        mDbHelper.deleteData(mCalculatorDataset4.datasetName);
+        mDbHelper.deleteData(mCalculatorDataset5.datasetName);
     }
 
 }

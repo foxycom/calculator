@@ -1,12 +1,18 @@
 package com.github.guliash.calculator;
 
+import android.app.Activity;
+import android.app.Instrumentation;
+import android.content.Intent;
 import android.support.test.espresso.NoMatchingViewException;
 import android.support.test.espresso.intent.Intents;
 import android.support.test.espresso.intent.matcher.IntentMatchers;
 import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
 
+import com.guliash.calculator.Constants;
 import com.guliash.calculator.R;
+import com.guliash.calculator.structures.CalculatorDataset;
+import com.guliash.calculator.structures.StringVariableWrapper;
 import com.guliash.calculator.ui.activities.HelpActivity;
 import com.guliash.calculator.ui.activities.MainActivity;
 import com.guliash.calculator.ui.activities.OpenActivity;
@@ -17,6 +23,8 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
+import java.util.ArrayList;
+
 import static android.support.test.InstrumentationRegistry.getInstrumentation;
 import static android.support.test.espresso.Espresso.onView;
 import static android.support.test.espresso.Espresso.openActionBarOverflowOrOptionsMenu;
@@ -25,6 +33,7 @@ import static android.support.test.espresso.action.ViewActions.typeText;
 import static android.support.test.espresso.assertion.ViewAssertions.matches;
 import static android.support.test.espresso.contrib.RecyclerViewActions.actionOnItemAtPosition;
 import static android.support.test.espresso.contrib.RecyclerViewActions.scrollToPosition;
+import static android.support.test.espresso.matcher.ViewMatchers.hasDescendant;
 import static android.support.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static android.support.test.espresso.matcher.ViewMatchers.withId;
 import static android.support.test.espresso.matcher.ViewMatchers.withText;
@@ -141,5 +150,36 @@ public class MainActivityTest {
         onView(withId(R.id.variables_rv)).perform(actionOnItemAtPosition(1,
                 Actions.clickChildViewWithId(R.id.check_button)));
         onView(withId(R.id.input_field)).check(matches(withText("y")));
+    }
+
+    @Test
+    public void checkThatResultOfOpenActivityShown() {
+        Intent resultIntent = new Intent();
+        ArrayList<StringVariableWrapper> variables = new ArrayList<>();
+        variables.add(new StringVariableWrapper("x", "2"));
+        variables.add(new StringVariableWrapper("y", "3"));
+        variables.add(new StringVariableWrapper("z", "4"));
+        CalculatorDataset calculatorDataset = new CalculatorDataset("x + y + z", "dataset", variables,
+                System.currentTimeMillis());
+        resultIntent.putExtra(Constants.DATASET, calculatorDataset);
+        Instrumentation.ActivityResult result = new Instrumentation.ActivityResult(Activity.RESULT_OK,
+                resultIntent);
+
+        Intents.init();
+        Intents.intending(IntentMatchers.hasComponent(OpenActivity.class.getName())).respondWith(result);
+        try {
+            onView(withId(R.id.open)).perform(click());
+        } catch (NoMatchingViewException e) {
+            openActionBarOverflowOrOptionsMenu(getInstrumentation().getTargetContext());
+            onView(withText(R.string.open)).perform(click());
+        }
+        Intents.release();
+
+        onView(withId(R.id.input_field)).check(matches(withText(calculatorDataset.expression)));
+        for(int i = 0; i < variables.size(); i++) {
+            onView(withId(R.id.variables_rv)).perform(scrollToPosition(i));
+            onView(withId(R.id.variables_rv)).check(matches(atPosition(i,
+                    hasDescendant(withText(variables.get(i).name)))));
+        }
     }
 }

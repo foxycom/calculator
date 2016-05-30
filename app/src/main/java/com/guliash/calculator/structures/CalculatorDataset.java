@@ -35,6 +35,15 @@ public class CalculatorDataset implements Parcelable {
     }
 
     @Override
+    public boolean equals(Object o) {
+        if(o == null || !(o instanceof CalculatorDataset)) {
+            return false;
+        }
+        CalculatorDataset obj = (CalculatorDataset)o;
+        return obj.datasetName.equals(datasetName);
+    }
+
+    @Override
     public int describeContents() {
         return 0;
     }
