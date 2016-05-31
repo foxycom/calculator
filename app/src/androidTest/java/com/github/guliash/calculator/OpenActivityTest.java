@@ -5,6 +5,7 @@ import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
 
 import com.guliash.calculator.DBHelper;
+import com.guliash.calculator.Helper;
 import com.guliash.calculator.R;
 import com.guliash.calculator.structures.CalculatorDataset;
 import com.guliash.calculator.structures.StringVariableWrapper;
@@ -29,6 +30,7 @@ import static android.support.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static android.support.test.espresso.matcher.ViewMatchers.withId;
 import static android.support.test.espresso.matcher.ViewMatchers.withText;
 import static com.github.guliash.calculator.Actions.clickChildViewWithId;
+import static com.github.guliash.calculator.Matchers.atPosition;
 
 @RunWith(AndroidJUnit4.class)
 public class OpenActivityTest {
@@ -73,8 +75,29 @@ public class OpenActivityTest {
 
     @Test
     public void checkThatDatasetsAreDisplayed() {
-        onView(withId(R.id.rv)).perform(scrollTo(hasDescendant(withText("fifth"))));
-        onView(withId(R.id.rv)).perform(scrollTo(hasDescendant(withText("first"))));
+        onView(withId(R.id.rv)).perform(scrollTo(hasDescendant(withText(mCalculatorDataset5.datasetName))));
+        onView(withId(R.id.rv)).perform(scrollTo(hasDescendant(withText(mCalculatorDataset1.datasetName))));
+    }
+
+    @Test
+    public void checkThatDatasetExpressionDisplayedCorrectly() {
+        onView(withId(R.id.rv)).perform(scrollTo(hasDescendant(withText(mCalculatorDataset5.datasetName))));
+        onView(withId(R.id.rv)).check(matches(atPosition(4, hasDescendant(
+                withText(mCalculatorDataset5.expression)))));
+    }
+
+    @Test
+    public void checkThatDatasetTimestampDisplayedCorrectly() {
+        onView(withId(R.id.rv)).perform(scrollTo(hasDescendant(withText(mCalculatorDataset5.datasetName))));
+        onView(withId(R.id.rv)).check(matches(atPosition(4, hasDescendant(
+                withText(Helper.getFormattedDate(mCalculatorDataset5.timestamp))))));
+    }
+
+    @Test
+    public void checkThatDatasetVariablesDisplayedCorrectly() {
+        onView(withId(R.id.rv)).perform(scrollTo(hasDescendant(withText(mCalculatorDataset5.datasetName))));
+        onView(withId(R.id.rv)).check(matches(atPosition(4, hasDescendant(
+                withText(Helper.variablesToString(mCalculatorDataset5.variables))))));
     }
 
     @Test
