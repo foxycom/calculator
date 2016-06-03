@@ -1,6 +1,7 @@
 package com.github.guliash.calculator;
 
 import android.content.Intent;
+import android.support.test.espresso.action.ViewActions;
 import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
 
@@ -31,6 +32,7 @@ import static android.support.test.espresso.matcher.ViewMatchers.withId;
 import static android.support.test.espresso.matcher.ViewMatchers.withText;
 import static com.github.guliash.calculator.Actions.clickChildViewWithId;
 import static com.github.guliash.calculator.Matchers.atPosition;
+import static com.github.guliash.calculator.Matchers.atPositionDoesNotExist;
 
 @RunWith(AndroidJUnit4.class)
 public class OpenActivityTest {
@@ -107,6 +109,14 @@ public class OpenActivityTest {
         onView(withText(R.string.use)).check(matches(isDisplayed()));
         onView(withText(R.string.edit)).check(matches(isDisplayed()));
         onView(withText(R.string.delete)).check(matches(isDisplayed()));
+    }
+
+    @Test
+    public void checkThatRemoveWorks() {
+        onView(withId(R.id.rv)).perform(scrollToPosition(4));
+        onView(withId(R.id.rv)).perform(actionOnItemAtPosition(4, clickChildViewWithId(R.id.overflow_button)));
+        onView(withText(R.string.delete)).perform(ViewActions.click());
+        onView(withId(R.id.rv)).check(matches(atPositionDoesNotExist(4)));
     }
 
     @After
