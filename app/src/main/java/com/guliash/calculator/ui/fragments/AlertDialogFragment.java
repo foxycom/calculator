@@ -102,7 +102,7 @@ public class AlertDialogFragment extends DialogFragment {
         }
 
         if(!TextUtils.isEmpty(mMessage)) {
-            builder.setTitle(mMessage);
+            builder.setMessage(mMessage);
         }
 
         if(!TextUtils.isEmpty(mPositive)) {
