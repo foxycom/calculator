@@ -1,8 +1,6 @@
 package com.github.guliash.calculator;
 
 import android.content.Intent;
-import android.support.test.espresso.Espresso;
-import android.support.test.espresso.matcher.ViewMatchers;
 import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
 
@@ -19,7 +17,19 @@ import org.junit.runner.RunWith;
 
 import java.util.ArrayList;
 
+import static android.support.test.espresso.Espresso.onView;
+import static android.support.test.espresso.action.ViewActions.click;
 import static android.support.test.espresso.assertion.ViewAssertions.matches;
+import static android.support.test.espresso.contrib.RecyclerViewActions.actionOnItemAtPosition;
+import static android.support.test.espresso.contrib.RecyclerViewActions.scrollToPosition;
+import static android.support.test.espresso.matcher.ViewMatchers.hasDescendant;
+import static android.support.test.espresso.matcher.ViewMatchers.isDisplayed;
+import static android.support.test.espresso.matcher.ViewMatchers.withId;
+import static android.support.test.espresso.matcher.ViewMatchers.withText;
+import static com.github.guliash.calculator.Actions.clickChildViewWithId;
+import static com.github.guliash.calculator.Matchers.atPosition;
+import static com.github.guliash.calculator.Matchers.atPositionDoesNotExist;
+import static org.hamcrest.core.AllOf.allOf;
 
 @RunWith(AndroidJUnit4.class)
 public class SaveActivityTest {
@@ -52,7 +62,41 @@ public class SaveActivityTest {
 
     @Test
     public void testThatExpressionCorrectlyShown() {
-        Espresso.onView(ViewMatchers.withId(R.id.expression)).check(matches(ViewMatchers.withText(dataset.expression)));
+        onView(withId(R.id.expression)).check(matches(withText(dataset.expression)));
+    }
+
+    @Test
+    public void testThatNameCorrectlyShown() {
+        onView(withId(R.id.dataset_name)).check(matches(withText(dataset.datasetName)));
+    }
+
+    @Test
+    public void testThatVariablesCorrectlyShown() {
+        for(int i = 0; i < dataset.variables.size(); i++) {
+            StringVariableWrapper wrapper = dataset.variables.get(i);
+            onView(withId(R.id.variables_rv))
+                    .perform(scrollToPosition(i));
+            onView(withId(R.id.variables_rv))
+                    .check(matches(atPosition(i, allOf(hasDescendant(withText(wrapper.name)),
+                            hasDescendant(withText(wrapper.value))))));
+        }
+    }
+
+    @Test
+    public void testThatRemoveWorks() {
+        int lastIndex = dataset.variables.size() - 1;
+        onView(withId(R.id.variables_rv))
+                .perform(scrollToPosition(lastIndex))
+                .perform(actionOnItemAtPosition(lastIndex, clickChildViewWithId(R.id.remove_button)));
+        onView(withId(R.id.variables_rv)).check(matches(atPositionDoesNotExist(lastIndex)));
+    }
+
+    @Test
+    public void testThatAddVariableWorks() {
+        int lastIndex = dataset.variables.size() - 1;
+        onView(withId(R.id.add)).perform(click());
+        onView(withId(R.id.variables_rv)).perform(scrollToPosition(lastIndex + 1));
+        onView(withId(R.id.variables_rv)).check(matches(atPosition(lastIndex + 1, isDisplayed())));
     }
 
 }
