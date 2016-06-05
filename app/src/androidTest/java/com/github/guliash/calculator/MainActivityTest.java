@@ -11,7 +11,7 @@ import android.support.test.runner.AndroidJUnit4;
 
 import com.guliash.calculator.Constants;
 import com.guliash.calculator.R;
-import com.guliash.calculator.structures.CalculatorDataset;
+import com.guliash.calculator.structures.CalculatorDataSet;
 import com.guliash.calculator.structures.StringVariableWrapper;
 import com.guliash.calculator.ui.activities.HelpActivity;
 import com.guliash.calculator.ui.activities.MainActivity;
@@ -159,9 +159,9 @@ public class MainActivityTest {
         variables.add(new StringVariableWrapper("x", "2"));
         variables.add(new StringVariableWrapper("y", "3"));
         variables.add(new StringVariableWrapper("z", "4"));
-        CalculatorDataset calculatorDataset = new CalculatorDataset("x + y + z", "dataset", variables,
+        CalculatorDataSet calculatorDataSet = new CalculatorDataSet("x + y + z", "dataset", variables,
                 System.currentTimeMillis());
-        resultIntent.putExtra(Constants.DATASET, calculatorDataset);
+        resultIntent.putExtra(Constants.DATASET, calculatorDataSet);
         Instrumentation.ActivityResult result = new Instrumentation.ActivityResult(Activity.RESULT_OK,
                 resultIntent);
 
@@ -175,7 +175,7 @@ public class MainActivityTest {
         }
         Intents.release();
 
-        onView(withId(R.id.input_field)).check(matches(withText(calculatorDataset.expression)));
+        onView(withId(R.id.input_field)).check(matches(withText(calculatorDataSet.expression)));
         for(int i = 0; i < variables.size(); i++) {
             onView(withId(R.id.variables_rv)).perform(scrollToPosition(i));
             onView(withId(R.id.variables_rv)).check(matches(atPosition(i,

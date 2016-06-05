@@ -1,4 +1,4 @@
-package com.guliash.calculator;
+package com.guliash.calculator.storage;
 
 import android.content.ContentValues;
 import android.content.Context;
@@ -6,13 +6,15 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
-import com.guliash.calculator.structures.CalculatorDataset;
+import com.guliash.calculator.structures.CalculatorDataSet;
 import com.guliash.calculator.structures.StringVariableWrapper;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
-public class DBHelper extends SQLiteOpenHelper {
+public class DBHelper extends SQLiteOpenHelper implements Storage {
 
     private static final int DATABASE_VERSION = 1;
 
@@ -55,7 +57,7 @@ public class DBHelper extends SQLiteOpenHelper {
      * @param name row name
      * @return id of the row, {@code -1} if it does not exist
      */
-    public long getIdOfRowWithName(String name) {
+    private long getIdOfRowWithName(String name) {
         SQLiteDatabase db = getReadableDatabase();
         Cursor cursor = db.query(MAIN_TABLE, new String[]{"id", "name"}, "name = ?", new String[]{name}, null, null, null);
         long res = -1;
@@ -94,54 +96,14 @@ public class DBHelper extends SQLiteOpenHelper {
         db.close();
     }
 
-    public void addDataset(CalculatorDataset dataset) {
-        long id = addRowToMainTable(dataset.datasetName, dataset.timestamp);
-        addDataToVariablesAndExpTables(id, dataset.expression, dataset.variables);
-    }
-
-    public void updateData(CalculatorDataset dataset) {
-        long id = getIdOfRowWithName(dataset.datasetName);
-        deleteDataFromVariablesAndExpTables(id);
-        addDataToVariablesAndExpTables(id, dataset.expression, dataset.variables);
-    }
-
-    public void deleteData(String name) {
-        long id = getIdOfRowWithName(name);
-        deleteRowFromMainTable(id);
-    }
-
-    private void deleteDataFromVariablesAndExpTables(long id) {
-        SQLiteDatabase db = getWritableDatabase();
-        db.delete(VARIABLES_TABLE, "id = ?", new String[] { Long.toString(id) });
-        db.delete(EXPRESSIONS_TABLE, "id = ?", new String[] { Long.toString(id) });
-        db.close();
-    }
-
     private void deleteRowFromMainTable(long id) {
         SQLiteDatabase db = getWritableDatabase();
         db.delete(MAIN_TABLE, "id = ?", new String[] { Long.toString(id) });
         db.close();
     }
 
-    public ArrayList<CalculatorDataset> getDatasets() {
-        SQLiteDatabase db = getWritableDatabase();
-        Cursor cursor = db.query(MAIN_TABLE, null, null, null, null, null, null);
-        ArrayList<CalculatorDataset> res = new ArrayList<>();
-        if(cursor.moveToFirst()) {
-            int idColIndex = cursor.getColumnIndex("id");
-            int nameColIndex = cursor.getColumnIndex("name");
-            do {
-                res.add(getDataset(cursor.getInt(idColIndex),
-                        cursor.getString(nameColIndex)));
-            } while(cursor.moveToNext());
-        }
-        cursor.close();
-        db.close();
-        return res;
-    }
-
-    private CalculatorDataset getDataset(long id, String name) {
-        return new CalculatorDataset(getExpression(id), name, getVariables(id), getDatasetTime(id));
+    private CalculatorDataSet getDataset(long id, String name) {
+        return new CalculatorDataSet(getExpression(id), name, getVariables(id), getDatasetTime(id));
     }
 
     private String getExpression(long id) {
@@ -186,5 +148,67 @@ public class DBHelper extends SQLiteOpenHelper {
         }
         cursor.close();
         return variables;
+    }
+
+    @Override
+    public boolean addDataSet(CalculatorDataSet dataSet) throws IllegalArgumentException {
+
+        if(hasDataSet(dataSet)) {
+            return false;
+        }
+
+        long id = addRowToMainTable(dataSet.datasetName, dataSet.timestamp);
+        addDataToVariablesAndExpTables(id, dataSet.expression, dataSet.variables);
+        return true;
+    }
+
+    @Override
+    public boolean updateDataSet(CalculatorDataSet dataSet) throws IllegalArgumentException {
+
+        if(!hasDataSet(dataSet)) {
+            return false;
+        }
+
+        deleteDataSet(dataSet);
+        addDataSet(dataSet);
+        return true;
+    }
+
+    @Override
+    public boolean hasDataSet(CalculatorDataSet dataSet) {
+        return getIdOfRowWithName(dataSet.datasetName) != -1;
+    }
+
+    @Override
+    public boolean deleteDataSet(CalculatorDataSet dataSet) throws IllegalArgumentException {
+        if(!hasDataSet(dataSet)) {
+            return false;
+        }
+        deleteRowFromMainTable(getIdOfRowWithName(dataSet.datasetName));
+        return true;
+    }
+
+    @Override
+    public List<CalculatorDataSet> getDataSets() {
+        SQLiteDatabase db = getWritableDatabase();
+        Cursor cursor = db.query(MAIN_TABLE, null, null, null, null, null, null);
+        List<CalculatorDataSet> res = new ArrayList<>();
+        if(cursor.moveToFirst()) {
+            int idColIndex = cursor.getColumnIndex("id");
+            int nameColIndex = cursor.getColumnIndex("name");
+            do {
+                res.add(getDataset(cursor.getInt(idColIndex),
+                        cursor.getString(nameColIndex)));
+            } while(cursor.moveToNext());
+        }
+        cursor.close();
+        db.close();
+        Collections.sort(res, new Comparator<CalculatorDataSet>() {
+            @Override
+            public int compare(CalculatorDataSet lhs, CalculatorDataSet rhs) {
+                return -Long.compare(lhs.timestamp, rhs.timestamp);
+            }
+        });
+        return res;
     }
 }

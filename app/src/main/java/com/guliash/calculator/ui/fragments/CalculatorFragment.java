@@ -17,7 +17,7 @@ import android.widget.Toast;
 import com.guliash.calculator.CalculatorApplication;
 import com.guliash.calculator.Constants;
 import com.guliash.calculator.R;
-import com.guliash.calculator.structures.CalculatorDataset;
+import com.guliash.calculator.structures.CalculatorDataSet;
 import com.guliash.calculator.structures.StringVariableWrapper;
 import com.guliash.calculator.ui.adapters.VariablesAdapterRemoveUse;
 import com.guliash.parser.ArithmeticParser;
@@ -49,7 +49,7 @@ public class CalculatorFragment extends Fragment implements VariablesAdapterRemo
     private static final List<StringVariableWrapper> DEFAULT_VARIABLES_LIST =
             Arrays.asList(new StringVariableWrapper("x", "0"), new StringVariableWrapper("y", "0"));
 
-    private CalculatorDataset mDataset;
+    private CalculatorDataSet mDataset;
 
     public static CalculatorFragment newInstance() {
         return new CalculatorFragment();
@@ -76,7 +76,7 @@ public class CalculatorFragment extends Fragment implements VariablesAdapterRemo
         if(savedInstanceState != null) {
             mDataset = savedInstanceState.getParcelable(Constants.DATASET);
         } else {
-            mDataset = new CalculatorDataset("", "", new ArrayList<>(DEFAULT_VARIABLES_LIST), 0);
+            mDataset = new CalculatorDataSet("", "", new ArrayList<>(DEFAULT_VARIABLES_LIST), 0);
         }
 
         mVariablesRV.setLayoutManager(new LinearLayoutManager(this.getActivity()));
@@ -196,12 +196,12 @@ public class CalculatorFragment extends Fragment implements VariablesAdapterRemo
         inputString(mDataset.variables.get(position).name);
     }
 
-    public CalculatorDataset getDataset() {
+    public CalculatorDataSet getDataset() {
         mDataset.expression = mInputField.getText().toString();
         return mDataset;
     }
 
-    public void setDataset(CalculatorDataset dataset) {
+    public void setDataset(CalculatorDataSet dataset) {
         mDataset = dataset;
         mInputField.setText(dataset.expression);
         mAdapter = new VariablesAdapterRemoveUse(mDataset.variables, this);

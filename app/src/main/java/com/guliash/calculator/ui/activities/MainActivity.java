@@ -9,7 +9,7 @@ import android.view.MenuItem;
 
 import com.guliash.calculator.Constants;
 import com.guliash.calculator.R;
-import com.guliash.calculator.structures.CalculatorDataset;
+import com.guliash.calculator.structures.CalculatorDataSet;
 import com.guliash.calculator.ui.fragments.CalculatorFragment;
 
 public class MainActivity extends BaseActivity {
@@ -60,7 +60,7 @@ public class MainActivity extends BaseActivity {
                 FragmentManager fragmentManager = getSupportFragmentManager();
                 CalculatorFragment calculatorFragment = (CalculatorFragment)fragmentManager.
                         findFragmentById(R.id.calculator_fragment);
-                calculatorFragment.setDataset((CalculatorDataset)data.getParcelableExtra(Constants.DATASET));
+                calculatorFragment.setDataset((CalculatorDataSet)data.getParcelableExtra(Constants.DATASET));
             }
         }
     }

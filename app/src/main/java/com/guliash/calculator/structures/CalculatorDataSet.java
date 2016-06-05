@@ -5,13 +5,13 @@ import android.os.Parcelable;
 
 import java.util.ArrayList;
 
-public class CalculatorDataset implements Parcelable {
+public class CalculatorDataSet implements Parcelable {
     public String expression;
     public String datasetName;
     public long timestamp;
     public ArrayList<StringVariableWrapper> variables;
 
-    public CalculatorDataset(String expression, String datasetName, ArrayList<StringVariableWrapper> variables,
+    public CalculatorDataSet(String expression, String datasetName, ArrayList<StringVariableWrapper> variables,
                              long timestamp) {
         this.expression = expression;
         this.datasetName = datasetName;
@@ -19,7 +19,7 @@ public class CalculatorDataset implements Parcelable {
         this.timestamp = timestamp;
     }
 
-    public CalculatorDataset(Parcel parcel) {
+    public CalculatorDataSet(Parcel parcel) {
         expression = parcel.readString();
         datasetName = parcel.readString();
         timestamp = parcel.readLong();
@@ -36,10 +36,10 @@ public class CalculatorDataset implements Parcelable {
 
     @Override
     public boolean equals(Object o) {
-        if(o == null || !(o instanceof CalculatorDataset)) {
+        if(o == null || !(o instanceof CalculatorDataSet)) {
             return false;
         }
-        CalculatorDataset obj = (CalculatorDataset)o;
+        CalculatorDataSet obj = (CalculatorDataSet)o;
         return obj.datasetName.equals(datasetName);
     }
 
@@ -48,13 +48,13 @@ public class CalculatorDataset implements Parcelable {
         return 0;
     }
 
-    public static final Parcelable.Creator<CalculatorDataset> CREATOR = new Parcelable.Creator<CalculatorDataset>() {
-        public CalculatorDataset createFromParcel(Parcel in) {
-            return new CalculatorDataset(in);
+    public static final Parcelable.Creator<CalculatorDataSet> CREATOR = new Parcelable.Creator<CalculatorDataSet>() {
+        public CalculatorDataSet createFromParcel(Parcel in) {
+            return new CalculatorDataSet(in);
         }
 
-        public CalculatorDataset[] newArray(int size) {
-            return new CalculatorDataset[size];
+        public CalculatorDataSet[] newArray(int size) {
+            return new CalculatorDataSet[size];
         }
     };
 }

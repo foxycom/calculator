@@ -6,7 +6,7 @@ import android.support.test.runner.AndroidJUnit4;
 
 import com.guliash.calculator.Constants;
 import com.guliash.calculator.R;
-import com.guliash.calculator.structures.CalculatorDataset;
+import com.guliash.calculator.structures.CalculatorDataSet;
 import com.guliash.calculator.structures.StringVariableWrapper;
 import com.guliash.calculator.ui.activities.SaveActivity;
 
@@ -34,7 +34,7 @@ import static org.hamcrest.core.AllOf.allOf;
 @RunWith(AndroidJUnit4.class)
 public class SaveActivityTest {
 
-    private CalculatorDataset dataset;
+    private CalculatorDataSet dataset;
 
     @Rule
     public ActivityTestRule<SaveActivity> mActivityRule = new ActivityTestRule<>(
@@ -53,7 +53,7 @@ public class SaveActivityTest {
         variables.add(new StringVariableWrapper("k", "3.14"));
 
 
-        dataset = new CalculatorDataset(expression, datasetName, variables, System.currentTimeMillis());
+        dataset = new CalculatorDataSet(expression, datasetName, variables, System.currentTimeMillis());
 
         Intent intent = new Intent();
         intent.putExtra(Constants.DATASET, dataset);

@@ -1,6 +1,5 @@
 package com.guliash.calculator.ui.activities;
 
-import android.annotation.SuppressLint;
 import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AppCompatActivity;
 
@@ -31,7 +30,4 @@ public class BaseActivity extends AppCompatActivity {
     protected CalculatorApplication getApp() {
         return (CalculatorApplication)getApplication();
     }
-
-
-
 }

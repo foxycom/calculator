@@ -13,13 +13,13 @@ import android.widget.TextView;
 
 import com.guliash.calculator.Helper;
 import com.guliash.calculator.R;
-import com.guliash.calculator.structures.CalculatorDataset;
+import com.guliash.calculator.structures.CalculatorDataSet;
 
 import java.util.List;
 
 public class DatasetsAdapterCV extends RecyclerView.Adapter<DatasetsAdapterCV.DatasetViewHolder> {
 
-    @Nullable private List<CalculatorDataset> mObjects;
+    @Nullable private List<CalculatorDataSet> mObjects;
     @NonNull private Callbacks mListener;
 
     public static class DatasetViewHolder extends RecyclerView.ViewHolder {
@@ -41,7 +41,7 @@ public class DatasetsAdapterCV extends RecyclerView.Adapter<DatasetsAdapterCV.Da
         void onUse(int position);
     }
 
-    public DatasetsAdapterCV(@Nullable List<CalculatorDataset> objects, @NonNull Callbacks listener) {
+    public DatasetsAdapterCV(@Nullable List<CalculatorDataSet> objects, @NonNull Callbacks listener) {
         this.mObjects = objects;
         this.mListener = listener;
     }
@@ -62,7 +62,7 @@ public class DatasetsAdapterCV extends RecyclerView.Adapter<DatasetsAdapterCV.Da
 
     @Override
     public void onBindViewHolder(DatasetsAdapterCV.DatasetViewHolder holder, final int position) {
-        CalculatorDataset dataset = mObjects.get(position);
+        CalculatorDataSet dataset = mObjects.get(position);
         holder.nameTextView.setText(dataset.datasetName);
         holder.varTextView.setText(Helper.variablesToString(dataset.variables));
         holder.expTextView.setText(dataset.expression);

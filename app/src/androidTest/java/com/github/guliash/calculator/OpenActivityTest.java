@@ -5,10 +5,11 @@ import android.support.test.espresso.action.ViewActions;
 import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
 
-import com.guliash.calculator.DBHelper;
+import com.guliash.calculator.storage.DBHelper;
 import com.guliash.calculator.Helper;
 import com.guliash.calculator.R;
-import com.guliash.calculator.structures.CalculatorDataset;
+import com.guliash.calculator.storage.Storage;
+import com.guliash.calculator.structures.CalculatorDataSet;
 import com.guliash.calculator.structures.StringVariableWrapper;
 import com.guliash.calculator.ui.activities.OpenActivity;
 
@@ -41,17 +42,17 @@ public class OpenActivityTest {
     public ActivityTestRule<OpenActivity> mActivityRule = new ActivityTestRule<>(
             OpenActivity.class, true, false);
 
-    private DBHelper mDbHelper;
+    private Storage mStorage;
 
-    private CalculatorDataset mCalculatorDataset1;
-    private CalculatorDataset mCalculatorDataset2;
-    private CalculatorDataset mCalculatorDataset3;
-    private CalculatorDataset mCalculatorDataset4;
-    private CalculatorDataset mCalculatorDataset5;
+    private CalculatorDataSet mCalculatorDataSet1;
+    private CalculatorDataSet mCalculatorDataSet2;
+    private CalculatorDataSet mCalculatorDataSet3;
+    private CalculatorDataSet mCalculatorDataSet4;
+    private CalculatorDataSet mCalculatorDataSet5;
 
     @Before
     public void addDatasets() {
-        mDbHelper = new DBHelper(getInstrumentation().getTargetContext()
+        mStorage = new DBHelper(getInstrumentation().getTargetContext()
                 .getApplicationContext());
         ArrayList<StringVariableWrapper> variables1 = new ArrayList<>();
         variables1.add(new StringVariableWrapper("x", "1"));
@@ -61,45 +62,45 @@ public class OpenActivityTest {
         variables2.add(new StringVariableWrapper("x", "1"));
         variables2.add(new StringVariableWrapper("y", "2"));
 
-        mCalculatorDataset1 = new CalculatorDataset("x + y", "first", variables1, System.currentTimeMillis());
-        mCalculatorDataset2 = new CalculatorDataset("x / y", "second", variables2, System.currentTimeMillis());
-        mCalculatorDataset3 = new CalculatorDataset("x * y", "third", variables1, System.currentTimeMillis());
-        mCalculatorDataset4 = new CalculatorDataset("x - y", "fourth", variables2, System.currentTimeMillis());
-        mCalculatorDataset5 = new CalculatorDataset("pow(x, y)", "fifth", variables2, System.currentTimeMillis());
-        mDbHelper.addDataset(mCalculatorDataset1);
-        mDbHelper.addDataset(mCalculatorDataset2);
-        mDbHelper.addDataset(mCalculatorDataset3);
-        mDbHelper.addDataset(mCalculatorDataset4);
-        mDbHelper.addDataset(mCalculatorDataset5);
+        mCalculatorDataSet1 = new CalculatorDataSet("x + y", "first", variables1, System.currentTimeMillis());
+        mCalculatorDataSet2 = new CalculatorDataSet("x / y", "second", variables2, System.currentTimeMillis());
+        mCalculatorDataSet3 = new CalculatorDataSet("x * y", "third", variables1, System.currentTimeMillis());
+        mCalculatorDataSet4 = new CalculatorDataSet("x - y", "fourth", variables2, System.currentTimeMillis());
+        mCalculatorDataSet5 = new CalculatorDataSet("pow(x, y)", "fifth", variables2, System.currentTimeMillis());
+        mStorage.addDataSet(mCalculatorDataSet1);
+        mStorage.addDataSet(mCalculatorDataSet2);
+        mStorage.addDataSet(mCalculatorDataSet3);
+        mStorage.addDataSet(mCalculatorDataSet4);
+        mStorage.addDataSet(mCalculatorDataSet5);
 
         mActivityRule.launchActivity(new Intent());
     }
 
     @Test
     public void checkThatDatasetsAreDisplayed() {
-        onView(withId(R.id.rv)).perform(scrollTo(hasDescendant(withText(mCalculatorDataset5.datasetName))));
-        onView(withId(R.id.rv)).perform(scrollTo(hasDescendant(withText(mCalculatorDataset1.datasetName))));
+        onView(withId(R.id.rv)).perform(scrollTo(hasDescendant(withText(mCalculatorDataSet5.datasetName))));
+        onView(withId(R.id.rv)).perform(scrollTo(hasDescendant(withText(mCalculatorDataSet1.datasetName))));
     }
 
     @Test
     public void checkThatDatasetExpressionDisplayedCorrectly() {
-        onView(withId(R.id.rv)).perform(scrollTo(hasDescendant(withText(mCalculatorDataset5.datasetName))));
+        onView(withId(R.id.rv)).perform(scrollTo(hasDescendant(withText(mCalculatorDataSet5.datasetName))));
         onView(withId(R.id.rv)).check(matches(atPosition(4, hasDescendant(
-                withText(mCalculatorDataset5.expression)))));
+                withText(mCalculatorDataSet5.expression)))));
     }
 
     @Test
     public void checkThatDatasetTimestampDisplayedCorrectly() {
-        onView(withId(R.id.rv)).perform(scrollTo(hasDescendant(withText(mCalculatorDataset5.datasetName))));
+        onView(withId(R.id.rv)).perform(scrollTo(hasDescendant(withText(mCalculatorDataSet5.datasetName))));
         onView(withId(R.id.rv)).check(matches(atPosition(4, hasDescendant(
-                withText(Helper.getFormattedDate(mCalculatorDataset5.timestamp))))));
+                withText(Helper.getFormattedDate(mCalculatorDataSet5.timestamp))))));
     }
 
     @Test
     public void checkThatDatasetVariablesDisplayedCorrectly() {
-        onView(withId(R.id.rv)).perform(scrollTo(hasDescendant(withText(mCalculatorDataset5.datasetName))));
+        onView(withId(R.id.rv)).perform(scrollTo(hasDescendant(withText(mCalculatorDataSet5.datasetName))));
         onView(withId(R.id.rv)).check(matches(atPosition(4, hasDescendant(
-                withText(Helper.variablesToString(mCalculatorDataset5.variables))))));
+                withText(Helper.variablesToString(mCalculatorDataSet5.variables))))));
     }
 
     @Test
@@ -121,11 +122,11 @@ public class OpenActivityTest {
 
     @After
     public void removeDatasets() {
-        mDbHelper.deleteData(mCalculatorDataset1.datasetName);
-        mDbHelper.deleteData(mCalculatorDataset2.datasetName);
-        mDbHelper.deleteData(mCalculatorDataset3.datasetName);
-        mDbHelper.deleteData(mCalculatorDataset4.datasetName);
-        mDbHelper.deleteData(mCalculatorDataset5.datasetName);
+        mStorage.deleteDataSet(mCalculatorDataSet1);
+        mStorage.deleteDataSet(mCalculatorDataSet2);
+        mStorage.deleteDataSet(mCalculatorDataSet3);
+        mStorage.deleteDataSet(mCalculatorDataSet4);
+        mStorage.deleteDataSet(mCalculatorDataSet5);
     }
 
 }

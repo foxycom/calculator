@@ -13,10 +13,11 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.guliash.calculator.Constants;
-import com.guliash.calculator.DBHelper;
+import com.guliash.calculator.storage.DBHelper;
 import com.guliash.calculator.Helper;
 import com.guliash.calculator.R;
-import com.guliash.calculator.structures.CalculatorDataset;
+import com.guliash.calculator.storage.Storage;
+import com.guliash.calculator.structures.CalculatorDataSet;
 import com.guliash.calculator.structures.StringVariableWrapper;
 import com.guliash.calculator.ui.adapters.VariablesAdapterRemove;
 import com.guliash.calculator.ui.fragments.AlertDialogFragment;
@@ -26,8 +27,8 @@ public class SaveActivity extends BaseActivity implements VariablesAdapterRemove
 
     private EditText mExpressionEditText, mDatasetNameEditText;
     private VariablesAdapterRemove mAdapter;
-    private CalculatorDataset mDataset;
-    private DBHelper mDbHelper;
+    private CalculatorDataSet mDataset;
+    private Storage mStorage;
     private RecyclerView mVariablesRV;
 
     private static final int DIALOG_REVIEW_ID = 1;
@@ -62,7 +63,7 @@ public class SaveActivity extends BaseActivity implements VariablesAdapterRemove
         mVariablesRV = (RecyclerView) findViewById(R.id.variables_rv);
         mVariablesRV.setLayoutManager(new LinearLayoutManager(this));
 
-        mDbHelper = new DBHelper(this);
+        mStorage = new DBHelper(this);
     }
 
     @Override
@@ -102,13 +103,13 @@ public class SaveActivity extends BaseActivity implements VariablesAdapterRemove
                         show();
                 return;
             }
-            if(mDbHelper.getIdOfRowWithName(mDataset.datasetName) != -1) {
+            if(mStorage.hasDataSet(mDataset)) {
                 showAlertDialog(getString(R.string.dialog_error),
                         getString(R.string.unique_dataset_name_error, mDataset.datasetName),
                         getString(R.string.OK), getString(R.string.NO), null, true, DIALOG_DATASET_UNIQUE);
             } else {
                 mDataset.timestamp = Helper.getCurrentTimestamp();
-                mDbHelper.addDataset(mDataset);
+                mStorage.addDataSet(mDataset);
                 setResult(RESULT_OK);
                 if(showReviewDialogIfNeed()) {
                     finish();
@@ -155,7 +156,7 @@ public class SaveActivity extends BaseActivity implements VariablesAdapterRemove
                 finish();
                 break;
             case DIALOG_DATASET_UNIQUE:
-                mDbHelper.updateData(mDataset);
+                mStorage.updateDataSet(mDataset);
                 setResult(RESULT_OK);
                 if(showReviewDialogIfNeed()) {
                     finish();
