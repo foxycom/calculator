@@ -211,4 +211,9 @@ public class DBHelper extends SQLiteOpenHelper implements Storage {
         });
         return res;
     }
+
+    @Override
+    public void releaseResources() {
+        close();
+    }
 }

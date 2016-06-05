@@ -42,4 +42,9 @@ public interface Storage {
      * @return the result list
      */
     List<CalculatorDataSet> getDataSets();
+
+    /**
+     * Releases all resources needed by the storage
+     */
+    void releaseResources();
 }
