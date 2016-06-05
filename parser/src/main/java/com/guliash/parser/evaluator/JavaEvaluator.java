@@ -4,6 +4,7 @@ import com.guliash.parser.Angle;
 import com.guliash.parser.Functions;
 
 import java.util.List;
+import java.util.Locale;
 
 public class JavaEvaluator implements Evaluator {
 
@@ -89,7 +90,7 @@ public class JavaEvaluator implements Evaluator {
             }
         }
 
-        throw new IllegalArgumentException(String.format("Function %s not found with %d arguments",
+        throw new IllegalArgumentException(String.format(Locale.ENGLISH, "Function %s not found with %d arguments",
                 name, args.size()));
 
     }

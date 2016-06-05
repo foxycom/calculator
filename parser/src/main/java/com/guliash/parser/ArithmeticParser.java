@@ -19,7 +19,7 @@ public class ArithmeticParser {
 
     private Stemmer stemmer;
 
-    public ArithmeticParser(String s, List<DoubleVariable> variables, Evaluator evaluator) {
+    private ArithmeticParser(String s, List<DoubleVariable> variables, Evaluator evaluator) {
         this.stemmer = new Stemmer(s);
         this.variables = variables;
         this.evaluator = evaluator;
@@ -37,7 +37,7 @@ public class ArithmeticParser {
         return new ArithmeticParser(s, calculatedList, evaluator).calculate();
     }
 
-    public double calculate() {
+    private double calculate() {
         stemmer.start();
         double res = expression();
         if(stemmer.getLexeme() != Lexeme.END_OF_LINE) {
@@ -122,7 +122,7 @@ public class ArithmeticParser {
         }
     }
 
-    public List<Double> readFunctionArgs() {
+    private List<Double> readFunctionArgs() {
         stemmer.verifyAndRead(Lexeme.OPEN_BRACKET);
         List<Double> args = new ArrayList<>();
         while(stemmer.getLexeme() != Lexeme.CLOSE_BRACKET) {
@@ -137,7 +137,7 @@ public class ArithmeticParser {
         return args;
     }
 
-    public boolean hasVariable(String word) {
+    private boolean hasVariable(String word) {
         return getVariable(word) != null;
     }
 

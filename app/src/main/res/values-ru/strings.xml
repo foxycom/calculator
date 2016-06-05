@@ -10,7 +10,6 @@
     <string name="add_variable">Добавить переменную</string>
     <string name="variable_name">Имя</string>
     <string name="variable_value">Значение</string>
-    <string name="calculator">КАЛЬКУЛЯТОР</string>
     <string name="result">Результат</string>
     <string name="save">Сохранить</string>
     <string name="help">Помощь</string>
@@ -18,7 +17,6 @@
     <string name="settings">Настройки</string>
     <string name="description">Описание</string>
 
-    <string name="action_settings">Настройки</string>
     <string name="title_activity_open">Открыть</string>
     <string name="title_activity_help">Помощь</string>
     <string name="title_activity_save">Сохранить</string>

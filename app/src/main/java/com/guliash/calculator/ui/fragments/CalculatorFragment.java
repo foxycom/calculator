@@ -52,8 +52,7 @@ public class CalculatorFragment extends Fragment implements VariablesAdapterRemo
     private CalculatorDataset mDataset;
 
     public static CalculatorFragment newInstance() {
-        CalculatorFragment fragment = new CalculatorFragment();
-        return fragment;
+        return new CalculatorFragment();
     }
 
     public CalculatorFragment() {

@@ -33,7 +33,7 @@ public class CalculatorApplication extends Application {
                 Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.putInt(ANGLE, angleUnit.ordinal());
-        editor.commit();
+        editor.apply();
         this.angleUnits = angleUnit;
     }
 
@@ -46,6 +46,6 @@ public class CalculatorApplication extends Application {
         SharedPreferences prefs = this.getSharedPreferences(APP_PREFERENCES, Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = prefs.edit();
         editor.putBoolean(key, value);
-        editor.commit();
+        editor.apply();
     }
 }

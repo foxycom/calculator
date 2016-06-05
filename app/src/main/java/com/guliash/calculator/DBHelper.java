@@ -63,6 +63,7 @@ public class DBHelper extends SQLiteOpenHelper {
             int idColumnIndex = cursor.getColumnIndex("id");
             res = cursor.getInt(idColumnIndex);
         }
+        cursor.close();
         db.close();
         return res;
     }
@@ -134,6 +135,7 @@ public class DBHelper extends SQLiteOpenHelper {
                         cursor.getString(nameColIndex)));
             } while(cursor.moveToNext());
         }
+        cursor.close();
         db.close();
         return res;
     }
@@ -152,6 +154,7 @@ public class DBHelper extends SQLiteOpenHelper {
             int expColIndex = cursor.getColumnIndex("exp");
             res = cursor.getString(expColIndex);
         }
+        cursor.close();
         return res;
     }
 
@@ -164,6 +167,7 @@ public class DBHelper extends SQLiteOpenHelper {
             int timeColIndex = cursor.getColumnIndex("date");
             res = cursor.getLong(timeColIndex);
         }
+        cursor.close();
         return res;
     }
 
@@ -180,6 +184,7 @@ public class DBHelper extends SQLiteOpenHelper {
                         cursor.getString(valueColIndex)));
             } while(cursor.moveToNext());
         }
+        cursor.close();
         return variables;
     }
 }

@@ -1,10 +1,12 @@
 package com.guliash.parser;
 
+import java.util.Locale;
+
 public class Functions {
 
     public static double factorial(double n) throws IllegalArgumentException {
         if(n < 0) {
-            throw new IllegalArgumentException(String.format("Negative %f arg for factorial", n));
+            throw new IllegalArgumentException(String.format(Locale.ENGLISH, "Negative %f arg for factorial", n));
         }
         double res = 1;
         for(double i = 2; i <= n; i++) {
