@@ -45,7 +45,7 @@ import static com.github.guliash.calculator.Matchers.withDoubleText;
 public class MainActivityTest {
 
     @Rule
-    public ActivityTestRule<MainActivity> mActivityRule = new ActivityTestRule<MainActivity>(
+    public ActivityTestRule<MainActivity> mActivityRule = new ActivityTestRule<>(
             MainActivity.class);
 
     @Test

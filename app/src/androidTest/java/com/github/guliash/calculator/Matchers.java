@@ -36,9 +36,9 @@ public class Matchers {
 
     /**
      * This matcher makes sense only if the adapter has a view holder for {@code position}
-     * @param position
-     * @param itemMatcher
-     * @return
+     * @param position position to apply matcher at
+     * @param itemMatcher matcher to apply
+     * @return result matcher
      */
     public static Matcher<View> atPosition(final int position, @NonNull final Matcher<View> itemMatcher) {
         return new BoundedMatcher<View, RecyclerView>(RecyclerView.class) {

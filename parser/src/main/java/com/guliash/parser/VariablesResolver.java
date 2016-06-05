@@ -82,7 +82,7 @@ public class VariablesResolver {
      * @param variable variable to find dependencies in
      * @return set of dependencies
      * @throws IllegalArgumentException if expression contains not correct lexemes or dependency
-     * variable can't be found in {@link variables}
+     * variable can't be found in {@link VariablesResolver#variables}
      */
     public Set<StringVariable> findDependencies(StringVariable variable) throws IllegalArgumentException {
         Stemmer stemmer = new Stemmer(variable.value);

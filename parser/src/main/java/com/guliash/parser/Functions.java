@@ -54,7 +54,7 @@ public class Functions {
 
     /**
      * Acot in rads
-     * @param val
+     * @param val value
      * @return acot in rads
      */
     public static double acot(double val) {

@@ -52,8 +52,8 @@ public class DBHelper extends SQLiteOpenHelper {
 
     /**
      * Checks whether there is a row with the given name in main_table
-     * @param name
-     * @return
+     * @param name row name
+     * @return id of the row, {@code -1} if it does not exist
      */
     public long getIdOfRowWithName(String name) {
         SQLiteDatabase db = getReadableDatabase();

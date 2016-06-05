@@ -48,6 +48,8 @@ public class VariablesResolverTester {
 
         StringVariable x = new StringVariable("x", "y + z");
         StringVariable y = new StringVariable("y", "1");
+        variables.add(x);
+        variables.add(y);
 
         VariablesResolver resolver = new VariablesResolver(variables, evaluator);
         resolver.findDependencies(x);

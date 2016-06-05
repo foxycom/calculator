@@ -11,7 +11,7 @@ public class BaseParserTester {
 
     /**
      * calculates without variables and at RAD mode
-     * @param expression
+     * @param expression expression to evaluate
      * @return result
      */
     protected double calculate(String expression) {
