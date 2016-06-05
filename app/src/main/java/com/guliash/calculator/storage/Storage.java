@@ -47,4 +47,9 @@ public interface Storage {
      * Releases all resources needed by the storage
      */
     void releaseResources();
+
+    /**
+     * Clears all
+     */
+    void clear();
 }

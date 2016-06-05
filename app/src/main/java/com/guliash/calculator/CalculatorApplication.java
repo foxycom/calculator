@@ -11,6 +11,8 @@ public class CalculatorApplication extends Application {
     public Angle angleUnits;
     public static final String APP_PREFERENCES = "prefs";
     public static final String ANGLE = "angle";
+    public static final String DATABASE_NAME = "calculator";
+
     @Override
     public void onCreate() {
         super.onCreate();

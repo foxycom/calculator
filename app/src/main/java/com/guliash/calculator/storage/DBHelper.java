@@ -30,8 +30,8 @@ public class DBHelper extends SQLiteOpenHelper implements Storage {
             "FOREIGN KEY (id) REFERENCES main(id) ON DELETE CASCADE);";
 
 
-    public DBHelper(Context context) {
-        super(context, "calculator", null, DATABASE_VERSION);
+    public DBHelper(Context context, String databaseName) {
+        super(context, databaseName, null, DATABASE_VERSION);
     }
 
     @Override
@@ -215,5 +215,11 @@ public class DBHelper extends SQLiteOpenHelper implements Storage {
     @Override
     public void releaseResources() {
         close();
+    }
+
+    @Override
+    public void clear() {
+        SQLiteDatabase db = getWritableDatabase();
+        db.delete(MAIN_TABLE, null, null);
     }
 }

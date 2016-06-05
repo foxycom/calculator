@@ -1,4 +1,4 @@
-package com.github.guliash.calculator;
+package com.github.guliash.calculator.ui;
 
 import android.app.Activity;
 import android.app.Instrumentation;
@@ -9,6 +9,7 @@ import android.support.test.espresso.intent.matcher.IntentMatchers;
 import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
 
+import com.github.guliash.calculator.Actions;
 import com.guliash.calculator.Constants;
 import com.guliash.calculator.R;
 import com.guliash.calculator.structures.CalculatorDataSet;

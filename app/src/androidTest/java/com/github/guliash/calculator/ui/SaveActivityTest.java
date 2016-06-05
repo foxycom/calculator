@@ -1,4 +1,4 @@
-package com.github.guliash.calculator;
+package com.github.guliash.calculator.ui;
 
 import android.content.Intent;
 import android.support.test.rule.ActivityTestRule;

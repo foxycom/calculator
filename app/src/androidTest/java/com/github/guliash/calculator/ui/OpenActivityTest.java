@@ -1,10 +1,11 @@
-package com.github.guliash.calculator;
+package com.github.guliash.calculator.ui;
 
 import android.content.Intent;
 import android.support.test.espresso.action.ViewActions;
 import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
 
+import com.guliash.calculator.CalculatorApplication;
 import com.guliash.calculator.storage.DBHelper;
 import com.guliash.calculator.Helper;
 import com.guliash.calculator.R;
@@ -53,7 +54,7 @@ public class OpenActivityTest {
     @Before
     public void addDatasets() {
         mStorage = new DBHelper(getInstrumentation().getTargetContext()
-                .getApplicationContext());
+                .getApplicationContext(), CalculatorApplication.DATABASE_NAME);
         ArrayList<StringVariableWrapper> variables1 = new ArrayList<>();
         variables1.add(new StringVariableWrapper("x", "1"));
         variables1.add(new StringVariableWrapper("y", "2"));

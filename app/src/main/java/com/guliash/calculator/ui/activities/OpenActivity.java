@@ -8,6 +8,7 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 
+import com.guliash.calculator.CalculatorApplication;
 import com.guliash.calculator.Constants;
 import com.guliash.calculator.storage.DBHelper;
 import com.guliash.calculator.R;
@@ -38,7 +39,7 @@ public class OpenActivity extends BaseActivity implements DatasetsAdapterCV.Call
             }
         });
 
-        mStorage = new DBHelper(this);
+        mStorage = new DBHelper(this, CalculatorApplication.DATABASE_NAME);
 
         mRecyclerView = (RecyclerView)findViewById(R.id.rv);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
