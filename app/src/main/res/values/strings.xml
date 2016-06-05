@@ -61,4 +61,11 @@
     <string name="review_positive">OK</string>
     <string name="review_negative">NO</string>
     <!--REVIEW-->
+
+    <!--CONTENT DESCRIPTION-->
+    <string name="remove_symbol">Remove symbol</string>
+    <string name="calculate">Calculate</string>
+    <string name="overflow_menu">Overflow menu</string>
+    <!--CONTENT DESCRIPTION-->
+
 </resources>

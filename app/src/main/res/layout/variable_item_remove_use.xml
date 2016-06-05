@@ -23,12 +23,14 @@
         android:layout_gravity="center_vertical"
         android:id="@+id/check_button"
         android:background="@null"
+        android:contentDescription="@string/use"
         android:src="@drawable/check_button"/>
     <ImageButton
         android:layout_width="48dp"
         android:layout_height="48dp"
         android:layout_gravity="center_vertical"
         android:id="@+id/remove_button"
+        android:contentDescription="@string/delete"
         android:background="@null"
         android:src="@drawable/remove_button"/>
 

@@ -29,6 +29,7 @@
                 android:layout_width="40dp"
                 android:layout_height="40dp"
                 android:src="@drawable/backspace"
+                android:contentDescription="@string/remove_symbol"
                 android:scaleType="center"/>
         </LinearLayout>
         <LinearLayout
@@ -50,6 +51,7 @@
                 android:layout_height="40dp"
                 android:clickable="true"
                 android:src="@drawable/equals_button"
+                android:contentDescription="@string/calculate"
                 android:scaleType="center"/>
         </LinearLayout>
     </LinearLayout>

@@ -22,6 +22,7 @@
         android:layout_height="48dp"
         android:layout_gravity="center_vertical"
         android:id="@+id/remove_button"
+        android:contentDescription="@string/delete"
         android:background="@null"
         android:src="@drawable/remove_button"/>
 

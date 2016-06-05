@@ -64,4 +64,11 @@
     <string name="review_message">Пожалуйста, напишите отзыв. Это поможет улучшить приложение!</string>
     <string name="review_positive">Да</string>
     <string name="review_negative">Нет</string>
+    <!--REVIEW-->
+
+    <!--CONTENT DESCRIPTION-->
+    <string name="remove_symbol">Удалить символ</string>
+    <string name="calculate">Посчитать</string>
+    <string name="overflow_menu">Доп. меню</string>
+    <!--CONTENT DESCRIPTION-->
 </resources>

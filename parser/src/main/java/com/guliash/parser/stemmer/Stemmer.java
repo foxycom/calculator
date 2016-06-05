@@ -21,7 +21,7 @@ public class Stemmer {
         END_OF_LINE,
         OPEN_BRACKET,
         CLOSE_BRACKET,
-        COMMA;
+        COMMA
     }
 
     public Stemmer(String s) {
