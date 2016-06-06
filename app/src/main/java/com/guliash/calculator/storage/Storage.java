@@ -12,14 +12,14 @@ public interface Storage {
     /**
      * Adds new dataSet to the storage
      * @param dataSet dataSet to add
-     * @return {@code true} if the dataSet was added, {@code false} otherwise
+     * @return {@code true} if the dataSet was added, {@code false} if the dataSet already present
      */
     boolean addDataSet(CalculatorDataSet dataSet);
 
     /**
      * Updates an already added dataSet
      * @param dataSet dataSet to update
-     * @return {@code true} if the dataSet was updated, {@code false} otherwise
+     * @return {@code true} if the dataSet was updated, {@code false} if the dataset was not added previously
      */
     boolean updateDataSet(CalculatorDataSet dataSet);
 
@@ -33,7 +33,7 @@ public interface Storage {
     /**
      * Deletes the dataSet from the storage
      * @param dataSet the dataSet to delete
-     * @return {@code true} if the dataSet was deleted, {@code false} otherwise
+     * @return {@code true} if the dataSet was deleted, {@code false} if the dataSet was not previously added
      */
     boolean deleteDataSet(CalculatorDataSet dataSet);
 
