@@ -12,9 +12,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.guliash.calculator.CalculatorApplication;
 import com.guliash.calculator.Constants;
-import com.guliash.calculator.storage.DBHelper;
 import com.guliash.calculator.Helper;
 import com.guliash.calculator.R;
 import com.guliash.calculator.storage.Storage;
@@ -64,7 +62,7 @@ public class SaveActivity extends BaseActivity implements VariablesAdapterRemove
         mVariablesRV = (RecyclerView) findViewById(R.id.variables_rv);
         mVariablesRV.setLayoutManager(new LinearLayoutManager(this));
 
-        mStorage = new DBHelper(this, CalculatorApplication.DATABASE_NAME);
+        mStorage = getApp().getAppComponent().storage();
     }
 
     @Override

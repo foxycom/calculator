@@ -66,7 +66,6 @@ public class DBHelper extends SQLiteOpenHelper implements Storage {
             res = cursor.getInt(idColumnIndex);
         }
         cursor.close();
-        db.close();
         return res;
     }
 
@@ -75,9 +74,7 @@ public class DBHelper extends SQLiteOpenHelper implements Storage {
         ContentValues cv = new ContentValues();
         cv.put("name", name);
         cv.put("date", date);
-        long id = db.insert(MAIN_TABLE, null, cv);
-        db.close();
-        return id;
+        return db.insert(MAIN_TABLE, null, cv);
     }
 
     private void addDataToVariablesAndExpTables(long id, String expression, List<? extends StringVariableWrapper> variables) {
@@ -93,13 +90,11 @@ public class DBHelper extends SQLiteOpenHelper implements Storage {
             cv.put("value", variable.value);
             db.insert(VARIABLES_TABLE, null, cv);
         }
-        db.close();
     }
 
     private void deleteRowFromMainTable(long id) {
         SQLiteDatabase db = getWritableDatabase();
         db.delete(MAIN_TABLE, "id = ?", new String[] { Long.toString(id) });
-        db.close();
     }
 
     private CalculatorDataSet getDataset(long id, String name) {
@@ -202,7 +197,6 @@ public class DBHelper extends SQLiteOpenHelper implements Storage {
             } while(cursor.moveToNext());
         }
         cursor.close();
-        db.close();
         Collections.sort(res, new Comparator<CalculatorDataSet>() {
             @Override
             public int compare(CalculatorDataSet lhs, CalculatorDataSet rhs) {

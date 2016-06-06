@@ -4,6 +4,9 @@ import android.app.Application;
 import android.content.Context;
 import android.content.SharedPreferences;
 
+import com.guliash.calculator.di.components.AppComponent;
+import com.guliash.calculator.di.components.DaggerAppComponent;
+import com.guliash.calculator.di.modules.AppModule;
 import com.guliash.parser.Angle;
 
 public class CalculatorApplication extends Application {
@@ -13,10 +16,25 @@ public class CalculatorApplication extends Application {
     public static final String ANGLE = "angle";
     public static final String DATABASE_NAME = "calculator";
 
+    private AppComponent mAppComponent;
+
     @Override
     public void onCreate() {
         super.onCreate();
+        setUpAppComponent();
         loadData();
+    }
+
+    private void setUpAppComponent() {
+        mAppComponent = DaggerAppComponent.builder().appModule(new AppModule(this)).build();
+    }
+
+    public AppComponent getAppComponent() {
+        return mAppComponent;
+    }
+
+    public void setAppComponent(AppComponent component) {
+        this.mAppComponent = component;
     }
 
     public void loadData() {
