@@ -160,8 +160,8 @@ public class MainActivityTest {
         variables.add(new StringVariableWrapper("x", "2"));
         variables.add(new StringVariableWrapper("y", "3"));
         variables.add(new StringVariableWrapper("z", "4"));
-        CalculatorDataSet calculatorDataSet = new CalculatorDataSet("x + y + z", "dataset", variables,
-                System.currentTimeMillis());
+        CalculatorDataSet calculatorDataSet = new CalculatorDataSet("x + y + z", "dataset",
+                System.currentTimeMillis(), variables);
         resultIntent.putExtra(Constants.DATASET, calculatorDataSet);
         Instrumentation.ActivityResult result = new Instrumentation.ActivityResult(Activity.RESULT_OK,
                 resultIntent);
@@ -176,7 +176,7 @@ public class MainActivityTest {
         }
         Intents.release();
 
-        onView(withId(R.id.input_field)).check(matches(withText(calculatorDataSet.expression)));
+        onView(withId(R.id.input_field)).check(matches(withText(calculatorDataSet.getExpression())));
         for(int i = 0; i < variables.size(); i++) {
             onView(withId(R.id.variables_rv)).perform(scrollToPosition(i));
             onView(withId(R.id.variables_rv)).check(matches(atPosition(i,

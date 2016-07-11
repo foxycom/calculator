@@ -53,7 +53,7 @@ public class SaveActivityTest {
         variables.add(new StringVariableWrapper("k", "3.14"));
 
 
-        dataset = new CalculatorDataSet(expression, datasetName, variables, System.currentTimeMillis());
+        dataset = new CalculatorDataSet(expression, datasetName, System.currentTimeMillis(), variables);
 
         Intent intent = new Intent();
         intent.putExtra(Constants.DATASET, dataset);
@@ -62,18 +62,18 @@ public class SaveActivityTest {
 
     @Test
     public void testThatExpressionCorrectlyShown() {
-        onView(withId(R.id.expression)).check(matches(withText(dataset.expression)));
+        onView(withId(R.id.expression)).check(matches(withText(dataset.getExpression())));
     }
 
     @Test
     public void testThatNameCorrectlyShown() {
-        onView(withId(R.id.dataset_name)).check(matches(withText(dataset.datasetName)));
+        onView(withId(R.id.dataset_name)).check(matches(withText(dataset.getDataSetName())));
     }
 
     @Test
     public void testThatVariablesCorrectlyShown() {
-        for(int i = 0; i < dataset.variables.size(); i++) {
-            StringVariableWrapper wrapper = dataset.variables.get(i);
+        for(int i = 0; i < dataset.getVariables().size(); i++) {
+            StringVariableWrapper wrapper = dataset.getVariables().get(i);
             onView(withId(R.id.variables_rv))
                     .perform(scrollToPosition(i));
             onView(withId(R.id.variables_rv))
@@ -84,7 +84,7 @@ public class SaveActivityTest {
 
     @Test
     public void testThatRemoveWorks() {
-        int lastIndex = dataset.variables.size() - 1;
+        int lastIndex = dataset.getVariables().size() - 1;
         onView(withId(R.id.variables_rv))
                 .perform(scrollToPosition(lastIndex))
                 .perform(actionOnItemAtPosition(lastIndex, clickChildViewWithId(R.id.remove_button)));
@@ -93,7 +93,7 @@ public class SaveActivityTest {
 
     @Test
     public void testThatAddVariableWorks() {
-        int lastIndex = dataset.variables.size() - 1;
+        int lastIndex = dataset.getVariables().size() - 1;
         onView(withId(R.id.add)).perform(click());
         onView(withId(R.id.variables_rv)).perform(scrollToPosition(lastIndex + 1));
         onView(withId(R.id.variables_rv)).check(matches(atPosition(lastIndex + 1, isDisplayed())));

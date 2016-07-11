@@ -98,7 +98,7 @@ public class DBHelper extends SQLiteOpenHelper implements Storage {
     }
 
     private CalculatorDataSet getDataset(long id, String name) {
-        return new CalculatorDataSet(getExpression(id), name, getVariables(id), getDatasetTime(id));
+        return new CalculatorDataSet(getExpression(id), name, getDatasetTime(id), getVariables(id));
     }
 
     private String getExpression(long id) {
@@ -147,13 +147,12 @@ public class DBHelper extends SQLiteOpenHelper implements Storage {
 
     @Override
     public boolean addDataSet(CalculatorDataSet dataSet) throws IllegalArgumentException {
-
         if(hasDataSet(dataSet)) {
             return false;
         }
 
-        long id = addRowToMainTable(dataSet.datasetName, dataSet.timestamp);
-        addDataToVariablesAndExpTables(id, dataSet.expression, dataSet.variables);
+        long id = addRowToMainTable(dataSet.getDataSetName(), dataSet.getTimestamp());
+        addDataToVariablesAndExpTables(id, dataSet.getExpression(), dataSet.getVariables());
         return true;
     }
 
@@ -171,7 +170,7 @@ public class DBHelper extends SQLiteOpenHelper implements Storage {
 
     @Override
     public boolean hasDataSet(CalculatorDataSet dataSet) {
-        return getIdOfRowWithName(dataSet.datasetName) != -1;
+        return getIdOfRowWithName(dataSet.getDataSetName()) != -1;
     }
 
     @Override
@@ -179,7 +178,7 @@ public class DBHelper extends SQLiteOpenHelper implements Storage {
         if(!hasDataSet(dataSet)) {
             return false;
         }
-        deleteRowFromMainTable(getIdOfRowWithName(dataSet.datasetName));
+        deleteRowFromMainTable(getIdOfRowWithName(dataSet.getDataSetName()));
         return true;
     }
 
@@ -200,7 +199,12 @@ public class DBHelper extends SQLiteOpenHelper implements Storage {
         Collections.sort(res, new Comparator<CalculatorDataSet>() {
             @Override
             public int compare(CalculatorDataSet lhs, CalculatorDataSet rhs) {
-                return -Long.compare(lhs.timestamp, rhs.timestamp);
+                if(lhs.getTimestamp() < rhs.getTimestamp()) {
+                    return 1;
+                } else if(lhs.getTimestamp() == rhs.getTimestamp()) {
+                    return 0;
+                }
+                return -1;
             }
         });
         return res;

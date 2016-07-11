@@ -32,13 +32,13 @@ public class DBStorageTest {
         ArrayList<StringVariableWrapper> variables1 = new ArrayList<>();
         variables1.add(new StringVariableWrapper("x", "2.5"));
         variables1.add(new StringVariableWrapper("y", "55.3"));
-        dataSet1 = new CalculatorDataSet("x + y", "test1", variables1, System.currentTimeMillis());
+        dataSet1 = new CalculatorDataSet("x + y", "test1", System.currentTimeMillis(), variables1);
 
         ArrayList<StringVariableWrapper> variables2 = new ArrayList<>();
         variables2.add(new StringVariableWrapper("x", "33.5"));
         variables2.add(new StringVariableWrapper("y", "43.3"));
         variables2.add(new StringVariableWrapper("z", "45.3"));
-        dataSet2 = new CalculatorDataSet("x + y / z", "test2", variables2, System.currentTimeMillis() + 1);
+        dataSet2 = new CalculatorDataSet("x + y / z", "test2", System.currentTimeMillis() + 1, variables2);
     }
 
     @Test
@@ -59,14 +59,14 @@ public class DBStorageTest {
     }
 
     private void checkThatDataSetContentsAreEqual(CalculatorDataSet first, CalculatorDataSet second) {
-        Assert.assertEquals(first.datasetName, second.datasetName);
-        Assert.assertEquals(first.expression, second.expression);
-        Assert.assertEquals(first.timestamp, second.timestamp);
-        Assert.assertEquals(first.variables.size(), second.variables.size());
+        Assert.assertEquals(first.getDataSetName(), second.getDataSetName());
+        Assert.assertEquals(first.getExpression(), second.getExpression());
+        Assert.assertEquals(first.getTimestamp(), second.getTimestamp());
+        Assert.assertEquals(first.getVariables().size(), second.getVariables().size());
 
-        for(int i = 0; i < first.variables.size(); i++) {
-            Assert.assertEquals(first.variables.get(i).name, second.variables.get(i).name);
-            Assert.assertEquals(first.variables.get(i).value, second.variables.get(i).value);
+        for(int i = 0; i < first.getVariables().size(); i++) {
+            Assert.assertEquals(first.getVariables().get(i).name, second.getVariables().get(i).name);
+            Assert.assertEquals(first.getVariables().get(i).value, second.getVariables().get(i).value);
         }
     }
 
@@ -82,7 +82,7 @@ public class DBStorageTest {
     public void testThatUpdateWorks() {
         storage.addDataSet(dataSet1);
 
-        dataSet2.datasetName = dataSet1.datasetName;
+        dataSet2.setDataSetName(dataSet1.getDataSetName());
 
         storage.updateDataSet(dataSet2);
 

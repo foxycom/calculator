@@ -69,45 +69,45 @@ public class SaveActivity extends BaseActivity implements VariablesAdapterRemove
     protected void onStart() {
         super.onStart();
 
-        mExpressionEditText.setText(mDataset.expression);
-        mDatasetNameEditText.setText(mDataset.datasetName);
+        mExpressionEditText.setText(mDataset.getExpression());
+        mDatasetNameEditText.setText(mDataset.getDataSetName());
 
-        mAdapter = new VariablesAdapterRemove(mDataset.variables, this);
+        mAdapter = new VariablesAdapterRemove(mDataset.getVariables(), this);
         mVariablesRV.setAdapter(mAdapter);
     }
 
     @Override
     protected void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
-        mDataset.expression = mExpressionEditText.getText().toString();
-        mDataset.datasetName = mDatasetNameEditText.getText().toString();
+        mDataset.setExpression(mExpressionEditText.getText().toString());
+        mDataset.setDataSetName(mDatasetNameEditText.getText().toString());
         outState.putParcelable(Constants.DATASET, mDataset);
     }
 
     private View.OnClickListener mAddVariableClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            mDataset.variables.add(new StringVariableWrapper("", "0"));
-            mAdapter.notifyItemInserted(mDataset.variables.size() - 1);
+            mDataset.getVariables().add(new StringVariableWrapper("", "0"));
+            mAdapter.notifyItemInserted(mDataset.getVariables().size() - 1);
         }
     };
 
     private View.OnClickListener mSaveClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            mDataset.datasetName = mDatasetNameEditText.getText().toString();
-            mDataset.expression = mExpressionEditText.getText().toString();
-            if(TextUtils.isEmpty(mDataset.datasetName)) {
+            mDataset.setDataSetName(mDatasetNameEditText.getText().toString());
+            mDataset.setExpression(mExpressionEditText.getText().toString());
+            if(TextUtils.isEmpty(mDataset.getDataSetName())) {
                 Toast.makeText(getApplicationContext(), R.string.name_is_empty, Toast.LENGTH_SHORT).
                         show();
                 return;
             }
             if(mStorage.hasDataSet(mDataset)) {
                 showAlertDialog(getString(R.string.dialog_error),
-                        getString(R.string.unique_dataset_name_error, mDataset.datasetName),
+                        getString(R.string.unique_dataset_name_error, mDataset.getDataSetName()),
                         getString(R.string.OK), getString(R.string.NO), null, true, DIALOG_DATASET_UNIQUE);
             } else {
-                mDataset.timestamp = Helper.getCurrentTimestamp();
+                mDataset.setTimestamp(Helper.getCurrentTimestamp());
                 mStorage.addDataSet(mDataset);
                 setResult(RESULT_OK);
                 if(showReviewDialogIfNeed()) {
@@ -119,9 +119,9 @@ public class SaveActivity extends BaseActivity implements VariablesAdapterRemove
 
     @Override
     public void onVariableRemove(int position) {
-        mDataset.variables.remove(position);
+        mDataset.getVariables().remove(position);
         mAdapter.notifyItemRemoved(position);
-        mAdapter.notifyItemRangeChanged(position, mDataset.variables.size());
+        mAdapter.notifyItemRangeChanged(position, mDataset.getVariables().size());
     }
 
     private boolean showReviewDialogIfNeed() {

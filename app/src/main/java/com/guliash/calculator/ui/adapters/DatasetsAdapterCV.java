@@ -63,10 +63,10 @@ public class DatasetsAdapterCV extends RecyclerView.Adapter<DatasetsAdapterCV.Da
     @Override
     public void onBindViewHolder(DatasetsAdapterCV.DatasetViewHolder holder, final int position) {
         CalculatorDataSet dataset = mObjects.get(position);
-        holder.nameTextView.setText(dataset.datasetName);
-        holder.varTextView.setText(Helper.variablesToString(dataset.variables));
-        holder.expTextView.setText(dataset.expression);
-        holder.dateTextView.setText(Helper.getFormattedDate(dataset.timestamp));
+        holder.nameTextView.setText(dataset.getDataSetName());
+        holder.varTextView.setText(Helper.variablesToString(dataset.getVariables()));
+        holder.expTextView.setText(dataset.getExpression());
+        holder.dateTextView.setText(Helper.getFormattedDate(dataset.getTimestamp()));
     }
 
     @Override

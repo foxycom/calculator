@@ -63,11 +63,11 @@ public class OpenActivityTest {
         variables2.add(new StringVariableWrapper("x", "1"));
         variables2.add(new StringVariableWrapper("y", "2"));
 
-        mCalculatorDataSet1 = new CalculatorDataSet("x + y", "first", variables1, System.currentTimeMillis());
-        mCalculatorDataSet2 = new CalculatorDataSet("x / y", "second", variables2, System.currentTimeMillis());
-        mCalculatorDataSet3 = new CalculatorDataSet("x * y", "third", variables1, System.currentTimeMillis());
-        mCalculatorDataSet4 = new CalculatorDataSet("x - y", "fourth", variables2, System.currentTimeMillis());
-        mCalculatorDataSet5 = new CalculatorDataSet("pow(x, y)", "fifth", variables2, System.currentTimeMillis());
+        mCalculatorDataSet1 = new CalculatorDataSet("x + y", "first", System.currentTimeMillis(), variables1);
+        mCalculatorDataSet2 = new CalculatorDataSet("x / y", "second", System.currentTimeMillis(), variables2);
+        mCalculatorDataSet3 = new CalculatorDataSet("x * y", "third", System.currentTimeMillis(), variables1);
+        mCalculatorDataSet4 = new CalculatorDataSet("x - y", "fourth",  System.currentTimeMillis(), variables2);
+        mCalculatorDataSet5 = new CalculatorDataSet("pow(x, y)", "fifth", System.currentTimeMillis(), variables2);
         mStorage.addDataSet(mCalculatorDataSet1);
         mStorage.addDataSet(mCalculatorDataSet2);
         mStorage.addDataSet(mCalculatorDataSet3);
@@ -79,29 +79,29 @@ public class OpenActivityTest {
 
     @Test
     public void checkThatDatasetsAreDisplayed() {
-        onView(withId(R.id.rv)).perform(scrollTo(hasDescendant(withText(mCalculatorDataSet5.datasetName))));
-        onView(withId(R.id.rv)).perform(scrollTo(hasDescendant(withText(mCalculatorDataSet1.datasetName))));
+        onView(withId(R.id.rv)).perform(scrollTo(hasDescendant(withText(mCalculatorDataSet5.getDataSetName()))));
+        onView(withId(R.id.rv)).perform(scrollTo(hasDescendant(withText(mCalculatorDataSet1.getDataSetName()))));
     }
 
     @Test
     public void checkThatDatasetExpressionDisplayedCorrectly() {
-        onView(withId(R.id.rv)).perform(scrollTo(hasDescendant(withText(mCalculatorDataSet5.datasetName))));
+        onView(withId(R.id.rv)).perform(scrollTo(hasDescendant(withText(mCalculatorDataSet5.getDataSetName()))));
         onView(withId(R.id.rv)).check(matches(atPosition(4, hasDescendant(
-                withText(mCalculatorDataSet5.expression)))));
+                withText(mCalculatorDataSet5.getExpression())))));
     }
 
     @Test
     public void checkThatDatasetTimestampDisplayedCorrectly() {
-        onView(withId(R.id.rv)).perform(scrollTo(hasDescendant(withText(mCalculatorDataSet5.datasetName))));
+        onView(withId(R.id.rv)).perform(scrollTo(hasDescendant(withText(mCalculatorDataSet5.getDataSetName()))));
         onView(withId(R.id.rv)).check(matches(atPosition(4, hasDescendant(
-                withText(Helper.getFormattedDate(mCalculatorDataSet5.timestamp))))));
+                withText(Helper.getFormattedDate(mCalculatorDataSet5.getTimestamp()))))));
     }
 
     @Test
     public void checkThatDatasetVariablesDisplayedCorrectly() {
-        onView(withId(R.id.rv)).perform(scrollTo(hasDescendant(withText(mCalculatorDataSet5.datasetName))));
+        onView(withId(R.id.rv)).perform(scrollTo(hasDescendant(withText(mCalculatorDataSet5.getDataSetName()))));
         onView(withId(R.id.rv)).check(matches(atPosition(4, hasDescendant(
-                withText(Helper.variablesToString(mCalculatorDataSet5.variables))))));
+                withText(Helper.variablesToString(mCalculatorDataSet5.getVariables()))))));
     }
 
     @Test

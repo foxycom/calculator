@@ -61,7 +61,7 @@ public class CalculatorFragment extends Fragment implements VariablesAdapterRemo
     @Override
     public void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
-        mDataset.expression = mInputField.getText().toString();
+        mDataset.setExpression(mInputField.getText().toString());
         outState.putParcelable(Constants.DATASET, mDataset);
     }
 
@@ -76,11 +76,11 @@ public class CalculatorFragment extends Fragment implements VariablesAdapterRemo
         if(savedInstanceState != null) {
             mDataset = savedInstanceState.getParcelable(Constants.DATASET);
         } else {
-            mDataset = new CalculatorDataSet("", "", new ArrayList<>(DEFAULT_VARIABLES_LIST), 0);
+            mDataset = new CalculatorDataSet("", "", 0, new ArrayList<>(DEFAULT_VARIABLES_LIST));
         }
 
         mVariablesRV.setLayoutManager(new LinearLayoutManager(this.getActivity()));
-        mAdapter = new VariablesAdapterRemoveUse(mDataset.variables, this);
+        mAdapter = new VariablesAdapterRemoveUse(mDataset.getVariables(), this);
         mVariablesRV.setAdapter(mAdapter);
 
         return view;
@@ -135,7 +135,7 @@ public class CalculatorFragment extends Fragment implements VariablesAdapterRemo
                 return;
             }
 
-            List<? extends StringVariable> variables = mDataset.variables;
+            List<? extends StringVariable> variables = mDataset.getVariables();
             for(StringVariable variable : variables) {
                 if(!Verify.variable(variable)) {
                     Toast.makeText(application.getApplicationContext(), getString(
@@ -152,7 +152,7 @@ public class CalculatorFragment extends Fragment implements VariablesAdapterRemo
                 }
             }
 
-            if(!Verify.checkVariablesUnique(mDataset.variables)) {
+            if(!Verify.checkVariablesUnique(mDataset.getVariables())) {
                 Toast.makeText(getActivity().getApplicationContext(),
                         getString(R.string.variables_names_not_unique),Toast.LENGTH_LONG).show();
                 return;
@@ -178,33 +178,33 @@ public class CalculatorFragment extends Fragment implements VariablesAdapterRemo
     private View.OnClickListener mAddVariableButtonClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            mDataset.variables.add(new StringVariableWrapper("", "0"));
-            mAdapter.notifyItemInserted(mDataset.variables.size() - 1);
+            mDataset.getVariables().add(new StringVariableWrapper("", "0"));
+            mAdapter.notifyItemInserted(mDataset.getVariables().size() - 1);
         }
     };
 
 
     @Override
     public void onVariableRemove(int position) {
-        mDataset.variables.remove(position);
+        mDataset.getVariables().remove(position);
         mAdapter.notifyItemRemoved(position);
-        mAdapter.notifyItemRangeChanged(position, mDataset.variables.size() - position);
+        mAdapter.notifyItemRangeChanged(position, mDataset.getVariables().size() - position);
     }
 
     @Override
     public void onVariableUse(int position) {
-        inputString(mDataset.variables.get(position).name);
+        inputString(mDataset.getVariables().get(position).name);
     }
 
     public CalculatorDataSet getDataset() {
-        mDataset.expression = mInputField.getText().toString();
+        mDataset.setExpression(mInputField.getText().toString());
         return mDataset;
     }
 
     public void setDataset(CalculatorDataSet dataset) {
         mDataset = dataset;
-        mInputField.setText(dataset.expression);
-        mAdapter = new VariablesAdapterRemoveUse(mDataset.variables, this);
+        mInputField.setText(dataset.getExpression());
+        mAdapter = new VariablesAdapterRemoveUse(mDataset.getVariables(), this);
         mVariablesRV.setAdapter(mAdapter);
         mResultField.setText("");
     }

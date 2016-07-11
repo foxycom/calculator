@@ -5,7 +5,7 @@ import android.os.Parcelable;
 
 import com.guliash.parser.StringVariable;
 
-public class StringVariableWrapper extends StringVariable implements Parcelable {
+public final class StringVariableWrapper extends StringVariable implements Parcelable, Cloneable {
 
     public static final Parcelable.Creator<StringVariableWrapper> CREATOR = new Parcelable.Creator<StringVariableWrapper>() {
         public StringVariableWrapper createFromParcel(Parcel in) {
@@ -25,6 +25,15 @@ public class StringVariableWrapper extends StringVariable implements Parcelable 
         super();
         name = parcel.readString();
         value = parcel.readString();
+    }
+
+    @Override
+    public StringVariableWrapper clone() {
+        try {
+            return (StringVariableWrapper)super.clone();
+        } catch (CloneNotSupportedException e) {
+            throw new AssertionError();
+        }
     }
 
     @Override

@@ -3,7 +3,11 @@ package com.guliash.calculator.structures;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import java.io.BufferedInputStream;
+import java.io.BufferedReader;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashSet;
 
 public class Topic implements Parcelable {
 
