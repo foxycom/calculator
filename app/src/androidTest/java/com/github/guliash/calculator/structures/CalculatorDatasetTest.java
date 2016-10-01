@@ -4,11 +4,9 @@ import android.support.test.runner.AndroidJUnit4;
 
 import com.guliash.calculator.structures.CalculatorDataSet;
 import com.guliash.calculator.structures.StringVariableWrapper;
-import com.guliash.parser.StringVariable;
 
 import junit.framework.Assert;
 
-import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 

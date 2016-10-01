@@ -16,19 +16,27 @@ import com.guliash.calculator.structures.StringVariableWrapper;
 
 import java.util.List;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
 public class VariablesAdapterRemove extends RecyclerView.Adapter<VariablesAdapterRemove.ViewHolder> {
 
     @Nullable private List<StringVariableWrapper> mVariables;
     @NonNull private Callbacks mListener;
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
-        public EditText valueEditText, nameEditText;
-        public ImageView removeButton;
+        @BindView(R.id.variable_value)
+        EditText valueEditText;
+
+        @BindView(R.id.variable_name)
+        EditText nameEditText;
+
+        @BindView(R.id.remove_button)
+        ImageView removeButton;
+
         public ViewHolder(View view) {
             super(view);
-            valueEditText = (EditText)view.findViewById(R.id.variable_value);
-            nameEditText = (EditText)view.findViewById(R.id.variable_name);
-            removeButton = (ImageView)view.findViewById(R.id.remove_button);
+            ButterKnife.bind(this, view);
         }
     }
 

@@ -16,20 +16,33 @@ import com.guliash.calculator.structures.StringVariableWrapper;
 
 import java.util.List;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
 public class VariablesAdapterRemoveUse extends RecyclerView.Adapter<VariablesAdapterRemoveUse.ViewHolder> {
 
-    @Nullable private List<StringVariableWrapper> mVariables;
-    @NonNull private Callbacks mListener;
+    @Nullable
+    private List<StringVariableWrapper> mVariables;
+    @NonNull
+    private Callbacks mListener;
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
-        public EditText valueEditText, nameEditText;
-        public ImageView removeButton, checkButton;
+
+        @BindView(R.id.variable_value)
+        EditText valueEditText;
+
+        @BindView(R.id.variable_name)
+        EditText nameEditText;
+
+        @BindView(R.id.remove_button)
+        ImageView removeButton;
+
+        @BindView(R.id.check_button)
+        ImageView checkButton;
+
         public ViewHolder(View view) {
             super(view);
-            valueEditText = (EditText)view.findViewById(R.id.variable_value);
-            nameEditText = (EditText)view.findViewById(R.id.variable_name);
-            removeButton = (ImageView)view.findViewById(R.id.remove_button);
-            checkButton = (ImageView)view.findViewById(R.id.check_button);
+            ButterKnife.bind(this, view);
         }
     }
 
@@ -54,7 +67,7 @@ public class VariablesAdapterRemoveUse extends RecyclerView.Adapter<VariablesAda
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 final int position = holder.getAdapterPosition();
-                if(position != RecyclerView.NO_POSITION) {
+                if (position != RecyclerView.NO_POSITION) {
                     mVariables.get(position).name = s.toString();
                 }
             }
@@ -72,8 +85,8 @@ public class VariablesAdapterRemoveUse extends RecyclerView.Adapter<VariablesAda
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                final  int position = holder.getAdapterPosition();
-                if(position != RecyclerView.NO_POSITION) {
+                final int position = holder.getAdapterPosition();
+                if (position != RecyclerView.NO_POSITION) {
                     mVariables.get(position).value = s.toString();
                 }
             }
@@ -87,8 +100,8 @@ public class VariablesAdapterRemoveUse extends RecyclerView.Adapter<VariablesAda
         holder.removeButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                final  int position = holder.getAdapterPosition();
-                if(position != RecyclerView.NO_POSITION) {
+                final int position = holder.getAdapterPosition();
+                if (position != RecyclerView.NO_POSITION) {
                     mListener.onVariableRemove(position);
                 }
             }
@@ -98,7 +111,7 @@ public class VariablesAdapterRemoveUse extends RecyclerView.Adapter<VariablesAda
             @Override
             public void onClick(View v) {
                 final int position = holder.getAdapterPosition();
-                if(position != RecyclerView.NO_POSITION) {
+                if (position != RecyclerView.NO_POSITION) {
                     mListener.onVariableUse(position);
                 }
             }
@@ -122,6 +135,7 @@ public class VariablesAdapterRemoveUse extends RecyclerView.Adapter<VariablesAda
 
     public interface Callbacks {
         void onVariableRemove(int position);
+
         void onVariableUse(int position);
     }
 

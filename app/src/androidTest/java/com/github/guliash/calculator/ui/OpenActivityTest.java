@@ -6,9 +6,9 @@ import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
 
 import com.guliash.calculator.CalculatorApplication;
-import com.guliash.calculator.storage.DBHelper;
 import com.guliash.calculator.Helper;
 import com.guliash.calculator.R;
+import com.guliash.calculator.storage.DBHelper;
 import com.guliash.calculator.storage.Storage;
 import com.guliash.calculator.structures.CalculatorDataSet;
 import com.guliash.calculator.structures.StringVariableWrapper;
