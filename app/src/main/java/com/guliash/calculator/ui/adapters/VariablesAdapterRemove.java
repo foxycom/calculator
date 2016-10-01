@@ -9,7 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
-import android.widget.ImageButton;
+import android.widget.ImageView;
 
 import com.guliash.calculator.R;
 import com.guliash.calculator.structures.StringVariableWrapper;
@@ -23,12 +23,12 @@ public class VariablesAdapterRemove extends RecyclerView.Adapter<VariablesAdapte
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
         public EditText valueEditText, nameEditText;
-        public ImageButton removeButton;
+        public ImageView removeButton;
         public ViewHolder(View view) {
             super(view);
             valueEditText = (EditText)view.findViewById(R.id.variable_value);
             nameEditText = (EditText)view.findViewById(R.id.variable_name);
-            removeButton = (ImageButton)view.findViewById(R.id.remove_button);
+            removeButton = (ImageView)view.findViewById(R.id.remove_button);
         }
     }
 

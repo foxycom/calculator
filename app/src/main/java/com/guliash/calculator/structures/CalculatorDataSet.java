@@ -3,8 +3,6 @@ package com.guliash.calculator.structures;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-import com.guliash.parser.StringVariable;
-
 import java.util.ArrayList;
 
 public final class CalculatorDataSet implements Parcelable, Cloneable {

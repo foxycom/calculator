@@ -1,29 +1,40 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="horizontal" android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:paddingLeft="@dimen/smallPadding"
-    android:paddingRight="@dimen/smallPadding">
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:orientation="horizontal"
+              android:paddingLeft="@dimen/smallPadding"
+              android:paddingRight="@dimen/smallPadding">
+
     <EditText
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
         android:id="@+id/variable_name"
-        android:layout_weight="3"
-        android:maxLength="@integer/maxNameLength"
-        android:hint="@string/variable_name"/>
-    <EditText
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:id="@+id/variable_value"
-        android:layout_weight="7"
-        android:hint="@string/variable_value"/>
-    <ImageButton
-        android:layout_width="48dp"
-        android:layout_height="48dp"
         android:layout_gravity="center_vertical"
+        android:layout_weight="3"
+        android:ellipsize="end"
+        android:hint="@string/variable_name"
+        android:inputType="text"
+        android:maxLines="1"/>
+
+    <EditText
+        android:id="@+id/variable_value"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:layout_weight="7"
+        android:ellipsize="end"
+        android:hint="@string/variable_value"
+        android:inputType="text"
+        android:maxLines="1"/>
+
+    <ImageView
         android:id="@+id/remove_button"
+        android:layout_width="36dp"
+        android:layout_height="36dp"
+        android:layout_gravity="center_vertical"
         android:contentDescription="@string/delete"
-        android:background="@null"
+        android:scaleType="center"
         android:src="@drawable/remove_button"/>
 
 </LinearLayout>
