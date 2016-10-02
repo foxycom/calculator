@@ -15,11 +15,14 @@ import android.widget.Toast;
 import com.guliash.calculator.Constants;
 import com.guliash.calculator.Helper;
 import com.guliash.calculator.R;
+import com.guliash.calculator.state.AppSettings;
 import com.guliash.calculator.storage.Storage;
 import com.guliash.calculator.structures.CalculatorDataSet;
 import com.guliash.calculator.structures.StringVariableWrapper;
 import com.guliash.calculator.ui.adapters.VariablesAdapterRemove;
 import com.guliash.calculator.ui.fragments.AlertDialogFragment;
+
+import javax.inject.Inject;
 
 public class SaveActivity extends BaseActivity implements VariablesAdapterRemove.Callbacks,
         AlertDialogFragment.Callbacks {
@@ -27,7 +30,10 @@ public class SaveActivity extends BaseActivity implements VariablesAdapterRemove
     private EditText mExpressionEditText, mDatasetNameEditText;
     private VariablesAdapterRemove mAdapter;
     private CalculatorDataSet mDataset;
-    private Storage mStorage;
+    @Inject
+    Storage mStorage;
+    @Inject
+    AppSettings mAppSettings;
     private RecyclerView mVariablesRV;
 
     private static final int DIALOG_REVIEW_ID = 1;
@@ -37,6 +43,8 @@ public class SaveActivity extends BaseActivity implements VariablesAdapterRemove
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_save);
+
+        getApp().getAppComponent().inject(this);
 
         Bundle args = (savedInstanceState != null ? savedInstanceState : getIntent().getExtras());
         mDataset = args.getParcelable(Constants.DATASET);
@@ -61,8 +69,6 @@ public class SaveActivity extends BaseActivity implements VariablesAdapterRemove
 
         mVariablesRV = (RecyclerView) findViewById(R.id.variables_rv);
         mVariablesRV.setLayoutManager(new LinearLayoutManager(this));
-
-        mStorage = getApp().getAppComponent().storage();
     }
 
     @Override
@@ -125,7 +131,7 @@ public class SaveActivity extends BaseActivity implements VariablesAdapterRemove
     }
 
     private boolean showReviewDialogIfNeed() {
-        boolean reviewed = getApp().getBooleanField(Constants.REVIEW, false);
+        boolean reviewed = mAppSettings.isReviewInviteShown();
         if(!reviewed) {
             showAlertDialog(getString(R.string.review_title), getString(R.string.review_message),
                     getString(R.string.review_positive), getString(R.string.review_negative), null, true,
@@ -150,7 +156,7 @@ public class SaveActivity extends BaseActivity implements VariablesAdapterRemove
     public void onPositive(int id) {
         switch (id) {
             case DIALOG_REVIEW_ID:
-                getApp().setBooleanField(Constants.REVIEW, true);
+                mAppSettings.shownReviewInvite();
                 openReview();
                 finish();
                 break;
@@ -168,7 +174,7 @@ public class SaveActivity extends BaseActivity implements VariablesAdapterRemove
     public void onNegative(int id) {
         switch (id) {
             case DIALOG_REVIEW_ID:
-                getApp().setBooleanField(Constants.REVIEW, true);
+                mAppSettings.shownReviewInvite();
                 finish();
                 break;
         }

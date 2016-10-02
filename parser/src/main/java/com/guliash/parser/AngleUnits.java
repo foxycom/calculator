@@ -1,5 +1,5 @@
 package com.guliash.parser;
 
-public enum Angle {
+public enum AngleUnits {
     DEG, RAD, GRAD
 }

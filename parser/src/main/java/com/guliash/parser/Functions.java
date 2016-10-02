@@ -23,29 +23,29 @@ public class Functions {
         return a % b;
     }
 
-    public static double convertAngles(double angle, Angle from, Angle to) {
-        if(from == Angle.DEG) {
-            if(to == Angle.DEG) {
+    public static double convertAngles(double angle, AngleUnits from, AngleUnits to) {
+        if(from == AngleUnits.DEG) {
+            if(to == AngleUnits.DEG) {
                 return angle;
-            } else if(to == Angle.RAD) {
+            } else if(to == AngleUnits.RAD) {
                 return angle * Math.PI / 180.0;
-            } else if(to == Angle.GRAD) {
+            } else if(to == AngleUnits.GRAD) {
                 return angle / 0.9;
             }
-        } else if(from == Angle.RAD) {
-            if(to == Angle.DEG) {
+        } else if(from == AngleUnits.RAD) {
+            if(to == AngleUnits.DEG) {
                 return angle * 180.0 / Math.PI;
-            } else if(to == Angle.RAD) {
+            } else if(to == AngleUnits.RAD) {
                 return angle;
-            } else if(to == Angle.GRAD) {
+            } else if(to == AngleUnits.GRAD) {
                 return angle / (Math.PI / 200);
             }
-        } else if(from == Angle.GRAD) {
-            if(to == Angle.DEG) {
+        } else if(from == AngleUnits.GRAD) {
+            if(to == AngleUnits.DEG) {
                 return 0.9 * angle;
-            } else if(to == Angle.RAD) {
+            } else if(to == AngleUnits.RAD) {
                 return (Math.PI / 200) * angle;
-            } else if(to == Angle.GRAD) {
+            } else if(to == AngleUnits.GRAD) {
                 return angle;
             }
         }

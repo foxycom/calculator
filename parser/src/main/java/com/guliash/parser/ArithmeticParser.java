@@ -1,11 +1,11 @@
 package com.guliash.parser;
 
+import com.guliash.parser.evaluator.Evaluator;
+import com.guliash.parser.exceptions.ArithmeticParserException;
 import com.guliash.parser.exceptions.VariableNotFoundException;
 import com.guliash.parser.exceptions.WordNotFoundException;
 import com.guliash.parser.stemmer.Stemmer;
 import com.guliash.parser.stemmer.Stemmer.Lexeme;
-import com.guliash.parser.evaluator.Evaluator;
-import com.guliash.parser.exceptions.ArithmeticParserException;
 import com.guliash.parser.stemmer.VerifyAssertionException;
 
 import java.util.ArrayList;

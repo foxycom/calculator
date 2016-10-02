@@ -1,6 +1,10 @@
 package com.guliash.calculator.di.modules;
 
+import android.content.Context;
+
 import com.guliash.calculator.CalculatorApplication;
+import com.guliash.calculator.state.AppSettings;
+import com.guliash.calculator.state.AppSettingsImpl;
 import com.guliash.calculator.storage.DBHelper;
 import com.guliash.calculator.storage.Storage;
 
@@ -20,6 +24,12 @@ public class AppModule {
 
     @Provides
     @Singleton
+    public Context provideContext() {
+        return mApplication;
+    }
+
+    @Provides
+    @Singleton
     public CalculatorApplication provideApplication() {
         return mApplication;
     }
@@ -28,5 +38,11 @@ public class AppModule {
     @Singleton
     public Storage provideStorage() {
         return new DBHelper(mApplication, CalculatorApplication.DATABASE_NAME);
+    }
+
+    @Provides
+    @Singleton
+    public AppSettings provideAppSettings(Context context) {
+        return new AppSettingsImpl(context);
     }
 }

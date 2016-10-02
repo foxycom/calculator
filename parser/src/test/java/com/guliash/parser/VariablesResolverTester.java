@@ -18,7 +18,7 @@ public class VariablesResolverTester {
     @Test
     public void canFindDependencyForVariable() {
         List<StringVariable> variables = new ArrayList<>();
-        Evaluator evaluator = new JavaEvaluator(Angle.RAD);
+        Evaluator evaluator = new JavaEvaluator(AngleUnits.RAD);
 
         StringVariable x = new StringVariable("x", "x + y + z + d + w");
         StringVariable y = new StringVariable("y", "1");
@@ -44,7 +44,7 @@ public class VariablesResolverTester {
     @Test(expected = IllegalArgumentException.class)
     public void willThrowExceptionIfCannotFindDependencyForVariable() {
         List<StringVariable> variables = new ArrayList<>();
-        Evaluator evaluator = new JavaEvaluator(Angle.RAD);
+        Evaluator evaluator = new JavaEvaluator(AngleUnits.RAD);
 
         StringVariable x = new StringVariable("x", "y + z");
         StringVariable y = new StringVariable("y", "1");
@@ -58,7 +58,7 @@ public class VariablesResolverTester {
     @Test
     public void willNotTakeFunctionAsDependency() {
         List<StringVariable> variables = new ArrayList<>();
-        Evaluator evaluator = new JavaEvaluator(Angle.RAD);
+        Evaluator evaluator = new JavaEvaluator(AngleUnits.RAD);
 
         StringVariable x = new StringVariable("x", "y + sin(y)");
         StringVariable y = new StringVariable("y", "1");
@@ -75,7 +75,7 @@ public class VariablesResolverTester {
     @Test
     public void willNotTakeConstant() {
         List<StringVariable> variables = new ArrayList<>();
-        Evaluator evaluator = new JavaEvaluator(Angle.RAD);
+        Evaluator evaluator = new JavaEvaluator(AngleUnits.RAD);
 
         StringVariable x = new StringVariable("x", "y + pi");
         StringVariable y = new StringVariable("y", "1");
@@ -92,7 +92,7 @@ public class VariablesResolverTester {
     @Test(expected = CyclicVariablesDependencyException.class)
     public void checkThatCycleIsDetected() {
         List<StringVariable> variables = new ArrayList<>();
-        Evaluator evaluator = new JavaEvaluator(Angle.RAD);
+        Evaluator evaluator = new JavaEvaluator(AngleUnits.RAD);
 
         StringVariable x = new StringVariable("x", "y + z");
         StringVariable y = new StringVariable("y", "z");
@@ -108,7 +108,7 @@ public class VariablesResolverTester {
     @Test
     public void willNotThrowForNotOrientedCycle() {
         List<StringVariable> variables = new ArrayList<>();
-        Evaluator evaluator = new JavaEvaluator(Angle.RAD);
+        Evaluator evaluator = new JavaEvaluator(AngleUnits.RAD);
 
         StringVariable x = new StringVariable("x", "sin(y) + abs(z)");
         StringVariable y = new StringVariable("y", "cos(f) * floor(g)");
@@ -129,7 +129,7 @@ public class VariablesResolverTester {
     @Test(expected = CyclicVariablesDependencyException.class)
     public void willFailOnLoop() {
         List<StringVariable> variables = new ArrayList<>();
-        Evaluator evaluator = new JavaEvaluator(Angle.RAD);
+        Evaluator evaluator = new JavaEvaluator(AngleUnits.RAD);
         StringVariable x = new StringVariable("x", "x");
         variables.add(x);
         new VariablesResolver(variables, evaluator).resolveDependencies();

@@ -1,6 +1,6 @@
 package com.guliash.parser.evaluator;
 
-import com.guliash.parser.Angle;
+import com.guliash.parser.AngleUnits;
 import com.guliash.parser.Functions;
 
 import java.util.List;
@@ -8,9 +8,9 @@ import java.util.Locale;
 
 public class JavaEvaluator implements Evaluator {
 
-    private Angle angleUnits;
+    private AngleUnits angleUnits;
 
-    public JavaEvaluator(Angle angleUnits) {
+    public JavaEvaluator(AngleUnits angleUnits) {
         this.angleUnits = angleUnits;
     }
 
@@ -98,21 +98,21 @@ public class JavaEvaluator implements Evaluator {
     public double evaluateFunction(Function function, List<Double> args) throws IllegalArgumentException {
         switch (function) {
             case SIN:
-                return Math.sin(Functions.convertAngles(args.get(0), angleUnits, Angle.RAD));
+                return Math.sin(Functions.convertAngles(args.get(0), angleUnits, AngleUnits.RAD));
             case COS:
-                return Math.cos(Functions.convertAngles(args.get(0), angleUnits, Angle.RAD));
+                return Math.cos(Functions.convertAngles(args.get(0), angleUnits, AngleUnits.RAD));
             case TAN:
-                return Math.tan(Functions.convertAngles(args.get(0), angleUnits, Angle.RAD));
+                return Math.tan(Functions.convertAngles(args.get(0), angleUnits, AngleUnits.RAD));
             case COT:
-                return Functions.cot(Functions.convertAngles(args.get(0), angleUnits, Angle.RAD));
+                return Functions.cot(Functions.convertAngles(args.get(0), angleUnits, AngleUnits.RAD));
             case ASIN:
-                return Functions.convertAngles(Math.asin(args.get(0)), Angle.RAD, angleUnits);
+                return Functions.convertAngles(Math.asin(args.get(0)), AngleUnits.RAD, angleUnits);
             case ACOS:
-                return Functions.convertAngles(Math.acos(args.get(0)), Angle.RAD, angleUnits);
+                return Functions.convertAngles(Math.acos(args.get(0)), AngleUnits.RAD, angleUnits);
             case ATAN:
-                return Functions.convertAngles(Math.atan(args.get(0)), Angle.RAD, angleUnits);
+                return Functions.convertAngles(Math.atan(args.get(0)), AngleUnits.RAD, angleUnits);
             case ACOT:
-                return Functions.convertAngles(Functions.acot(args.get(0)), Angle.RAD, angleUnits);
+                return Functions.convertAngles(Functions.acot(args.get(0)), AngleUnits.RAD, angleUnits);
             case SINH:
                 return Math.sinh(args.get(0));
             case COSH:

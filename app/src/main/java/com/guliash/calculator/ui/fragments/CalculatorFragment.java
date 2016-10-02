@@ -1,6 +1,7 @@
 package com.guliash.calculator.ui.fragments;
 
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -17,6 +18,7 @@ import android.widget.Toast;
 import com.guliash.calculator.CalculatorApplication;
 import com.guliash.calculator.Constants;
 import com.guliash.calculator.R;
+import com.guliash.calculator.state.AppSettings;
 import com.guliash.calculator.structures.CalculatorDataSet;
 import com.guliash.calculator.structures.StringVariableWrapper;
 import com.guliash.calculator.ui.adapters.VariablesAdapterRemoveUse;
@@ -34,6 +36,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import javax.inject.Inject;
+
 public class CalculatorFragment extends Fragment implements VariablesAdapterRemoveUse.Callbacks {
 
     private ImageView mBackspaceButton, mEqualsImage;
@@ -45,6 +49,8 @@ public class CalculatorFragment extends Fragment implements VariablesAdapterRemo
     private VariablesAdapterRemoveUse mAdapter;
     private RecyclerView mVariablesRV;
 
+    @Inject
+    AppSettings mAppSettings;
 
     private static final List<StringVariableWrapper> DEFAULT_VARIABLES_LIST =
             Arrays.asList(new StringVariableWrapper("x", "0"), new StringVariableWrapper("y", "0"));
@@ -56,6 +62,12 @@ public class CalculatorFragment extends Fragment implements VariablesAdapterRemo
     }
 
     public CalculatorFragment() {
+    }
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        CalculatorApplication.get(getContext()).getAppComponent().inject(this);
     }
 
     @Override
@@ -125,12 +137,11 @@ public class CalculatorFragment extends Fragment implements VariablesAdapterRemo
     private View.OnClickListener mEqualsButtonClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            CalculatorApplication application = (CalculatorApplication)getActivity().getApplication();
-            Evaluator evaluator = new JavaEvaluator(application.angleUnits);
+            Evaluator evaluator = new JavaEvaluator(mAppSettings.getAngleUnits());
             String expression = mInputField.getText().toString();
 
             if(TextUtils.isEmpty(expression)) {
-                Toast.makeText(application.getApplicationContext(), R.string.expression_is_empty,
+                Toast.makeText(getContext(), R.string.expression_is_empty,
                         Toast.LENGTH_SHORT).show();
                 return;
             }
@@ -138,7 +149,7 @@ public class CalculatorFragment extends Fragment implements VariablesAdapterRemo
             List<? extends StringVariable> variables = mDataset.getVariables();
             for(StringVariable variable : variables) {
                 if(!Verify.variable(variable)) {
-                    Toast.makeText(application.getApplicationContext(), getString(
+                    Toast.makeText(getContext(), getString(
                             R.string.variable_name_not_correct, variable.name), Toast.LENGTH_LONG).show();
                     return;
                 }

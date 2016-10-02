@@ -16,10 +16,13 @@ import com.guliash.calculator.ui.adapters.DatasetsAdapterCV;
 
 import java.util.List;
 
+import javax.inject.Inject;
+
 public class OpenActivity extends BaseActivity implements DatasetsAdapterCV.Callbacks {
 
     private List<CalculatorDataSet> mDatasets;
-    private Storage mStorage;
+    @Inject
+    Storage mStorage;
     private RecyclerView mRecyclerView;
     private DatasetsAdapterCV mAdapter;
 
@@ -27,6 +30,9 @@ public class OpenActivity extends BaseActivity implements DatasetsAdapterCV.Call
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_open);
+
+        getApp().getAppComponent().inject(this);
+
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         toolbar.setNavigationIcon(R.drawable.back_button);
@@ -36,8 +42,6 @@ public class OpenActivity extends BaseActivity implements DatasetsAdapterCV.Call
                 onBackPressed();
             }
         });
-
-        mStorage = getApp().getAppComponent().storage();
 
         mRecyclerView = (RecyclerView)findViewById(R.id.rv);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
