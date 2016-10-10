@@ -78,35 +78,35 @@ public class OpenActivityTest {
 
     @Test
     public void checkThatDatasetsAreDisplayed() {
-        onView(withId(R.id.rv)).perform(scrollTo(hasDescendant(withText(mCalculatorDataSet5.getName()))));
-        onView(withId(R.id.rv)).perform(scrollTo(hasDescendant(withText(mCalculatorDataSet1.getName()))));
+        onView(withId(R.id.datasets_list)).perform(scrollTo(hasDescendant(withText(mCalculatorDataSet5.getName()))));
+        onView(withId(R.id.datasets_list)).perform(scrollTo(hasDescendant(withText(mCalculatorDataSet1.getName()))));
     }
 
     @Test
     public void checkThatDatasetExpressionDisplayedCorrectly() {
-        onView(withId(R.id.rv)).perform(scrollTo(hasDescendant(withText(mCalculatorDataSet5.getName()))));
-        onView(withId(R.id.rv)).check(matches(atPosition(4, hasDescendant(
+        onView(withId(R.id.datasets_list)).perform(scrollTo(hasDescendant(withText(mCalculatorDataSet5.getName()))));
+        onView(withId(R.id.datasets_list)).check(matches(atPosition(4, hasDescendant(
                 withText(mCalculatorDataSet5.getExpression())))));
     }
 
     @Test
     public void checkThatDatasetTimestampDisplayedCorrectly() {
-        onView(withId(R.id.rv)).perform(scrollTo(hasDescendant(withText(mCalculatorDataSet5.getName()))));
-        onView(withId(R.id.rv)).check(matches(atPosition(4, hasDescendant(
+        onView(withId(R.id.datasets_list)).perform(scrollTo(hasDescendant(withText(mCalculatorDataSet5.getName()))));
+        onView(withId(R.id.datasets_list)).check(matches(atPosition(4, hasDescendant(
                 withText(Helper.getFormattedDate(mCalculatorDataSet5.getTimestamp()))))));
     }
 
     @Test
     public void checkThatDatasetVariablesDisplayedCorrectly() {
-        onView(withId(R.id.rv)).perform(scrollTo(hasDescendant(withText(mCalculatorDataSet5.getName()))));
-        onView(withId(R.id.rv)).check(matches(atPosition(4, hasDescendant(
+        onView(withId(R.id.datasets_list)).perform(scrollTo(hasDescendant(withText(mCalculatorDataSet5.getName()))));
+        onView(withId(R.id.datasets_list)).check(matches(atPosition(4, hasDescendant(
                 withText(Helper.variablesToString(mCalculatorDataSet5.getVariables()))))));
     }
 
     @Test
     public void checkThatOverflowButtonOpensPopupMenu() {
-        onView(withId(R.id.rv)).perform(scrollToPosition(0));
-        onView(withId(R.id.rv)).perform(actionOnItemAtPosition(0, clickChildViewWithId(R.id.overflow_button)));
+        onView(withId(R.id.datasets_list)).perform(scrollToPosition(0));
+        onView(withId(R.id.datasets_list)).perform(actionOnItemAtPosition(0, clickChildViewWithId(R.id.overflow_button)));
         onView(withText(R.string.use)).check(matches(isDisplayed()));
         onView(withText(R.string.edit)).check(matches(isDisplayed()));
         onView(withText(R.string.delete)).check(matches(isDisplayed()));
@@ -114,10 +114,10 @@ public class OpenActivityTest {
 
     @Test
     public void checkThatRemoveWorks() {
-        onView(withId(R.id.rv)).perform(scrollToPosition(4));
-        onView(withId(R.id.rv)).perform(actionOnItemAtPosition(4, clickChildViewWithId(R.id.overflow_button)));
+        onView(withId(R.id.datasets_list)).perform(scrollToPosition(4));
+        onView(withId(R.id.datasets_list)).perform(actionOnItemAtPosition(4, clickChildViewWithId(R.id.overflow_button)));
         onView(withText(R.string.delete)).perform(ViewActions.click());
-        onView(withId(R.id.rv)).check(matches(atPositionDoesNotExist(4)));
+        onView(withId(R.id.datasets_list)).check(matches(atPositionDoesNotExist(4)));
     }
 
     @After

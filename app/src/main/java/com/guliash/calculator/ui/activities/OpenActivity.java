@@ -19,19 +19,26 @@ import java.util.List;
 
 import javax.inject.Inject;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
 public class OpenActivity extends BaseActivity implements DatasetsAdapterCV.Callbacks {
 
     private List<CalculatorDataSet> mDatasets;
+    private DatasetsAdapterCV mAdapter;
+
+    @BindView(R.id.datasets_list)
+    RecyclerView mRecyclerView;
+
     @Inject
     Storage mStorage;
-    private RecyclerView mRecyclerView;
-    private DatasetsAdapterCV mAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_open);
 
+        ButterKnife.bind(this);
         App.get(this).getAppComponent().inject(this);
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -44,7 +51,6 @@ public class OpenActivity extends BaseActivity implements DatasetsAdapterCV.Call
             }
         });
 
-        mRecyclerView = (RecyclerView)findViewById(R.id.rv);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
     }
 
