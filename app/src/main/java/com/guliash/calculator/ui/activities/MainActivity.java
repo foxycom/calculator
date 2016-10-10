@@ -33,16 +33,16 @@ public class MainActivity extends BaseActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
-        if(id == R.id.open) {
+        if (id == R.id.open) {
             showOpenActivity();
         }
-        if(id == R.id.save) {
+        if (id == R.id.save) {
             showSaveActivity();
         }
-        if(id == R.id.help) {
+        if (id == R.id.help) {
             showHelpActivity();
         }
-        if(id == R.id.settings) {
+        if (id == R.id.settings) {
             showSettingsActivity();
         }
         return super.onOptionsItemSelected(item);
@@ -55,12 +55,12 @@ public class MainActivity extends BaseActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if(resultCode == RESULT_OK) {
-            if(requestCode == Constants.OPEN_ACTIVITY_REQUEST_CODE) {
+        if (resultCode == RESULT_OK) {
+            if (requestCode == Constants.OPEN_ACTIVITY_REQUEST_CODE) {
                 FragmentManager fragmentManager = getSupportFragmentManager();
-                CalculatorFragment calculatorFragment = (CalculatorFragment)fragmentManager.
+                CalculatorFragment calculatorFragment = (CalculatorFragment) fragmentManager.
                         findFragmentById(R.id.calculator_fragment);
-                calculatorFragment.setDataset((CalculatorDataSet)data.getParcelableExtra(Constants.DATASET));
+                calculatorFragment.setDataset((CalculatorDataSet) data.getParcelableExtra(Constants.DATASET));
             }
         }
     }

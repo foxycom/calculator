@@ -75,7 +75,7 @@ public class CalculatorFragment extends Fragment implements VariablesAdapterRemo
         super.onCreate(savedInstanceState);
         App.get(getContext()).getAppComponent().inject(this);
 
-        if(savedInstanceState != null) {
+        if (savedInstanceState != null) {
             mDataset = savedInstanceState.getParcelable(Constants.DATASET);
         } else {
             mDataset = new CalculatorDataSet("", "", 0, new ArrayList<>(DEFAULT_VARIABLES_LIST));
@@ -117,39 +117,39 @@ public class CalculatorFragment extends Fragment implements VariablesAdapterRemo
         Evaluator evaluator = new JavaEvaluator(mAppSettings.getAngleUnits());
         String expression = mInputField.getText().toString();
 
-        if(TextUtils.isEmpty(expression)) {
+        if (TextUtils.isEmpty(expression)) {
             Toast.makeText(getContext(), R.string.expression_is_empty,
                     Toast.LENGTH_SHORT).show();
             return;
         }
 
         List<StringVariableWrapper> variables = mDataset.getVariables();
-        for(StringVariable variable : variables) {
-            if(!Verify.variable(variable)) {
+        for (StringVariable variable : variables) {
+            if (!Verify.variable(variable)) {
                 Toast.makeText(getContext(), getString(
                         R.string.variable_name_not_correct, variable.getName()), Toast.LENGTH_LONG).show();
                 return;
             }
         }
 
-        for(StringVariable variable : variables) {
-            if(Verify.variableNameClashesWithConstants(variable, evaluator)) {
+        for (StringVariable variable : variables) {
+            if (Verify.variableNameClashesWithConstants(variable, evaluator)) {
                 Toast.makeText(getActivity().getApplicationContext(), getString(
                         R.string.variable_name_clashes_constant, variable.getName()), Toast.LENGTH_LONG).show();
                 return;
             }
         }
 
-        if(!Verify.checkVariablesUnique(mDataset.getVariables())) {
+        if (!Verify.checkVariablesUnique(mDataset.getVariables())) {
             Toast.makeText(getActivity().getApplicationContext(),
-                    getString(R.string.variables_names_not_unique),Toast.LENGTH_LONG).show();
+                    getString(R.string.variables_names_not_unique), Toast.LENGTH_LONG).show();
             return;
         }
 
         try {
             double result = ArithmeticParser.calculate(expression, variables, evaluator);
             mResultField.setText(Double.toString(result));
-        } catch(CyclicVariablesDependencyException e) {
+        } catch (CyclicVariablesDependencyException e) {
             mResultField.setText(getString(R.string.cyclic_variables, e.firstName, e.secondName));
         } catch (VariableNotFoundException e) {
             mResultField.setText(getString(R.string.variable_not_found, e.getName()));
@@ -165,7 +165,7 @@ public class CalculatorFragment extends Fragment implements VariablesAdapterRemo
     @OnClick(R.id.backspace)
     void onBackspaceClick() {
         int start = mInputField.getSelectionStart();
-        if(start != 0) {
+        if (start != 0) {
             mInputField.getEditableText().delete(start - 1, start);
         }
     }

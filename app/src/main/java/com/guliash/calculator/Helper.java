@@ -19,7 +19,7 @@ public class Helper {
 
     public static String variablesToString(List<StringVariableWrapper> variables) {
         String[] tokens = new String[variables.size()];
-        for(int i = 0; i < variables.size(); i++) {
+        for (int i = 0; i < variables.size(); i++) {
             tokens[i] = variableToString(variables.get(i));
         }
         return TextUtils.join("; ", tokens);

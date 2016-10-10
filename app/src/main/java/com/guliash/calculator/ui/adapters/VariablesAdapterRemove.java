@@ -21,10 +21,16 @@ import butterknife.ButterKnife;
 
 public class VariablesAdapterRemove extends RecyclerView.Adapter<VariablesAdapterRemove.ViewHolder> {
 
-    @Nullable private List<StringVariableWrapper> mVariables;
-    @NonNull private Callbacks mListener;
+    public interface Callbacks {
+        void onVariableRemove(int position);
+    }
 
-    public static class ViewHolder extends RecyclerView.ViewHolder {
+    @Nullable
+    private List<StringVariableWrapper> mVariables;
+    @NonNull
+    private Callbacks mListener;
+
+    static class ViewHolder extends RecyclerView.ViewHolder {
         @BindView(R.id.variable_value)
         EditText valueEditText;
 
@@ -34,7 +40,7 @@ public class VariablesAdapterRemove extends RecyclerView.Adapter<VariablesAdapte
         @BindView(R.id.remove_button)
         ImageView removeButton;
 
-        public ViewHolder(View view) {
+        ViewHolder(View view) {
             super(view);
             ButterKnife.bind(this, view);
         }
@@ -60,7 +66,7 @@ public class VariablesAdapterRemove extends RecyclerView.Adapter<VariablesAdapte
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 int position = viewHolder.getAdapterPosition();
-                if(position != RecyclerView.NO_POSITION) {
+                if (position != RecyclerView.NO_POSITION) {
                     mVariables.get(position).setName(s.toString());
                 }
             }
@@ -80,7 +86,7 @@ public class VariablesAdapterRemove extends RecyclerView.Adapter<VariablesAdapte
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 int position = viewHolder.getAdapterPosition();
-                if(position != RecyclerView.NO_POSITION) {
+                if (position != RecyclerView.NO_POSITION) {
                     mVariables.get(position).setValue(s.toString());
                 }
             }
@@ -95,7 +101,7 @@ public class VariablesAdapterRemove extends RecyclerView.Adapter<VariablesAdapte
             @Override
             public void onClick(View v) {
                 int position = viewHolder.getAdapterPosition();
-                if(position != RecyclerView.NO_POSITION) {
+                if (position != RecyclerView.NO_POSITION) {
                     mListener.onVariableRemove(position);
                 }
             }
@@ -115,9 +121,5 @@ public class VariablesAdapterRemove extends RecyclerView.Adapter<VariablesAdapte
     @Override
     public int getItemCount() {
         return mVariables == null ? 0 : mVariables.size();
-    }
-
-    public interface Callbacks {
-        void onVariableRemove(int position);
     }
 }

@@ -22,7 +22,7 @@ public class App extends Application {
     }
 
     public static App get(Context context) {
-        return (App)context.getApplicationContext();
+        return (App) context.getApplicationContext();
     }
 
     public AppComponent getAppComponent() {

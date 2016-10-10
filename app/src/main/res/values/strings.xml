@@ -66,4 +66,8 @@
     <string name="overflow_menu">Overflow menu</string>
     <!--CONTENT DESCRIPTION-->
 
+    <!--HELP-->
+    <string name="topic_fmt">● %s</string>
+    <!--HELP-->
+
 </resources>

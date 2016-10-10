@@ -28,9 +28,13 @@ public class AlertDialogFragment extends DialogFragment {
 
     public interface Callbacks {
         void onPositive(int id);
+
         void onNegative(int id);
+
         void onNeutral(int id);
+
         void onCancel(int id);
+
         void onDismiss(int id);
     }
 
@@ -54,12 +58,12 @@ public class AlertDialogFragment extends DialogFragment {
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        if(getTargetFragment() instanceof Callbacks) {
-            mCallbacks = (Callbacks)getTargetFragment();
-        } else if(getParentFragment() instanceof Callbacks) {
-            mCallbacks = (Callbacks)getParentFragment();
-        } else if(context instanceof Callbacks) {
-            mCallbacks = (Callbacks)context;
+        if (getTargetFragment() instanceof Callbacks) {
+            mCallbacks = (Callbacks) getTargetFragment();
+        } else if (getParentFragment() instanceof Callbacks) {
+            mCallbacks = (Callbacks) getParentFragment();
+        } else if (context instanceof Callbacks) {
+            mCallbacks = (Callbacks) context;
         } else {
             throw new IllegalArgumentException("Must implement " + Callbacks.class.getName());
         }
@@ -86,15 +90,15 @@ public class AlertDialogFragment extends DialogFragment {
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         setCancelable(mCancelable);
 
-        if(!TextUtils.isEmpty(mTitle)) {
+        if (!TextUtils.isEmpty(mTitle)) {
             builder.setTitle(mTitle);
         }
 
-        if(!TextUtils.isEmpty(mMessage)) {
+        if (!TextUtils.isEmpty(mMessage)) {
             builder.setMessage(mMessage);
         }
 
-        if(!TextUtils.isEmpty(mPositive)) {
+        if (!TextUtils.isEmpty(mPositive)) {
             builder.setPositiveButton(mPositive, new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
@@ -103,7 +107,7 @@ public class AlertDialogFragment extends DialogFragment {
             });
         }
 
-        if(!TextUtils.isEmpty(mNegative)) {
+        if (!TextUtils.isEmpty(mNegative)) {
             builder.setNegativeButton(mNegative, new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
@@ -112,7 +116,7 @@ public class AlertDialogFragment extends DialogFragment {
             });
         }
 
-        if(!TextUtils.isEmpty(mNeutral)) {
+        if (!TextUtils.isEmpty(mNeutral)) {
             builder.setNeutralButton(mNeutral, new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {

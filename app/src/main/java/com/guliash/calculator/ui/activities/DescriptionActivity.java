@@ -70,8 +70,8 @@ public class DescriptionActivity extends BaseActivity {
 
     private List<String> transformExamples() {
         List<String> examples = new ArrayList<>();
-        for(String example : mTopic.getExamples()) {
-            examples.add("●  " + example);
+        for (String example : mTopic.getExamples()) {
+            examples.add(String.format(getString(R.string.topic_fmt), example));
         }
         return examples;
     }

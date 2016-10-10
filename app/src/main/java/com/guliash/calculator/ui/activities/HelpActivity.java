@@ -42,7 +42,7 @@ public class HelpActivity extends BaseActivity {
         mTopicsList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-               itemClicked(mTopics.get(position));
+                itemClicked(mTopics.get(position));
             }
         });
     }
@@ -60,7 +60,7 @@ public class HelpActivity extends BaseActivity {
         TypedArray examples = res.obtainTypedArray(R.array.examples);
         ArrayList<Topic> topics = new ArrayList<>();
         int n = names.length();
-        for(int i = 0; i < n; i++) {
+        for (int i = 0; i < n; i++) {
             int id = examples.getResourceId(i, 0);
             topics.add(new Topic(names.getString(i), descriptions.getString(i),
                     new ArrayList<>(Arrays.asList(res.getStringArray(id)))));

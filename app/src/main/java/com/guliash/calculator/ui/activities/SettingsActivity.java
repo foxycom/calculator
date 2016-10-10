@@ -37,12 +37,12 @@ public class SettingsActivity extends BaseActivity {
             }
         });
 
-        angleGroup = (RadioGroup)findViewById(R.id.angles);
+        angleGroup = (RadioGroup) findViewById(R.id.angles);
         setChecked();
         angleGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
-                switch(checkedId) {
+                switch (checkedId) {
                     case R.id.deg:
                         mAppSettings.saveAngleUnits(AngleUnits.DEG);
                         break;

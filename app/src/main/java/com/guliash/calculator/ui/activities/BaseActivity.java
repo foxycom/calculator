@@ -19,9 +19,9 @@ public class BaseActivity extends AppCompatActivity {
     }
 
     protected void hideDialog() {
-        DialogFragment dialogFragment = (DialogFragment)getSupportFragmentManager()
+        DialogFragment dialogFragment = (DialogFragment) getSupportFragmentManager()
                 .findFragmentByTag(DIALOG_TAG);
-        if(dialogFragment != null) {
+        if (dialogFragment != null) {
             dialogFragment.dismiss();
         }
     }

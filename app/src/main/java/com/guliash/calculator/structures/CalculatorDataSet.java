@@ -63,9 +63,9 @@ public final class CalculatorDataSet implements Parcelable, Cloneable {
     @Override
     public CalculatorDataSet clone() {
         try {
-            CalculatorDataSet dataSet = (CalculatorDataSet)super.clone();
-            dataSet.variables = (ArrayList< StringVariableWrapper>)getVariables().clone();
-            for(int i = 0, size = dataSet.variables.size(); i < size; i++) {
+            CalculatorDataSet dataSet = (CalculatorDataSet) super.clone();
+            dataSet.variables = (ArrayList<StringVariableWrapper>) getVariables().clone();
+            for (int i = 0, size = dataSet.variables.size(); i < size; i++) {
                 dataSet.variables.set(i, dataSet.variables.get(i).clone());
             }
             return dataSet;
@@ -81,10 +81,10 @@ public final class CalculatorDataSet implements Parcelable, Cloneable {
 
     @Override
     public boolean equals(Object o) {
-        if(!(o instanceof CalculatorDataSet)) {
+        if (!(o instanceof CalculatorDataSet)) {
             return false;
         }
-        CalculatorDataSet obj = (CalculatorDataSet)o;
+        CalculatorDataSet obj = (CalculatorDataSet) o;
         return obj.name.equals(name);
     }
 

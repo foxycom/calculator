@@ -34,7 +34,7 @@ public final class StringVariableWrapper extends StringVariable implements Parce
     @Override
     public StringVariableWrapper clone() {
         try {
-            return (StringVariableWrapper)super.clone();
+            return (StringVariableWrapper) super.clone();
         } catch (CloneNotSupportedException e) {
             throw new AssertionError();
         }

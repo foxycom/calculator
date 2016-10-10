@@ -65,8 +65,8 @@ public class OpenActivity extends BaseActivity implements DatasetsAdapterCV.Call
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if(resultCode == RESULT_OK) {
-            if(requestCode == Constants.SAVE_ACTIVITY_REQUEST_CODE) {
+        if (resultCode == RESULT_OK) {
+            if (requestCode == Constants.SAVE_ACTIVITY_REQUEST_CODE) {
                 mDatasets = mStorage.getDataSets();
                 mAdapter = new DatasetsAdapterCV(mDatasets, this);
                 mRecyclerView.setAdapter(mAdapter);

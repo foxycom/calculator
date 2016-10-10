@@ -56,6 +56,7 @@ public class DBHelper extends SQLiteOpenHelper implements Storage {
 
     /**
      * Checks whether there is a row with the given name in main_table
+     *
      * @param name row name
      * @return id of the row, {@code -1} if it does not exist
      */
@@ -63,7 +64,7 @@ public class DBHelper extends SQLiteOpenHelper implements Storage {
         SQLiteDatabase db = getReadableDatabase();
         Cursor cursor = db.query(MAIN_TABLE, new String[]{"id", "name"}, "name = ?", new String[]{name}, null, null, null);
         long res = -1;
-        if(cursor.moveToFirst()) {
+        if (cursor.moveToFirst()) {
             int idColumnIndex = cursor.getColumnIndex("id");
             res = cursor.getInt(idColumnIndex);
         }
@@ -85,7 +86,7 @@ public class DBHelper extends SQLiteOpenHelper implements Storage {
         cv.put("id", id);
         cv.put("exp", expression);
         db.insert(EXPRESSIONS_TABLE, null, cv);
-        for(StringVariableWrapper variable : variables) {
+        for (StringVariableWrapper variable : variables) {
             cv = new ContentValues();
             cv.put("id", id);
             cv.put("name", variable.getName());
@@ -96,7 +97,7 @@ public class DBHelper extends SQLiteOpenHelper implements Storage {
 
     private void deleteRowFromMainTable(long id) {
         SQLiteDatabase db = getWritableDatabase();
-        db.delete(MAIN_TABLE, "id = ?", new String[] { Long.toString(id) });
+        db.delete(MAIN_TABLE, "id = ?", new String[]{Long.toString(id)});
     }
 
     private CalculatorDataSet getDataset(long id, String name) {
@@ -109,7 +110,7 @@ public class DBHelper extends SQLiteOpenHelper implements Storage {
         Cursor cursor = db.query(EXPRESSIONS_TABLE, new String[]{"exp"}, "id = ?",
                 new String[]{String.valueOf(id)}, null, null, null);
 
-        if(cursor.moveToFirst()) {
+        if (cursor.moveToFirst()) {
             int expColIndex = cursor.getColumnIndex("exp");
             res = cursor.getString(expColIndex);
         }
@@ -119,10 +120,10 @@ public class DBHelper extends SQLiteOpenHelper implements Storage {
 
     private long getDatasetTime(long id) {
         SQLiteDatabase db = getWritableDatabase();
-        Cursor cursor = db.query(MAIN_TABLE,  new String[]{"date"}, "id = ?",
+        Cursor cursor = db.query(MAIN_TABLE, new String[]{"date"}, "id = ?",
                 new String[]{String.valueOf(id)}, null, null, null);
         long res = 0;
-        if(cursor.moveToFirst()) {
+        if (cursor.moveToFirst()) {
             int timeColIndex = cursor.getColumnIndex("date");
             res = cursor.getLong(timeColIndex);
         }
@@ -134,14 +135,14 @@ public class DBHelper extends SQLiteOpenHelper implements Storage {
         ArrayList<StringVariableWrapper> variables = new ArrayList<>();
         SQLiteDatabase db = getWritableDatabase();
         Cursor cursor = db.query(VARIABLES_TABLE, new String[]{"name", "value"}, "id = ?",
-                new String[]{String.valueOf(id)},null, null, null);
-        if(cursor.moveToFirst()) {
+                new String[]{String.valueOf(id)}, null, null, null);
+        if (cursor.moveToFirst()) {
             int nameColIndex = cursor.getColumnIndex("name");
             int valueColIndex = cursor.getColumnIndex("value");
             do {
                 variables.add(new StringVariableWrapper(cursor.getString(nameColIndex),
                         cursor.getString(valueColIndex)));
-            } while(cursor.moveToNext());
+            } while (cursor.moveToNext());
         }
         cursor.close();
         return variables;
@@ -149,7 +150,7 @@ public class DBHelper extends SQLiteOpenHelper implements Storage {
 
     @Override
     public boolean addDataSet(CalculatorDataSet dataSet) throws IllegalArgumentException {
-        if(hasDataSet(dataSet)) {
+        if (hasDataSet(dataSet)) {
             return false;
         }
 
@@ -161,7 +162,7 @@ public class DBHelper extends SQLiteOpenHelper implements Storage {
     @Override
     public boolean updateDataSet(CalculatorDataSet dataSet) throws IllegalArgumentException {
 
-        if(!hasDataSet(dataSet)) {
+        if (!hasDataSet(dataSet)) {
             return false;
         }
 
@@ -177,7 +178,7 @@ public class DBHelper extends SQLiteOpenHelper implements Storage {
 
     @Override
     public boolean deleteDataSet(CalculatorDataSet dataSet) throws IllegalArgumentException {
-        if(!hasDataSet(dataSet)) {
+        if (!hasDataSet(dataSet)) {
             return false;
         }
         deleteRowFromMainTable(getIdOfRowWithName(dataSet.getName()));
@@ -189,21 +190,21 @@ public class DBHelper extends SQLiteOpenHelper implements Storage {
         SQLiteDatabase db = getWritableDatabase();
         Cursor cursor = db.query(MAIN_TABLE, null, null, null, null, null, null);
         List<CalculatorDataSet> res = new ArrayList<>();
-        if(cursor.moveToFirst()) {
+        if (cursor.moveToFirst()) {
             int idColIndex = cursor.getColumnIndex("id");
             int nameColIndex = cursor.getColumnIndex("name");
             do {
                 res.add(getDataset(cursor.getInt(idColIndex),
                         cursor.getString(nameColIndex)));
-            } while(cursor.moveToNext());
+            } while (cursor.moveToNext());
         }
         cursor.close();
         Collections.sort(res, new Comparator<CalculatorDataSet>() {
             @Override
             public int compare(CalculatorDataSet lhs, CalculatorDataSet rhs) {
-                if(lhs.getTimestamp() < rhs.getTimestamp()) {
+                if (lhs.getTimestamp() < rhs.getTimestamp()) {
                     return 1;
-                } else if(lhs.getTimestamp() == rhs.getTimestamp()) {
+                } else if (lhs.getTimestamp() == rhs.getTimestamp()) {
                     return 0;
                 }
                 return -1;

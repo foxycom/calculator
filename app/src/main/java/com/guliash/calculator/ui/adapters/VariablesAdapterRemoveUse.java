@@ -21,12 +21,18 @@ import butterknife.ButterKnife;
 
 public class VariablesAdapterRemoveUse extends RecyclerView.Adapter<VariablesAdapterRemoveUse.ViewHolder> {
 
+    public interface Callbacks {
+        void onVariableRemove(int position);
+
+        void onVariableUse(int position);
+    }
+
     @Nullable
     private List<StringVariableWrapper> mVariables;
     @NonNull
     private Callbacks mListener;
 
-    public static class ViewHolder extends RecyclerView.ViewHolder {
+    static class ViewHolder extends RecyclerView.ViewHolder {
 
         @BindView(R.id.variable_value)
         EditText valueEditText;
@@ -40,7 +46,7 @@ public class VariablesAdapterRemoveUse extends RecyclerView.Adapter<VariablesAda
         @BindView(R.id.check_button)
         ImageView checkButton;
 
-        public ViewHolder(View view) {
+        ViewHolder(View view) {
             super(view);
             ButterKnife.bind(this, view);
         }
@@ -131,12 +137,6 @@ public class VariablesAdapterRemoveUse extends RecyclerView.Adapter<VariablesAda
     @Override
     public int getItemCount() {
         return mVariables == null ? 0 : mVariables.size();
-    }
-
-    public interface Callbacks {
-        void onVariableRemove(int position);
-
-        void onVariableUse(int position);
     }
 
 }

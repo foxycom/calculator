@@ -106,12 +106,12 @@ public class SaveActivity extends BaseActivity implements VariablesAdapterRemove
     void onSaveClick() {
         mDataset.setName(mDataSetNameInput.getText().toString());
         mDataset.setExpression(mExpressionInput.getText().toString());
-        if(TextUtils.isEmpty(mDataset.getName())) {
+        if (TextUtils.isEmpty(mDataset.getName())) {
             Toast.makeText(getApplicationContext(), R.string.name_is_empty, Toast.LENGTH_SHORT).
                     show();
             return;
         }
-        if(mStorage.hasDataSet(mDataset)) {
+        if (mStorage.hasDataSet(mDataset)) {
             showAlertDialog(getString(R.string.dialog_error),
                     getString(R.string.unique_dataset_name_error, mDataset.getName()),
                     getString(R.string.OK), getString(R.string.NO), null, true, DIALOG_DATASET_UNIQUE);
@@ -119,7 +119,7 @@ public class SaveActivity extends BaseActivity implements VariablesAdapterRemove
             mDataset.setTimestamp(Helper.getCurrentTimestamp());
             mStorage.addDataSet(mDataset);
             setResult(RESULT_OK);
-            if(showReviewDialogIfNeed()) {
+            if (showReviewDialogIfNeed()) {
                 finish();
             }
         }
@@ -134,7 +134,7 @@ public class SaveActivity extends BaseActivity implements VariablesAdapterRemove
 
     private boolean showReviewDialogIfNeed() {
         boolean reviewed = mAppSettings.isReviewInviteShown();
-        if(!reviewed) {
+        if (!reviewed) {
             showAlertDialog(getString(R.string.review_title), getString(R.string.review_message),
                     getString(R.string.review_positive), getString(R.string.review_negative), null, true,
                     DIALOG_REVIEW_ID);
@@ -165,7 +165,7 @@ public class SaveActivity extends BaseActivity implements VariablesAdapterRemove
             case DIALOG_DATASET_UNIQUE:
                 mStorage.updateDataSet(mDataset);
                 setResult(RESULT_OK);
-                if(showReviewDialogIfNeed()) {
+                if (showReviewDialogIfNeed()) {
                     finish();
                 }
                 break;

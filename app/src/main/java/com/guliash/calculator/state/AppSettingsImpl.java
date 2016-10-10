@@ -22,7 +22,7 @@ public class AppSettingsImpl implements AppSettings {
     @Override
     public AngleUnits getAngleUnits() {
         int ord = mPreferences.getInt(ANGLE_UNITS, -1);
-        if(ord ==  -1) {
+        if (ord == -1) {
             return AngleUnits.DEG;
         } else {
             return AngleUnits.values()[ord];
@@ -41,6 +41,6 @@ public class AppSettingsImpl implements AppSettings {
 
     @Override
     public void shownReviewInvite() {
-        mPreferences.edit().putBoolean(REVIEW, true).apply();;
+        mPreferences.edit().putBoolean(REVIEW, true).apply();
     }
 }
