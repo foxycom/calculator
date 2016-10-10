@@ -57,8 +57,8 @@ public class DescriptionActivity extends BaseActivity {
     protected void onStart() {
         super.onStart();
 
-        mNameText.setText(mTopic.name);
-        mDescText.setText(mTopic.description);
+        mNameText.setText(mTopic.getName());
+        mDescText.setText(mTopic.getDescription());
         mExamplesText.setText(TextUtils.join("\n\n", transformExamples()));
     }
 
@@ -70,7 +70,7 @@ public class DescriptionActivity extends BaseActivity {
 
     private List<String> transformExamples() {
         List<String> examples = new ArrayList<>();
-        for(String example : mTopic.examples) {
+        for(String example : mTopic.getExamples()) {
             examples.add("●  " + example);
         }
         return examples;

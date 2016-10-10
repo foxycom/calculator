@@ -67,7 +67,7 @@ public class SaveActivityTest {
 
     @Test
     public void testThatNameCorrectlyShown() {
-        onView(withId(R.id.dataset_name)).check(matches(withText(dataset.getDataSetName())));
+        onView(withId(R.id.dataset_name)).check(matches(withText(dataset.getName())));
     }
 
     @Test

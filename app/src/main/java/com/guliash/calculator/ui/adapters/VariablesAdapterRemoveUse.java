@@ -68,7 +68,7 @@ public class VariablesAdapterRemoveUse extends RecyclerView.Adapter<VariablesAda
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 final int position = holder.getAdapterPosition();
                 if (position != RecyclerView.NO_POSITION) {
-                    mVariables.get(position).name = s.toString();
+                    mVariables.get(position).setName(s.toString());
                 }
             }
 
@@ -87,7 +87,7 @@ public class VariablesAdapterRemoveUse extends RecyclerView.Adapter<VariablesAda
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 final int position = holder.getAdapterPosition();
                 if (position != RecyclerView.NO_POSITION) {
-                    mVariables.get(position).value = s.toString();
+                    mVariables.get(position).setValue(s.toString());
                 }
             }
 

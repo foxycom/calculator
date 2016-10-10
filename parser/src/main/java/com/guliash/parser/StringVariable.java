@@ -7,8 +7,8 @@ public class StringVariable {
     public StringVariable() {}
 
     public StringVariable(String name, String value) {
-        this.name = name;
-        this.value = value;
+        this.setName(name);
+        this.setValue(value);
     }
 
     public String getName() {
@@ -32,5 +32,13 @@ public class StringVariable {
     @Override
     public String toString() {
         return getName() + " " + getValue();
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setValue(String value) {
+        this.value = value;
     }
 }

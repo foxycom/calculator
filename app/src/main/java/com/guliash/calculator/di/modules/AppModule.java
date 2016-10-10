@@ -37,7 +37,7 @@ public class AppModule {
     @Provides
     @Singleton
     public Storage provideStorage() {
-        return new DBHelper(mApplication, CalculatorApplication.DATABASE_NAME);
+        return new DBHelper(mApplication, DBHelper.DATABASE_NAME);
     }
 
     @Provides

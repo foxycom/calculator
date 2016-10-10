@@ -23,8 +23,8 @@ public final class StringVariableWrapper extends StringVariable implements Parce
 
     public StringVariableWrapper(Parcel parcel) {
         super();
-        name = parcel.readString();
-        value = parcel.readString();
+        setName(parcel.readString());
+        setValue(parcel.readString());
     }
 
     @Override

@@ -5,7 +5,6 @@ import android.support.test.espresso.action.ViewActions;
 import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
 
-import com.guliash.calculator.CalculatorApplication;
 import com.guliash.calculator.Helper;
 import com.guliash.calculator.R;
 import com.guliash.calculator.storage.DBHelper;
@@ -54,7 +53,7 @@ public class OpenActivityTest {
     @Before
     public void addDatasets() {
         mStorage = new DBHelper(getInstrumentation().getTargetContext()
-                .getApplicationContext(), CalculatorApplication.DATABASE_NAME);
+                .getApplicationContext(), DBHelper.DATABASE_NAME);
         ArrayList<StringVariableWrapper> variables1 = new ArrayList<>();
         variables1.add(new StringVariableWrapper("x", "1"));
         variables1.add(new StringVariableWrapper("y", "2"));
@@ -79,27 +78,27 @@ public class OpenActivityTest {
 
     @Test
     public void checkThatDatasetsAreDisplayed() {
-        onView(withId(R.id.rv)).perform(scrollTo(hasDescendant(withText(mCalculatorDataSet5.getDataSetName()))));
-        onView(withId(R.id.rv)).perform(scrollTo(hasDescendant(withText(mCalculatorDataSet1.getDataSetName()))));
+        onView(withId(R.id.rv)).perform(scrollTo(hasDescendant(withText(mCalculatorDataSet5.getName()))));
+        onView(withId(R.id.rv)).perform(scrollTo(hasDescendant(withText(mCalculatorDataSet1.getName()))));
     }
 
     @Test
     public void checkThatDatasetExpressionDisplayedCorrectly() {
-        onView(withId(R.id.rv)).perform(scrollTo(hasDescendant(withText(mCalculatorDataSet5.getDataSetName()))));
+        onView(withId(R.id.rv)).perform(scrollTo(hasDescendant(withText(mCalculatorDataSet5.getName()))));
         onView(withId(R.id.rv)).check(matches(atPosition(4, hasDescendant(
                 withText(mCalculatorDataSet5.getExpression())))));
     }
 
     @Test
     public void checkThatDatasetTimestampDisplayedCorrectly() {
-        onView(withId(R.id.rv)).perform(scrollTo(hasDescendant(withText(mCalculatorDataSet5.getDataSetName()))));
+        onView(withId(R.id.rv)).perform(scrollTo(hasDescendant(withText(mCalculatorDataSet5.getName()))));
         onView(withId(R.id.rv)).check(matches(atPosition(4, hasDescendant(
                 withText(Helper.getFormattedDate(mCalculatorDataSet5.getTimestamp()))))));
     }
 
     @Test
     public void checkThatDatasetVariablesDisplayedCorrectly() {
-        onView(withId(R.id.rv)).perform(scrollTo(hasDescendant(withText(mCalculatorDataSet5.getDataSetName()))));
+        onView(withId(R.id.rv)).perform(scrollTo(hasDescendant(withText(mCalculatorDataSet5.getName()))));
         onView(withId(R.id.rv)).check(matches(atPosition(4, hasDescendant(
                 withText(Helper.variablesToString(mCalculatorDataSet5.getVariables()))))));
     }

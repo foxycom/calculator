@@ -2,6 +2,7 @@ package com.guliash.calculator.ui.fragments;
 
 import android.app.Activity;
 import android.app.Dialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -12,11 +13,6 @@ import android.text.TextUtils;
 
 public class AlertDialogFragment extends DialogFragment {
 
-    private String mTitle, mMessage, mPositive, mNegative, mNeutral;
-
-    private boolean mCancelable;
-    private int mId;
-
     private static final String TITLE = "title";
     private static final String MESSAGE = "message";
     private static final String POSITIVE = "positive";
@@ -25,10 +21,22 @@ public class AlertDialogFragment extends DialogFragment {
     private static final String CANCELABLE = "cancelable";
     private static final String ID = "id";
 
+    private String mTitle, mMessage, mPositive, mNegative, mNeutral;
+    private boolean mCancelable;
+    private int mId;
     private Callbacks mCallbacks;
 
+    public interface Callbacks {
+        void onPositive(int id);
+        void onNegative(int id);
+        void onNeutral(int id);
+        void onCancel(int id);
+        void onDismiss(int id);
+    }
+
     public static AlertDialogFragment newInstance(String title, String message, String positive,
-                                                  String negative, String neutral, boolean cancelable, int id) {
+                                                  String negative, String neutral, boolean cancelable,
+                                                  int id) {
         Bundle bundle = new Bundle();
         bundle.putString(TITLE, title);
         bundle.putString(MESSAGE, message);
@@ -44,31 +52,24 @@ public class AlertDialogFragment extends DialogFragment {
     }
 
     @Override
-    public void onAttach(Activity activity) {
-        super.onAttach(activity);
+    public void onAttach(Context context) {
+        super.onAttach(context);
         if(getTargetFragment() instanceof Callbacks) {
             mCallbacks = (Callbacks)getTargetFragment();
-        } else if(activity instanceof Callbacks) {
-            mCallbacks = (Callbacks)activity;
+        } else if(getParentFragment() instanceof Callbacks) {
+            mCallbacks = (Callbacks)getParentFragment();
+        } else if(context instanceof Callbacks) {
+            mCallbacks = (Callbacks)context;
         } else {
-            throw new RuntimeException("Must implement AlertDialogFragment.Callbacks");
+            throw new IllegalArgumentException("Must implement " + Callbacks.class.getName());
         }
     }
-
-    public interface Callbacks {
-        void onPositive(int id);
-        void onNegative(int id);
-        void onNeutral(int id);
-        void onCancel(int id);
-        void onDismiss(int id);
-    }
-
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        Bundle args = (savedInstanceState != null ? savedInstanceState : getArguments());
+        Bundle args = getArguments();
 
         mTitle = args.getString(TITLE);
         mMessage = args.getString(MESSAGE);
@@ -77,18 +78,6 @@ public class AlertDialogFragment extends DialogFragment {
         mNeutral = args.getString(NEUTRAL);
         mCancelable = args.getBoolean(CANCELABLE);
         mId = args.getInt(ID);
-    }
-
-    @Override
-    public void onSaveInstanceState(Bundle bundle) {
-        super.onSaveInstanceState(bundle);
-        bundle.putString(TITLE, mTitle);
-        bundle.putString(MESSAGE, mMessage);
-        bundle.putString(POSITIVE, mPositive);
-        bundle.putString(NEGATIVE, mNegative);
-        bundle.putString(NEUTRAL, mNeutral);
-        bundle.putBoolean(CANCELABLE, mCancelable);
-        bundle.putInt(ID, mId);
     }
 
     @NonNull

@@ -76,7 +76,7 @@ public class SaveActivity extends BaseActivity implements VariablesAdapterRemove
         super.onStart();
 
         mExpressionEditText.setText(mDataset.getExpression());
-        mDatasetNameEditText.setText(mDataset.getDataSetName());
+        mDatasetNameEditText.setText(mDataset.getName());
 
         mAdapter = new VariablesAdapterRemove(mDataset.getVariables(), this);
         mVariablesRV.setAdapter(mAdapter);
@@ -86,7 +86,7 @@ public class SaveActivity extends BaseActivity implements VariablesAdapterRemove
     protected void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
         mDataset.setExpression(mExpressionEditText.getText().toString());
-        mDataset.setDataSetName(mDatasetNameEditText.getText().toString());
+        mDataset.setName(mDatasetNameEditText.getText().toString());
         outState.putParcelable(Constants.DATASET, mDataset);
     }
 
@@ -101,16 +101,16 @@ public class SaveActivity extends BaseActivity implements VariablesAdapterRemove
     private View.OnClickListener mSaveClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            mDataset.setDataSetName(mDatasetNameEditText.getText().toString());
+            mDataset.setName(mDatasetNameEditText.getText().toString());
             mDataset.setExpression(mExpressionEditText.getText().toString());
-            if(TextUtils.isEmpty(mDataset.getDataSetName())) {
+            if(TextUtils.isEmpty(mDataset.getName())) {
                 Toast.makeText(getApplicationContext(), R.string.name_is_empty, Toast.LENGTH_SHORT).
                         show();
                 return;
             }
             if(mStorage.hasDataSet(mDataset)) {
                 showAlertDialog(getString(R.string.dialog_error),
-                        getString(R.string.unique_dataset_name_error, mDataset.getDataSetName()),
+                        getString(R.string.unique_dataset_name_error, mDataset.getName()),
                         getString(R.string.OK), getString(R.string.NO), null, true, DIALOG_DATASET_UNIQUE);
             } else {
                 mDataset.setTimestamp(Helper.getCurrentTimestamp());

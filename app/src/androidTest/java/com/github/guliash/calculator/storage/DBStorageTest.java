@@ -59,7 +59,7 @@ public class DBStorageTest {
     }
 
     private void checkThatDataSetContentsAreEqual(CalculatorDataSet first, CalculatorDataSet second) {
-        Assert.assertEquals(first.getDataSetName(), second.getDataSetName());
+        Assert.assertEquals(first.getName(), second.getName());
         Assert.assertEquals(first.getExpression(), second.getExpression());
         Assert.assertEquals(first.getTimestamp(), second.getTimestamp());
         Assert.assertEquals(first.getVariables().size(), second.getVariables().size());
@@ -82,7 +82,7 @@ public class DBStorageTest {
     public void testThatUpdateWorks() {
         storage.addDataSet(dataSet1);
 
-        dataSet2.setDataSetName(dataSet1.getDataSetName());
+        dataSet2.setName(dataSet1.getName());
 
         storage.updateDataSet(dataSet2);
 

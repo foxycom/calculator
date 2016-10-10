@@ -31,7 +31,7 @@ public class CalculatorDatasetTest {
         CalculatorDataSet origin = getTestDataSet();
         CalculatorDataSet copy = origin.clone();
         Assert.assertEquals(origin.getExpression(), copy.getExpression());
-        Assert.assertEquals(origin.getDataSetName(), copy.getDataSetName());
+        Assert.assertEquals(origin.getName(), copy.getName());
         Assert.assertEquals(origin.getTimestamp(), copy.getTimestamp());
         Assert.assertEquals(origin.getVariables(), copy.getVariables());
     }
@@ -49,8 +49,8 @@ public class CalculatorDatasetTest {
         dataSet.setExpression(expression);
         Assert.assertEquals(expression, dataSet.getExpression());
 
-        dataSet.setDataSetName(dataSetName);
-        Assert.assertEquals(dataSetName, dataSet.getDataSetName());
+        dataSet.setName(dataSetName);
+        Assert.assertEquals(dataSetName, dataSet.getName());
 
         dataSet.setTimestamp(timestamp);
         Assert.assertEquals(timestamp, dataSet.getTimestamp());
@@ -66,7 +66,7 @@ public class CalculatorDatasetTest {
 
         Assert.assertEquals(true, dataSet1.equals(dataSet2));
         Assert.assertEquals(false, dataSet1.equals(null));
-        dataSet2.setDataSetName("wrong");
+        dataSet2.setName("wrong");
         Assert.assertEquals(false, dataSet1.equals(dataSet2));
     }
 

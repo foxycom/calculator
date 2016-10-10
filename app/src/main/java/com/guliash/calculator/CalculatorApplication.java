@@ -9,8 +9,6 @@ import com.guliash.calculator.di.modules.AppModule;
 
 public class CalculatorApplication extends Application {
 
-    public static final String DATABASE_NAME = "calculator";
-
     private AppComponent mAppComponent;
 
     @Override

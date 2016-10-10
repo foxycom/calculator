@@ -16,6 +16,8 @@ import java.util.List;
 
 public class DBHelper extends SQLiteOpenHelper implements Storage {
 
+    public static final String DATABASE_NAME = "calculator";
+
     private static final int DATABASE_VERSION = 1;
 
     private static final String VARIABLES_TABLE = "variables";
@@ -151,7 +153,7 @@ public class DBHelper extends SQLiteOpenHelper implements Storage {
             return false;
         }
 
-        long id = addRowToMainTable(dataSet.getDataSetName(), dataSet.getTimestamp());
+        long id = addRowToMainTable(dataSet.getName(), dataSet.getTimestamp());
         addDataToVariablesAndExpTables(id, dataSet.getExpression(), dataSet.getVariables());
         return true;
     }
@@ -170,7 +172,7 @@ public class DBHelper extends SQLiteOpenHelper implements Storage {
 
     @Override
     public boolean hasDataSet(CalculatorDataSet dataSet) {
-        return getIdOfRowWithName(dataSet.getDataSetName()) != -1;
+        return getIdOfRowWithName(dataSet.getName()) != -1;
     }
 
     @Override
@@ -178,7 +180,7 @@ public class DBHelper extends SQLiteOpenHelper implements Storage {
         if(!hasDataSet(dataSet)) {
             return false;
         }
-        deleteRowFromMainTable(getIdOfRowWithName(dataSet.getDataSetName()));
+        deleteRowFromMainTable(getIdOfRowWithName(dataSet.getName()));
         return true;
     }
 

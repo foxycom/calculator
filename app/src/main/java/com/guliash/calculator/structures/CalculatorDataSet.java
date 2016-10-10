@@ -8,22 +8,22 @@ import java.util.ArrayList;
 public final class CalculatorDataSet implements Parcelable, Cloneable {
 
     private String expression;
-    private String dataSetName;
+    private String name;
     private long timestamp;
     private ArrayList<StringVariableWrapper> variables;
 
-    public CalculatorDataSet(String expression, String dataSetName, long timestamp,
+    public CalculatorDataSet(String expression, String name, long timestamp,
                              ArrayList<StringVariableWrapper> variables) {
 
         this.expression = expression;
-        this.dataSetName = dataSetName;
+        this.name = name;
         this.timestamp = timestamp;
         this.variables = variables;
     }
 
     public CalculatorDataSet(Parcel parcel) {
         expression = parcel.readString();
-        dataSetName = parcel.readString();
+        name = parcel.readString();
         timestamp = parcel.readLong();
         variables = parcel.readArrayList(StringVariableWrapper.class.getClassLoader());
     }
@@ -36,12 +36,12 @@ public final class CalculatorDataSet implements Parcelable, Cloneable {
         this.expression = expression;
     }
 
-    public String getDataSetName() {
-        return dataSetName;
+    public String getName() {
+        return name;
     }
 
-    public void setDataSetName(String dataSetName) {
-        this.dataSetName = dataSetName;
+    public void setName(String name) {
+        this.name = name;
     }
 
     public long getTimestamp() {
@@ -76,7 +76,7 @@ public final class CalculatorDataSet implements Parcelable, Cloneable {
 
     @Override
     public int hashCode() {
-        return dataSetName.hashCode();
+        return name.hashCode();
     }
 
     @Override
@@ -85,18 +85,18 @@ public final class CalculatorDataSet implements Parcelable, Cloneable {
             return false;
         }
         CalculatorDataSet obj = (CalculatorDataSet)o;
-        return obj.dataSetName.equals(dataSetName);
+        return obj.name.equals(name);
     }
 
     @Override
     public String toString() {
-        return String.format("{%s %s}", dataSetName, expression);
+        return String.format("{%s %s}", name, expression);
     }
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeString(expression);
-        dest.writeString(dataSetName);
+        dest.writeString(name);
         dest.writeLong(timestamp);
         dest.writeList(variables);
     }
