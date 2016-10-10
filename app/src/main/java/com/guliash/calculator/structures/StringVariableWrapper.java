@@ -43,7 +43,7 @@ public final class StringVariableWrapper extends StringVariable implements Parce
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
-        dest.writeString(name);
-        dest.writeString(value);
+        dest.writeString(getName());
+        dest.writeString(getValue());
     }
 }

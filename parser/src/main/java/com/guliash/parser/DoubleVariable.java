@@ -2,10 +2,8 @@ package com.guliash.parser;
 
 public class DoubleVariable {
 
-    public String name;
-    public double value;
-
-    public DoubleVariable() {}
+    private String name;
+    private double value;
 
     public DoubleVariable(String name, double value) {
         this.name = name;
@@ -14,17 +12,24 @@ public class DoubleVariable {
 
     @Override
     public int hashCode() {
-        return name.hashCode();
+        return getName().hashCode();
     }
 
     @Override
     public boolean equals(Object o) {
-        return (o instanceof StringVariable) && ((StringVariable)o).name.equals(name);
+        return (o instanceof StringVariable) && ((StringVariable) o).getName().equals(getName());
     }
 
     @Override
     public String toString() {
-        return name + " " + value;
+        return getName() + " " + getValue();
     }
 
+    public String getName() {
+        return name;
+    }
+
+    public double getValue() {
+        return value;
+    }
 }

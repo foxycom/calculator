@@ -2,14 +2,14 @@ package com.guliash.parser;
 
 import com.guliash.parser.evaluator.Evaluator;
 
-import java.util.Collection;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 public class Verify {
 
     public static boolean variable(StringVariable variable) {
-        String name = variable.name;
+        String name = variable.getName();
         if(name == null || name.length() == 0) {
             return false;
         }
@@ -26,10 +26,10 @@ public class Verify {
     }
 
     public static boolean variableNameClashesWithConstants(StringVariable variable, Evaluator evaluator) {
-        return evaluator.hasConstant(variable.name);
+        return evaluator.hasConstant(variable.getName());
     }
 
-    public static boolean variablesNamesClashWithConstants(Collection<StringVariable> variables, Evaluator evaluator) {
+    public static boolean variablesNamesClashWithConstants(List<? extends StringVariable> variables, Evaluator evaluator) {
         for(StringVariable variable : variables) {
             if(variableNameClashesWithConstants(variable, evaluator)) {
                 return true;
@@ -42,7 +42,7 @@ public class Verify {
         return Character.isLetter(ch) || ch == '$' || ch == '_';
     }
 
-    public static boolean checkVariablesUnique(Collection<? extends StringVariable> variables) {
+    public static boolean checkVariablesUnique(List<? extends StringVariable> variables) {
         Set<StringVariable> variableSet = new HashSet<>();
         for(StringVariable variable : variables) {
             if(variableSet.contains(variable)) {

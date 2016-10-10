@@ -86,8 +86,8 @@ public class DBHelper extends SQLiteOpenHelper implements Storage {
         for(StringVariableWrapper variable : variables) {
             cv = new ContentValues();
             cv.put("id", id);
-            cv.put("name", variable.name);
-            cv.put("value", variable.value);
+            cv.put("name", variable.getName());
+            cv.put("value", variable.getValue());
             db.insert(VARIABLES_TABLE, null, cv);
         }
     }

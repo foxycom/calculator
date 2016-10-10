@@ -77,8 +77,8 @@ public class SaveActivityTest {
             onView(withId(R.id.variables_rv))
                     .perform(scrollToPosition(i));
             onView(withId(R.id.variables_rv))
-                    .check(matches(atPosition(i, allOf(hasDescendant(withText(wrapper.name)),
-                            hasDescendant(withText(wrapper.value))))));
+                    .check(matches(atPosition(i, allOf(hasDescendant(withText(wrapper.getName())),
+                            hasDescendant(withText(wrapper.getValue()))))));
         }
     }
 

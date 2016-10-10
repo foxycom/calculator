@@ -15,23 +15,23 @@ public class ArithmeticParser {
 
     private Evaluator evaluator;
 
-    private List<DoubleVariable> variables;
+    private List<? extends DoubleVariable> variables;
 
     private Stemmer stemmer;
 
-    private ArithmeticParser(String s, List<DoubleVariable> variables, Evaluator evaluator) {
+    private ArithmeticParser(String s, List<? extends DoubleVariable> variables, Evaluator evaluator) {
         this.stemmer = new Stemmer(s);
         this.variables = variables;
         this.evaluator = evaluator;
     }
 
-    public static double calculate(String s, List<StringVariable> variables, Evaluator evaluator) {
+    public static double calculate(String s, List<? extends StringVariable> variables, Evaluator evaluator) {
         VariablesResolver variablesResolver = new VariablesResolver(variables, evaluator);
         List<StringVariable> topologicallySortedVariables = variablesResolver.resolveDependencies();
         List<DoubleVariable> calculatedList = new ArrayList<>();
         for(StringVariable variable : topologicallySortedVariables) {
-            ArithmeticParser parser = new ArithmeticParser(variable.value, calculatedList, evaluator);
-            DoubleVariable doubleVariable = new DoubleVariable(variable.name, parser.calculate());
+            ArithmeticParser parser = new ArithmeticParser(variable.getValue(), calculatedList, evaluator);
+            DoubleVariable doubleVariable = new DoubleVariable(variable.getName(), parser.calculate());
             calculatedList.add(doubleVariable);
         }
         return new ArithmeticParser(s, calculatedList, evaluator).calculate();
@@ -109,7 +109,7 @@ public class ArithmeticParser {
             } else if(hasVariable(temp)) {
                 DoubleVariable variable = getVariable(temp);
                 if (variable != null) {
-                   return variable.value;
+                   return variable.getValue();
                 } else {
                     throw new VariableNotFoundException(temp);
                 }
@@ -143,7 +143,7 @@ public class ArithmeticParser {
 
     private DoubleVariable getVariable(String name) {
         for(DoubleVariable variable : variables) {
-            if(variable.name.equals(name)) {
+            if(variable.getName().equals(name)) {
                 return variable;
             }
         }

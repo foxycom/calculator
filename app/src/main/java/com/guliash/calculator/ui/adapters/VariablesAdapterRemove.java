@@ -108,8 +108,8 @@ public class VariablesAdapterRemove extends RecyclerView.Adapter<VariablesAdapte
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
         StringVariableWrapper variable = mVariables.get(position);
-        holder.nameEditText.setText(variable.name);
-        holder.valueEditText.setText(variable.value);
+        holder.nameEditText.setText(variable.getName());
+        holder.valueEditText.setText(variable.getValue());
     }
 
     @Override

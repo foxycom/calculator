@@ -65,8 +65,8 @@ public class DBStorageTest {
         Assert.assertEquals(first.getVariables().size(), second.getVariables().size());
 
         for(int i = 0; i < first.getVariables().size(); i++) {
-            Assert.assertEquals(first.getVariables().get(i).name, second.getVariables().get(i).name);
-            Assert.assertEquals(first.getVariables().get(i).value, second.getVariables().get(i).value);
+            Assert.assertEquals(first.getVariables().get(i).getName(), second.getVariables().get(i).getName());
+            Assert.assertEquals(first.getVariables().get(i).getValue(), second.getVariables().get(i).getValue());
         }
     }
 

@@ -150,7 +150,7 @@ public class CalculatorFragment extends Fragment implements VariablesAdapterRemo
             for(StringVariable variable : variables) {
                 if(!Verify.variable(variable)) {
                     Toast.makeText(getContext(), getString(
-                            R.string.variable_name_not_correct, variable.name), Toast.LENGTH_LONG).show();
+                            R.string.variable_name_not_correct, variable.getName()), Toast.LENGTH_LONG).show();
                     return;
                 }
             }
@@ -158,7 +158,7 @@ public class CalculatorFragment extends Fragment implements VariablesAdapterRemo
             for(StringVariable variable : variables) {
                 if(Verify.variableNameClashesWithConstants(variable, evaluator)) {
                     Toast.makeText(getActivity().getApplicationContext(), getString(
-                            R.string.variable_name_clashes_constant, variable.name), Toast.LENGTH_LONG).show();
+                            R.string.variable_name_clashes_constant, variable.getName()), Toast.LENGTH_LONG).show();
                     return;
                 }
             }
@@ -204,7 +204,7 @@ public class CalculatorFragment extends Fragment implements VariablesAdapterRemo
 
     @Override
     public void onVariableUse(int position) {
-        inputString(mDataset.getVariables().get(position).name);
+        inputString(mDataset.getVariables().get(position).getName());
     }
 
     public CalculatorDataSet getDataset() {

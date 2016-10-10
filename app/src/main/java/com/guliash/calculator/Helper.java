@@ -26,6 +26,6 @@ public class Helper {
     }
 
     public static String variableToString(StringVariableWrapper variable) {
-        return variable.name + " = " + variable.value;
+        return variable.getName() + " = " + variable.getValue();
     }
 }

@@ -15,14 +15,14 @@ import static com.guliash.parser.stemmer.Stemmer.Lexeme;
 
 public class VariablesResolver {
 
-    private List<StringVariable> variables;
+    private List<? extends StringVariable> variables;
     private Evaluator evaluator;
 
-    enum State {
+    private enum State {
         ACTIVE, NOT_VISITED, VISITED
     }
 
-    public VariablesResolver(List<StringVariable> variables, Evaluator evaluator) throws IllegalArgumentException {
+    public VariablesResolver(List<? extends StringVariable> variables, Evaluator evaluator) throws IllegalArgumentException {
         this.variables = variables;
         this.evaluator = evaluator;
         if(!Verify.checkVariablesUnique(variables)) {
@@ -67,7 +67,7 @@ public class VariablesResolver {
         for(StringVariable adjVar : graph.get(current)) {
             State state = stateMap.get(adjVar);
             if(state == State.ACTIVE) {
-                throw new CyclicVariablesDependencyException(current.name, adjVar.name);
+                throw new CyclicVariablesDependencyException(current.getName(), adjVar.getName());
             }
             if(state == State.NOT_VISITED) {
                 dfs(graph, adjVar, stateMap, topologicallySortedList);
@@ -85,7 +85,7 @@ public class VariablesResolver {
      * variable can't be found in {@link VariablesResolver#variables}
      */
     public Set<StringVariable> findDependencies(StringVariable variable) throws IllegalArgumentException {
-        Stemmer stemmer = new Stemmer(variable.value);
+        Stemmer stemmer = new Stemmer(variable.getValue());
         stemmer.start();
         Set<String> dependencies = new HashSet<>();
         while(stemmer.getLexeme() != Lexeme.END_OF_LINE) {
@@ -103,7 +103,7 @@ public class VariablesResolver {
         for(String name : dependencies) {
             boolean found = false;
             for(StringVariable var : variables) {
-                if(var.name.equals(name)) {
+                if(var.getName().equals(name)) {
                     result.add(var);
                     found = true;
                     break;

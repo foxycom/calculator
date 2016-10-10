@@ -180,7 +180,7 @@ public class MainActivityTest {
         for(int i = 0; i < variables.size(); i++) {
             onView(withId(R.id.variables_rv)).perform(scrollToPosition(i));
             onView(withId(R.id.variables_rv)).check(matches(atPosition(i,
-                    hasDescendant(withText(variables.get(i).name)))));
+                    hasDescendant(withText(variables.get(i).getName())))));
         }
     }
 }
