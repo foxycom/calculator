@@ -2,7 +2,7 @@ package com.guliash.calculator.di.modules;
 
 import android.content.Context;
 
-import com.guliash.calculator.CalculatorApplication;
+import com.guliash.calculator.App;
 import com.guliash.calculator.state.AppSettings;
 import com.guliash.calculator.state.AppSettingsImpl;
 import com.guliash.calculator.storage.DBHelper;
@@ -16,9 +16,9 @@ import dagger.Provides;
 @Module
 public class AppModule {
 
-    private CalculatorApplication mApplication;
+    private App mApplication;
 
-    public AppModule(CalculatorApplication application) {
+    public AppModule(App application) {
         this.mApplication = application;
     }
 
@@ -30,7 +30,7 @@ public class AppModule {
 
     @Provides
     @Singleton
-    public CalculatorApplication provideApplication() {
+    public App provideApplication() {
         return mApplication;
     }
 

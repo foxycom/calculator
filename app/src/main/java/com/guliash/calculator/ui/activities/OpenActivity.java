@@ -8,6 +8,7 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 
+import com.guliash.calculator.App;
 import com.guliash.calculator.Constants;
 import com.guliash.calculator.R;
 import com.guliash.calculator.storage.Storage;
@@ -31,7 +32,7 @@ public class OpenActivity extends BaseActivity implements DatasetsAdapterCV.Call
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_open);
 
-        getApp().getAppComponent().inject(this);
+        App.get(this).getAppComponent().inject(this);
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);

@@ -7,7 +7,7 @@ import com.guliash.calculator.di.components.AppComponent;
 import com.guliash.calculator.di.components.DaggerAppComponent;
 import com.guliash.calculator.di.modules.AppModule;
 
-public class CalculatorApplication extends Application {
+public class App extends Application {
 
     private AppComponent mAppComponent;
 
@@ -21,8 +21,8 @@ public class CalculatorApplication extends Application {
         mAppComponent = DaggerAppComponent.builder().appModule(new AppModule(this)).build();
     }
 
-    public static CalculatorApplication get(Context context) {
-        return (CalculatorApplication)context.getApplicationContext();
+    public static App get(Context context) {
+        return (App)context.getApplicationContext();
     }
 
     public AppComponent getAppComponent() {

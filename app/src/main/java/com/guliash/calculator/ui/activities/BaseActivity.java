@@ -3,7 +3,6 @@ package com.guliash.calculator.ui.activities;
 import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AppCompatActivity;
 
-import com.guliash.calculator.CalculatorApplication;
 import com.guliash.calculator.ui.fragments.AlertDialogFragment;
 
 public class BaseActivity extends AppCompatActivity {
@@ -25,9 +24,5 @@ public class BaseActivity extends AppCompatActivity {
         if(dialogFragment != null) {
             dialogFragment.dismiss();
         }
-    }
-
-    protected CalculatorApplication getApp() {
-        return (CalculatorApplication)getApplication();
     }
 }

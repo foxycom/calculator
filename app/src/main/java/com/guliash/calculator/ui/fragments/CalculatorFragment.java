@@ -15,7 +15,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.guliash.calculator.CalculatorApplication;
+import com.guliash.calculator.App;
 import com.guliash.calculator.Constants;
 import com.guliash.calculator.R;
 import com.guliash.calculator.state.AppSettings;
@@ -67,7 +67,7 @@ public class CalculatorFragment extends Fragment implements VariablesAdapterRemo
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        CalculatorApplication.get(getContext()).getAppComponent().inject(this);
+        App.get(getContext()).getAppComponent().inject(this);
     }
 
     @Override

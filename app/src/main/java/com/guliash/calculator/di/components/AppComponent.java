@@ -1,6 +1,6 @@
 package com.guliash.calculator.di.components;
 
-import com.guliash.calculator.CalculatorApplication;
+import com.guliash.calculator.App;
 import com.guliash.calculator.di.modules.AppModule;
 import com.guliash.calculator.state.AppSettings;
 import com.guliash.calculator.storage.Storage;
@@ -17,7 +17,7 @@ import dagger.Component;
 @Component(modules = {AppModule.class})
 public interface AppComponent {
 
-    CalculatorApplication app();
+    App app();
 
     Storage storage();
 

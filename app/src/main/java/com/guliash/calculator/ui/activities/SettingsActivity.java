@@ -6,6 +6,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.RadioGroup;
 
+import com.guliash.calculator.App;
 import com.guliash.calculator.R;
 import com.guliash.calculator.state.AppSettings;
 import com.guliash.parser.AngleUnits;
@@ -24,7 +25,7 @@ public class SettingsActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_settings);
 
-        getApp().getAppComponent().inject(this);
+        App.get(this).getAppComponent().inject(this);
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);

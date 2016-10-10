@@ -12,6 +12,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.guliash.calculator.App;
 import com.guliash.calculator.Constants;
 import com.guliash.calculator.Helper;
 import com.guliash.calculator.R;
@@ -44,7 +45,7 @@ public class SaveActivity extends BaseActivity implements VariablesAdapterRemove
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_save);
 
-        getApp().getAppComponent().inject(this);
+        App.get(this).getAppComponent().inject(this);
 
         Bundle args = (savedInstanceState != null ? savedInstanceState : getIntent().getExtras());
         mDataset = args.getParcelable(Constants.DATASET);
