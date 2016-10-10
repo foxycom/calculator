@@ -25,26 +25,39 @@ import com.guliash.calculator.ui.fragments.AlertDialogFragment;
 
 import javax.inject.Inject;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
+
 public class SaveActivity extends BaseActivity implements VariablesAdapterRemove.Callbacks,
         AlertDialogFragment.Callbacks {
 
-    private EditText mExpressionEditText, mDatasetNameEditText;
-    private VariablesAdapterRemove mAdapter;
-    private CalculatorDataSet mDataset;
-    @Inject
-    Storage mStorage;
-    @Inject
-    AppSettings mAppSettings;
-    private RecyclerView mVariablesRV;
-
     private static final int DIALOG_REVIEW_ID = 1;
     private static final int DIALOG_DATASET_UNIQUE = 2;
+
+    @BindView(R.id.expression)
+    EditText mExpressionInput;
+
+    @BindView(R.id.dataset_name)
+    EditText mDataSetNameInput;
+
+    private VariablesAdapterRemove mAdapter;
+    private CalculatorDataSet mDataset;
+
+    @Inject
+    Storage mStorage;
+
+    @Inject
+    AppSettings mAppSettings;
+
+    private RecyclerView mVariablesRV;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_save);
 
+        ButterKnife.bind(this);
         App.get(this).getAppComponent().inject(this);
 
         Bundle args = (savedInstanceState != null ? savedInstanceState : getIntent().getExtras());
@@ -60,14 +73,6 @@ public class SaveActivity extends BaseActivity implements VariablesAdapterRemove
             }
         });
 
-        Button addButton = (Button) findViewById(R.id.add);
-        Button saveButton = (Button) findViewById(R.id.save);
-        addButton.setOnClickListener(mAddVariableClickListener);
-        saveButton.setOnClickListener(mSaveClickListener);
-
-        mExpressionEditText = (EditText)findViewById(R.id.expression);
-        mDatasetNameEditText = (EditText)findViewById(R.id.dataset_name);
-
         mVariablesRV = (RecyclerView) findViewById(R.id.variables_rv);
         mVariablesRV.setLayoutManager(new LinearLayoutManager(this));
     }
@@ -76,8 +81,8 @@ public class SaveActivity extends BaseActivity implements VariablesAdapterRemove
     protected void onStart() {
         super.onStart();
 
-        mExpressionEditText.setText(mDataset.getExpression());
-        mDatasetNameEditText.setText(mDataset.getName());
+        mExpressionInput.setText(mDataset.getExpression());
+        mDataSetNameInput.setText(mDataset.getName());
 
         mAdapter = new VariablesAdapterRemove(mDataset.getVariables(), this);
         mVariablesRV.setAdapter(mAdapter);
@@ -86,43 +91,39 @@ public class SaveActivity extends BaseActivity implements VariablesAdapterRemove
     @Override
     protected void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
-        mDataset.setExpression(mExpressionEditText.getText().toString());
-        mDataset.setName(mDatasetNameEditText.getText().toString());
+        mDataset.setExpression(mExpressionInput.getText().toString());
+        mDataset.setName(mDataSetNameInput.getText().toString());
         outState.putParcelable(Constants.DATASET, mDataset);
     }
 
-    private View.OnClickListener mAddVariableClickListener = new View.OnClickListener() {
-        @Override
-        public void onClick(View v) {
-            mDataset.getVariables().add(new StringVariableWrapper("", "0"));
-            mAdapter.notifyItemInserted(mDataset.getVariables().size() - 1);
-        }
-    };
+    @OnClick(R.id.add)
+    void onAddClick() {
+        mDataset.getVariables().add(StringVariableWrapper.defaultVariable());
+        mAdapter.notifyItemInserted(mDataset.getVariables().size() - 1);
+    }
 
-    private View.OnClickListener mSaveClickListener = new View.OnClickListener() {
-        @Override
-        public void onClick(View v) {
-            mDataset.setName(mDatasetNameEditText.getText().toString());
-            mDataset.setExpression(mExpressionEditText.getText().toString());
-            if(TextUtils.isEmpty(mDataset.getName())) {
-                Toast.makeText(getApplicationContext(), R.string.name_is_empty, Toast.LENGTH_SHORT).
-                        show();
-                return;
-            }
-            if(mStorage.hasDataSet(mDataset)) {
-                showAlertDialog(getString(R.string.dialog_error),
-                        getString(R.string.unique_dataset_name_error, mDataset.getName()),
-                        getString(R.string.OK), getString(R.string.NO), null, true, DIALOG_DATASET_UNIQUE);
-            } else {
-                mDataset.setTimestamp(Helper.getCurrentTimestamp());
-                mStorage.addDataSet(mDataset);
-                setResult(RESULT_OK);
-                if(showReviewDialogIfNeed()) {
-                    finish();
-                }
+    @OnClick(R.id.save)
+    void onSaveClick() {
+        mDataset.setName(mDataSetNameInput.getText().toString());
+        mDataset.setExpression(mExpressionInput.getText().toString());
+        if(TextUtils.isEmpty(mDataset.getName())) {
+            Toast.makeText(getApplicationContext(), R.string.name_is_empty, Toast.LENGTH_SHORT).
+                    show();
+            return;
+        }
+        if(mStorage.hasDataSet(mDataset)) {
+            showAlertDialog(getString(R.string.dialog_error),
+                    getString(R.string.unique_dataset_name_error, mDataset.getName()),
+                    getString(R.string.OK), getString(R.string.NO), null, true, DIALOG_DATASET_UNIQUE);
+        } else {
+            mDataset.setTimestamp(Helper.getCurrentTimestamp());
+            mStorage.addDataSet(mDataset);
+            setResult(RESULT_OK);
+            if(showReviewDialogIfNeed()) {
+                finish();
             }
         }
-    };
+    }
 
     @Override
     public void onVariableRemove(int position) {

@@ -21,6 +21,10 @@ public final class StringVariableWrapper extends StringVariable implements Parce
         super(name, value);
     }
 
+    public static StringVariableWrapper defaultVariable() {
+        return new StringVariableWrapper("", "0");
+    }
+
     public StringVariableWrapper(Parcel parcel) {
         super();
         setName(parcel.readString());
