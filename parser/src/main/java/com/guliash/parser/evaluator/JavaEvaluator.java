@@ -14,7 +14,7 @@ public class JavaEvaluator implements Evaluator {
         this.angleUnits = angleUnits;
     }
 
-    private enum Function {
+    public enum Function {
         SIN("sin", 1),
         COS("cos", 1),
         TAN("tan", 1),
@@ -61,7 +61,7 @@ public class JavaEvaluator implements Evaluator {
         }
     }
 
-    private enum Constant {
+    public enum Constant {
 
         PI("pi"), E("e");
 
@@ -69,6 +69,10 @@ public class JavaEvaluator implements Evaluator {
 
         Constant(String name) {
             this.name = name;
+        }
+
+        public String getName() {
+            return name;
         }
 
         @Override

@@ -35,7 +35,8 @@ public interface Calculator {
             return success;
         }
 
-        @Nullable public String getErrorMessage() {
+        @Nullable
+        public String getErrorMessage() {
             return errorMessage;
         }
     }
