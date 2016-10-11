@@ -1,7 +1,10 @@
-package com.guliash.parser;
+package com.guliash.parser.parser;
 
+import com.guliash.parser.DoubleVariable;
+import com.guliash.parser.StringVariable;
+import com.guliash.parser.VariablesResolver;
 import com.guliash.parser.evaluator.Evaluator;
-import com.guliash.parser.exceptions.ArithmeticParserException;
+import com.guliash.parser.exceptions.ParserException;
 import com.guliash.parser.exceptions.VariableNotFoundException;
 import com.guliash.parser.exceptions.WordNotFoundException;
 import com.guliash.parser.stemmer.Stemmer;
@@ -29,7 +32,7 @@ public class Parser {
         VariablesResolver variablesResolver = new VariablesResolver(variables, evaluator);
         List<StringVariable> topologicallySortedVariables = variablesResolver.resolveDependencies();
         List<DoubleVariable> calculatedList = new ArrayList<>();
-        for(StringVariable variable : topologicallySortedVariables) {
+        for (StringVariable variable : topologicallySortedVariables) {
             Parser parser = new Parser(variable.getValue(), calculatedList, evaluator);
             DoubleVariable doubleVariable = new DoubleVariable(variable.getName(), parser.calculate());
             calculatedList.add(doubleVariable);
@@ -40,8 +43,8 @@ public class Parser {
     private double calculate() {
         stemmer.start();
         double res = expression();
-        if(stemmer.getLexeme() != Lexeme.END_OF_LINE) {
-            throw  new VerifyAssertionException(Lexeme.END_OF_LINE, stemmer.getLexeme());
+        if (stemmer.getLexeme() != Lexeme.END_OF_LINE) {
+            throw new VerifyAssertionException(Lexeme.END_OF_LINE, stemmer.getLexeme());
         }
         return res;
     }
@@ -49,8 +52,8 @@ public class Parser {
     private double expression() {
         double res = term();
         int prevSign;
-        while(stemmer.getLexeme() == Lexeme.ADDITION || stemmer.getLexeme() == Lexeme.SUBTRACTION) {
-            if(stemmer.getLexeme() == Lexeme.ADDITION) {
+        while (stemmer.getLexeme() == Lexeme.ADDITION || stemmer.getLexeme() == Lexeme.SUBTRACTION) {
+            if (stemmer.getLexeme() == Lexeme.ADDITION) {
                 prevSign = 1;
                 stemmer.readLexeme();
             } else {
@@ -65,15 +68,15 @@ public class Parser {
     private double term() {
         double res = factor();
         int prevSign;
-        while(stemmer.getLexeme() == Lexeme.MULTIPLICATION || stemmer.getLexeme() == Lexeme.DIVISION) {
-            if(stemmer.getLexeme() == Lexeme.MULTIPLICATION) {
+        while (stemmer.getLexeme() == Lexeme.MULTIPLICATION || stemmer.getLexeme() == Lexeme.DIVISION) {
+            if (stemmer.getLexeme() == Lexeme.MULTIPLICATION) {
                 prevSign = 1;
                 stemmer.readLexeme();
             } else {
                 prevSign = -1;
                 stemmer.readLexeme();
             }
-            if(prevSign == 1) {
+            if (prevSign == 1) {
                 res *= factor();
             } else {
                 res /= factor();
@@ -83,33 +86,33 @@ public class Parser {
     }
 
     private double factor() {
-        if(stemmer.getLexeme() == Lexeme.NUMBER) {
+        if (stemmer.getLexeme() == Lexeme.NUMBER) {
             double res = stemmer.getNumber();
             stemmer.readLexeme();
             return res;
-        } else if(stemmer.getLexeme() == Lexeme.ADDITION) {
+        } else if (stemmer.getLexeme() == Lexeme.ADDITION) {
             stemmer.readLexeme();
             return factor();
-        } else if(stemmer.getLexeme() == Lexeme.SUBTRACTION) {
+        } else if (stemmer.getLexeme() == Lexeme.SUBTRACTION) {
             stemmer.readLexeme();
             return -factor();
-        } else if(stemmer.getLexeme() == Lexeme.OPEN_BRACKET) {
+        } else if (stemmer.getLexeme() == Lexeme.OPEN_BRACKET) {
             stemmer.readLexeme();
             double res = expression();
             stemmer.verifyAndRead(Lexeme.CLOSE_BRACKET);
             return res;
-        } else if(stemmer.getLexeme() == Lexeme.WORD) {
+        } else if (stemmer.getLexeme() == Lexeme.WORD) {
             String temp = stemmer.getWord();
             stemmer.readLexeme();
-            if(stemmer.getLexeme() == Lexeme.OPEN_BRACKET) {
+            if (stemmer.getLexeme() == Lexeme.OPEN_BRACKET) {
                 List<Double> args = readFunctionArgs();
                 return evaluator.evaluateFunction(temp, args);
-            } else if(evaluator.hasConstant(temp)) {
+            } else if (evaluator.hasConstant(temp)) {
                 return evaluator.evaluateConstant(temp);
-            } else if(hasVariable(temp)) {
+            } else if (hasVariable(temp)) {
                 DoubleVariable variable = getVariable(temp);
                 if (variable != null) {
-                   return variable.getValue();
+                    return variable.getValue();
                 } else {
                     throw new VariableNotFoundException(temp);
                 }
@@ -118,18 +121,18 @@ public class Parser {
             }
         } else {
             //TODO?
-            throw new ArithmeticParserException("error");
+            throw new ParserException("error");
         }
     }
 
     private List<Double> readFunctionArgs() {
         stemmer.verifyAndRead(Lexeme.OPEN_BRACKET);
         List<Double> args = new ArrayList<>();
-        while(stemmer.getLexeme() != Lexeme.CLOSE_BRACKET) {
+        while (stemmer.getLexeme() != Lexeme.CLOSE_BRACKET) {
             args.add(expression());
-            if(stemmer.getLexeme() == Lexeme.COMMA) {
+            if (stemmer.getLexeme() == Lexeme.COMMA) {
                 stemmer.readLexeme();
-            } else if(stemmer.getLexeme() != Lexeme.CLOSE_BRACKET) {
+            } else if (stemmer.getLexeme() != Lexeme.CLOSE_BRACKET) {
                 throw new VerifyAssertionException(Lexeme.CLOSE_BRACKET, stemmer.getLexeme());
             }
         }
@@ -142,8 +145,8 @@ public class Parser {
     }
 
     private DoubleVariable getVariable(String name) {
-        for(DoubleVariable variable : variables) {
-            if(variable.getName().equals(name)) {
+        for (DoubleVariable variable : variables) {
+            if (variable.getName().equals(name)) {
                 return variable;
             }
         }

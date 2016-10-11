@@ -4,7 +4,8 @@ public class StringVariable {
     private String name;
     private String value;
 
-    public StringVariable() {}
+    public StringVariable() {
+    }
 
     public StringVariable(String name, String value) {
         this.setName(name);

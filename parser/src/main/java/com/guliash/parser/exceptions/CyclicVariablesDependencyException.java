@@ -4,7 +4,7 @@ public class CyclicVariablesDependencyException extends RuntimeException {
 
     public String firstName, secondName;
 
-    public CyclicVariablesDependencyException(String firstName, String  secondName) {
+    public CyclicVariablesDependencyException(String firstName, String secondName) {
         this.firstName = firstName;
         this.secondName = secondName;
     }

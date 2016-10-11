@@ -5,34 +5,24 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.guliash.calculator.App;
 import com.guliash.calculator.Constants;
 import com.guliash.calculator.R;
-import com.guliash.calculator.state.AppSettings;
+import com.guliash.calculator.calculator.Calculator;
 import com.guliash.calculator.structures.CalculatorDataSet;
 import com.guliash.calculator.structures.StringVariableWrapper;
 import com.guliash.calculator.ui.adapters.VariablesAdapterRemoveUse;
-import com.guliash.parser.Parser;
-import com.guliash.parser.StringVariable;
-import com.guliash.parser.Verify;
-import com.guliash.parser.evaluator.Evaluator;
-import com.guliash.parser.evaluator.JavaEvaluator;
-import com.guliash.parser.exceptions.CyclicVariablesDependencyException;
-import com.guliash.parser.exceptions.VariableNotFoundException;
-import com.guliash.parser.exceptions.WordNotFoundException;
-import com.guliash.parser.stemmer.InvalidNumberException;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Locale;
 
 import javax.inject.Inject;
 
@@ -55,7 +45,7 @@ public class CalculatorFragment extends Fragment implements VariablesAdapterRemo
     RecyclerView mVariablesRV;
 
     @Inject
-    AppSettings mAppSettings;
+    Calculator mCalculator;
 
     private VariablesAdapterRemoveUse mAdapter;
 
@@ -63,9 +53,6 @@ public class CalculatorFragment extends Fragment implements VariablesAdapterRemo
 
     public static CalculatorFragment newInstance() {
         return new CalculatorFragment();
-    }
-
-    public CalculatorFragment() {
     }
 
     @Override
@@ -112,51 +99,16 @@ public class CalculatorFragment extends Fragment implements VariablesAdapterRemo
 
     @OnClick(R.id.equals_image_button)
     void onEqualsClick() {
-        Evaluator evaluator = new JavaEvaluator(mAppSettings.getAngleUnits());
         String expression = mInputField.getText().toString();
 
-        if (TextUtils.isEmpty(expression)) {
-            Toast.makeText(getContext(), R.string.expression_is_empty,
-                    Toast.LENGTH_SHORT).show();
-            return;
-        }
-
         List<StringVariableWrapper> variables = mDataset.getVariables();
-        for (StringVariable variable : variables) {
-            if (!Verify.variable(variable)) {
-                Toast.makeText(getContext(), getString(
-                        R.string.variable_name_not_correct, variable.getName()), Toast.LENGTH_LONG).show();
-                return;
-            }
-        }
 
-        for (StringVariable variable : variables) {
-            if (Verify.variableNameClashesWithConstants(variable, evaluator)) {
-                Toast.makeText(getActivity().getApplicationContext(), getString(
-                        R.string.variable_name_clashes_constant, variable.getName()), Toast.LENGTH_LONG).show();
-                return;
-            }
-        }
+        Calculator.CalculateResult result = mCalculator.calculate(expression, variables);
 
-        if (!Verify.checkVariablesUnique(mDataset.getVariables())) {
-            Toast.makeText(getActivity().getApplicationContext(),
-                    getString(R.string.variables_names_not_unique), Toast.LENGTH_LONG).show();
-            return;
-        }
-
-        try {
-            double result = Parser.calculate(expression, variables, evaluator);
-            mResultField.setText(Double.toString(result));
-        } catch (CyclicVariablesDependencyException e) {
-            mResultField.setText(getString(R.string.cyclic_variables, e.firstName, e.secondName));
-        } catch (VariableNotFoundException e) {
-            mResultField.setText(getString(R.string.variable_not_found, e.getName()));
-        } catch (WordNotFoundException e) {
-            mResultField.setText(getString(R.string.word_not_found, e.getWord()));
-        } catch (InvalidNumberException e) {
-            mResultField.setText(getString(R.string.invalid_number));
-        } catch (Exception e) {
-            mResultField.setText(getString(R.string.bad_expression));
+        if (result.isSuccess()) {
+            mResultField.setText(String.format(Locale.ENGLISH, "%f", result.getValue()));
+        } else {
+            mResultField.setText(result.getErrorMessage());
         }
     }
 

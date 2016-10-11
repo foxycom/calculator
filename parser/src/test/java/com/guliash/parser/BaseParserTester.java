@@ -1,6 +1,7 @@
 package com.guliash.parser;
 
 import com.guliash.parser.evaluator.JavaEvaluator;
+import com.guliash.parser.parser.Parser;
 
 import java.util.ArrayList;
 import java.util.List;

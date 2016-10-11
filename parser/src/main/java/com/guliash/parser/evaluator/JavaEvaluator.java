@@ -80,12 +80,12 @@ public class JavaEvaluator implements Evaluator {
     @Override
     public double evaluateFunction(String name, List<Double> args) throws IllegalArgumentException {
 
-        if(name == null || args == null) {
+        if (name == null || args == null) {
             throw new IllegalArgumentException("Illegal arguments for evaluateFunction");
         }
 
-        for(Function function : Function.values()) {
-            if(function.name.equals(name) && args.size() == function.cntOfArgs) {
+        for (Function function : Function.values()) {
+            if (function.name.equals(name) && args.size() == function.cntOfArgs) {
                 return evaluateFunction(function, args);
             }
         }
@@ -161,14 +161,13 @@ public class JavaEvaluator implements Evaluator {
     }
 
 
-
     @Override
     public double evaluateConstant(String name) throws IllegalArgumentException {
-        if(name == null) {
+        if (name == null) {
             throw new IllegalArgumentException("Illegal argument for evaluateConstant");
         }
-        for(Constant constant : Constant.values()) {
-            if(constant.name.equals(name)) {
+        for (Constant constant : Constant.values()) {
+            if (constant.name.equals(name)) {
                 return evaluateConstant(constant);
             }
         }
@@ -177,8 +176,8 @@ public class JavaEvaluator implements Evaluator {
 
     @Override
     public boolean hasFunction(String name, List<Double> args) {
-        for(Function function : Function.values()) {
-            if(function.name.equals(name) && function.cntOfArgs == args.size()) {
+        for (Function function : Function.values()) {
+            if (function.name.equals(name) && function.cntOfArgs == args.size()) {
                 return true;
             }
         }
@@ -187,8 +186,8 @@ public class JavaEvaluator implements Evaluator {
 
     @Override
     public boolean hasConstant(String name) {
-        for(Constant constant : Constant.values()) {
-            if(constant.name.equals(name)) {
+        for (Constant constant : Constant.values()) {
+            if (constant.name.equals(name)) {
                 return true;
             }
         }
@@ -196,7 +195,7 @@ public class JavaEvaluator implements Evaluator {
     }
 
     private double evaluateConstant(Constant constant) throws IllegalArgumentException {
-        switch(constant) {
+        switch (constant) {
             case PI:
                 return Math.PI;
             case E:

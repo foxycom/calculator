@@ -3,6 +3,8 @@ package com.guliash.calculator.di.modules;
 import android.content.Context;
 
 import com.guliash.calculator.App;
+import com.guliash.calculator.calculator.Calculator;
+import com.guliash.calculator.calculator.CalculatorImp;
 import com.guliash.calculator.state.AppSettings;
 import com.guliash.calculator.state.AppSettingsImpl;
 import com.guliash.calculator.storage.DBHelper;
@@ -44,5 +46,11 @@ public class AppModule {
     @Singleton
     public AppSettings provideAppSettings(Context context) {
         return new AppSettingsImpl(context);
+    }
+
+    @Provides
+    @Singleton
+    public Calculator provideCalculator(Context context, AppSettings appSettings) {
+        return new CalculatorImp(context, appSettings);
     }
 }
