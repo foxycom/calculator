@@ -35,7 +35,7 @@ public class VariablesResolver {
 
     /**
      * Returns list of variables in the topological order. First come variables, which has no
-     * dependencies and so on
+     * dependencies and so on.
      * @return topologically sorted variables
      */
     public List<StringVariable> resolveDependencies() throws IllegalArgumentException {
@@ -90,10 +90,10 @@ public class VariablesResolver {
         Set<String> dependencies = new HashSet<>();
         while(stemmer.getLexeme() != Lexeme.END_OF_LINE) {
             if(stemmer.getLexeme() == Lexeme.WORD) {
-                String wordName = stemmer.getWord();
+                String word = stemmer.getWord();
                 stemmer.readLexeme();
-                if(stemmer.getLexeme() != Lexeme.OPEN_BRACKET && !evaluator.hasConstant(wordName)) {
-                    dependencies.add(wordName);
+                if(stemmer.getLexeme() != Lexeme.OPEN_BRACKET && !evaluator.hasConstant(word)) {
+                    dependencies.add(word);
                 }
             } else {
                 stemmer.readLexeme();

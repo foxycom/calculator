@@ -20,7 +20,7 @@ public class StemmerBadSymbolException extends RuntimeException {
 
     @Override
     public String getMessage() {
-        return String.format(Locale.US, "Bad symbol %c found at position %d", symbol, charPosition);
+        return String.format(Locale.ENGLISH, "Bad symbol %c found at position %d", symbol, charPosition);
     }
 
     public int getCharPosition() {

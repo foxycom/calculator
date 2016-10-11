@@ -27,6 +27,6 @@ public class BaseParserTester {
     }
 
     protected double calculate(String expression, List<StringVariable> variables, AngleUnits angleUnits) {
-        return ArithmeticParser.calculate(expression, variables, new JavaEvaluator(angleUnits));
+        return Parser.calculate(expression, variables, new JavaEvaluator(angleUnits));
     }
 }

@@ -14,7 +14,7 @@ public class VerifyAssertionException extends RuntimeException {
 
     @Override
     public String getMessage() {
-        return String.format(Locale.US, "Expected %s but was %s", expected, actual);
+        return String.format(Locale.ENGLISH, "Expected %s but was %s", expected, actual);
     }
 
     public Stemmer.Lexeme getExpected() {

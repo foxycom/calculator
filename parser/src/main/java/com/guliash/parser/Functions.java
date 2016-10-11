@@ -53,9 +53,9 @@ public class Functions {
     }
 
     /**
-     * Acot in rads
+     * Calculates arccotangent in rads
      * @param val value
-     * @return acot in rads
+     * @return arccotangent in rads
      */
     public static double acot(double val) {
         return Math.PI / 2 - Math.atan(val);

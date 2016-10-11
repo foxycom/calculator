@@ -11,7 +11,7 @@ import com.guliash.parser.stemmer.VerifyAssertionException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ArithmeticParser {
+public class Parser {
 
     private Evaluator evaluator;
 
@@ -19,7 +19,7 @@ public class ArithmeticParser {
 
     private Stemmer stemmer;
 
-    private ArithmeticParser(String s, List<? extends DoubleVariable> variables, Evaluator evaluator) {
+    private Parser(String s, List<? extends DoubleVariable> variables, Evaluator evaluator) {
         this.stemmer = new Stemmer(s);
         this.variables = variables;
         this.evaluator = evaluator;
@@ -30,11 +30,11 @@ public class ArithmeticParser {
         List<StringVariable> topologicallySortedVariables = variablesResolver.resolveDependencies();
         List<DoubleVariable> calculatedList = new ArrayList<>();
         for(StringVariable variable : topologicallySortedVariables) {
-            ArithmeticParser parser = new ArithmeticParser(variable.getValue(), calculatedList, evaluator);
+            Parser parser = new Parser(variable.getValue(), calculatedList, evaluator);
             DoubleVariable doubleVariable = new DoubleVariable(variable.getName(), parser.calculate());
             calculatedList.add(doubleVariable);
         }
-        return new ArithmeticParser(s, calculatedList, evaluator).calculate();
+        return new Parser(s, calculatedList, evaluator).calculate();
     }
 
     private double calculate() {

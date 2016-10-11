@@ -14,7 +14,7 @@ public class JavaEvaluator implements Evaluator {
         this.angleUnits = angleUnits;
     }
 
-    enum Function {
+    private enum Function {
         SIN("sin", 1),
         COS("cos", 1),
         TAN("tan", 1),
@@ -61,7 +61,7 @@ public class JavaEvaluator implements Evaluator {
         }
     }
 
-    enum Constant {
+    private enum Constant {
 
         PI("pi"), E("e");
 
@@ -95,7 +95,7 @@ public class JavaEvaluator implements Evaluator {
 
     }
 
-    public double evaluateFunction(Function function, List<Double> args) throws IllegalArgumentException {
+    private double evaluateFunction(Function function, List<Double> args) throws IllegalArgumentException {
         switch (function) {
             case SIN:
                 return Math.sin(Functions.convertAngles(args.get(0), angleUnits, AngleUnits.RAD));
@@ -195,7 +195,7 @@ public class JavaEvaluator implements Evaluator {
         return false;
     }
 
-    public double evaluateConstant(Constant constant) throws IllegalArgumentException {
+    private double evaluateConstant(Constant constant) throws IllegalArgumentException {
         switch(constant) {
             case PI:
                 return Math.PI;
