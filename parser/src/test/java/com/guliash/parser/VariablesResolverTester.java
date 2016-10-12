@@ -2,7 +2,7 @@ package com.guliash.parser;
 
 import com.guliash.parser.evaluator.Evaluator;
 import com.guliash.parser.evaluator.JavaEvaluator;
-import com.guliash.parser.exceptions.CyclicVariablesDependencyException;
+import com.guliash.parser.exceptions.VariableNotFoundException;
 
 import org.junit.Test;
 
@@ -41,7 +41,7 @@ public class VariablesResolverTester {
         assertEquals(need, resolver.findDependencies(x));
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test(expected = VariableNotFoundException.class)
     public void willThrowExceptionIfCannotFindDependencyForVariable() {
         List<StringVariable> variables = new ArrayList<>();
         Evaluator evaluator = new JavaEvaluator(AngleUnits.RAD);
@@ -89,7 +89,7 @@ public class VariablesResolverTester {
         assertEquals(need, resolver.findDependencies(x));
     }
 
-    @Test(expected = CyclicVariablesDependencyException.class)
+    @Test(expected = VariablesResolver.CyclicVariablesDependencyException.class)
     public void checkThatCycleIsDetected() {
         List<StringVariable> variables = new ArrayList<>();
         Evaluator evaluator = new JavaEvaluator(AngleUnits.RAD);
@@ -126,7 +126,7 @@ public class VariablesResolverTester {
         new VariablesResolver(variables, evaluator).resolveDependencies();
     }
 
-    @Test(expected = CyclicVariablesDependencyException.class)
+    @Test(expected = VariablesResolver.CyclicVariablesDependencyException.class)
     public void willFailOnLoop() {
         List<StringVariable> variables = new ArrayList<>();
         Evaluator evaluator = new JavaEvaluator(AngleUnits.RAD);

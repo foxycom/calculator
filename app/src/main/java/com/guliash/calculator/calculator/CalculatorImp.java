@@ -1,15 +1,14 @@
 package com.guliash.calculator.calculator;
 
 import android.content.Context;
-import android.text.TextUtils;
 
 import com.guliash.calculator.R;
 import com.guliash.calculator.state.AppSettings;
 import com.guliash.parser.StringVariable;
+import com.guliash.parser.VariablesResolver;
 import com.guliash.parser.Verify;
 import com.guliash.parser.evaluator.Evaluator;
 import com.guliash.parser.evaluator.JavaEvaluator;
-import com.guliash.parser.exceptions.CyclicVariablesDependencyException;
 import com.guliash.parser.exceptions.VariableNotFoundException;
 import com.guliash.parser.exceptions.WordNotFoundException;
 import com.guliash.parser.parser.Parser;
@@ -31,34 +30,20 @@ public class CalculatorImp implements Calculator {
     public CalculateResult calculate(String expression, List<? extends StringVariable> variables) {
         Evaluator evaluator = new JavaEvaluator(appSettings.getAngleUnits());
 
-        if (TextUtils.isEmpty(expression)) {
-            return CalculateResult.buildErrorResult(context.getString(R.string.expression_is_empty));
-        }
-
-        for (StringVariable variable : variables) {
-            if (!Verify.isCorrectVariable(variable)) {
-                return CalculateResult.buildErrorResult(context.getString(
-                        R.string.variable_name_not_correct, variable.getName()));
-            }
-        }
-
-        for (StringVariable variable : variables) {
-            if (Verify.variableNameClashesWithConstants(variable, evaluator)) {
-                return CalculateResult.buildErrorResult(context.getString(
-                        R.string.variable_name_clashes_constant, variable.getName()));
-            }
-        }
-
-        if (!Verify.checkVariablesUnique(variables)) {
-            return CalculateResult.buildErrorResult(context.getString(R.string.variables_names_not_unique));
-        }
-
         try {
             double result = Parser.calculate(expression, variables, evaluator);
             return CalculateResult.buildSuccessResult(result);
-        } catch (CyclicVariablesDependencyException e) {
+        } catch (Verify.BadVariableException e) {
             return CalculateResult.buildErrorResult(context.getString(
-                    R.string.cyclic_variables, e.firstName, e.secondName));
+                    R.string.variable_name_not_correct, e.getVariable().getName()));
+        } catch (Verify.VariableClashesWithConstantException e) {
+            return CalculateResult.buildErrorResult(context.getString(
+                    R.string.variable_name_clashes_constant, e.getVariable().getName()));
+        } catch (Verify.NotUniqueVariablesException e) {
+            return CalculateResult.buildErrorResult(context.getString(R.string.variables_names_not_unique));
+        } catch (VariablesResolver.CyclicVariablesDependencyException e) {
+            return CalculateResult.buildErrorResult(context.getString(
+                    R.string.cyclic_variables, e.getFirstName(), e.getSecondName()));
         } catch (VariableNotFoundException e) {
             return CalculateResult.buildErrorResult(context.getString(
                     R.string.variable_not_found, e.getName()));

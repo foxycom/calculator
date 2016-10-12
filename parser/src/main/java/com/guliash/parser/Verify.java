@@ -9,6 +9,67 @@ import java.util.Set;
 
 public class Verify {
 
+    public static class BadVariableException extends RuntimeException {
+
+        private StringVariable variable;
+
+        public BadVariableException(StringVariable variable) {
+            this.variable = variable;
+        }
+
+        public StringVariable getVariable() {
+            return variable;
+        }
+
+        @Override
+        public String getMessage() {
+            return String.format("Bad variable named '%s'", variable.getName());
+        }
+    }
+
+    public static class VariableClashesWithConstantException extends RuntimeException {
+        private StringVariable variable;
+
+        public VariableClashesWithConstantException(StringVariable variable) {
+            this.variable = variable;
+        }
+
+        public StringVariable getVariable() {
+            return variable;
+        }
+
+        @Override
+        public String getMessage() {
+            return String.format("Variable '%s' clashes with constant", variable.getName());
+        }
+    }
+
+    public static class NotUniqueVariablesException extends RuntimeException {
+        private String collisionName;
+
+        public NotUniqueVariablesException(String collisionName) {
+            this.collisionName = collisionName;
+        }
+
+        public String getCollisionName() {
+            return collisionName;
+        }
+
+        @Override
+        public String getMessage() {
+            return String.format("Two or more variables with the name '%s'", collisionName);
+        }
+    }
+
+    public static void checkVariablesCorrectness(List<? extends StringVariable> variables)
+            throws BadVariableException {
+        for(StringVariable variable : variables) {
+            if(!isCorrectVariable(variable)) {
+                throw new BadVariableException(variable);
+            }
+        }
+    }
+
     public static boolean isCorrectVariable(StringVariable variable) {
         String name = variable.getName();
         if (name == null || name.length() == 0) {
@@ -26,28 +87,29 @@ public class Verify {
         return true;
     }
 
+    public static void checkVariablesDoNotClashWithConstants(
+            List<? extends StringVariable> variables, Evaluator evaluator)
+            throws VariableClashesWithConstantException {
+        for(StringVariable variable : variables) {
+            if(variableNameClashesWithConstants(variable, evaluator)) {
+                throw new VariableClashesWithConstantException(variable);
+            }
+        }
+    }
+
     public static boolean variableNameClashesWithConstants(StringVariable variable, Evaluator evaluator) {
         return evaluator.hasConstant(variable.getName());
     }
 
-    public static boolean variablesNamesClashWithConstants(List<? extends StringVariable> variables, Evaluator evaluator) {
-        for (StringVariable variable : variables) {
-            if (variableNameClashesWithConstants(variable, evaluator)) {
-                return true;
-            }
-        }
-        return false;
-    }
-
-    public static boolean checkVariablesUnique(List<? extends StringVariable> variables) {
+    public static void checkVariablesUnique(List<? extends StringVariable> variables)
+            throws NotUniqueVariablesException {
         Set<StringVariable> variableSet = new HashSet<>();
         for (StringVariable variable : variables) {
             if (variableSet.contains(variable)) {
-                return false;
+                throw new NotUniqueVariablesException(variable.getName());
             }
             variableSet.add(variable);
         }
-        return true;
     }
 
 }

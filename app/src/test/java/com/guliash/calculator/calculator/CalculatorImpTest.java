@@ -1,7 +1,5 @@
 package com.guliash.calculator.calculator;
 
-import android.os.Build;
-
 import com.guliash.calculator.BuildConfig;
 import com.guliash.calculator.state.AppSettings;
 import com.guliash.parser.AngleUnits;
@@ -16,7 +14,6 @@ import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
-import org.robolectric.Robolectric;
 import org.robolectric.RobolectricTestRunner;
 import org.robolectric.RuntimeEnvironment;
 import org.robolectric.annotation.Config;
@@ -24,7 +21,7 @@ import org.robolectric.annotation.Config;
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.guliash.calculator.calculator.Calculator.*;
+import static com.guliash.calculator.calculator.Calculator.CalculateResult;
 
 @RunWith(RobolectricTestRunner.class)
 @Config(constants = BuildConfig.class, sdk = 21)

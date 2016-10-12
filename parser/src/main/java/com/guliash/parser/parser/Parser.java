@@ -3,6 +3,8 @@ package com.guliash.parser.parser;
 import com.guliash.parser.DoubleVariable;
 import com.guliash.parser.StringVariable;
 import com.guliash.parser.VariablesResolver;
+import com.guliash.parser.Verify;
+import com.guliash.parser.check.Preconditions;
 import com.guliash.parser.evaluator.Evaluator;
 import com.guliash.parser.exceptions.ParserException;
 import com.guliash.parser.exceptions.VariableNotFoundException;
@@ -28,7 +30,15 @@ public class Parser {
         this.evaluator = evaluator;
     }
 
-    public static double calculate(String s, List<? extends StringVariable> variables, Evaluator evaluator) {
+    public static double calculate(String expression, List<? extends StringVariable> variables, Evaluator evaluator)
+            throws Verify.BadVariableException,
+            Verify.VariableClashesWithConstantException,
+            Verify.NotUniqueVariablesException,
+            VariablesResolver.CyclicVariablesDependencyException,
+            VariableNotFoundException {
+
+        Preconditions.throwIfEmpty(expression);
+
         VariablesResolver variablesResolver = new VariablesResolver(variables, evaluator);
         List<StringVariable> topologicallySortedVariables = variablesResolver.resolveDependencies();
         List<DoubleVariable> calculatedList = new ArrayList<>();
@@ -37,7 +47,7 @@ public class Parser {
             DoubleVariable doubleVariable = new DoubleVariable(variable.getName(), parser.calculate());
             calculatedList.add(doubleVariable);
         }
-        return new Parser(s, calculatedList, evaluator).calculate();
+        return new Parser(expression, calculatedList, evaluator).calculate();
     }
 
     private double calculate() {

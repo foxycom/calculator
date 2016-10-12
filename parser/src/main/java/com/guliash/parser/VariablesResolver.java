@@ -1,7 +1,7 @@
 package com.guliash.parser;
 
 import com.guliash.parser.evaluator.Evaluator;
-import com.guliash.parser.exceptions.CyclicVariablesDependencyException;
+import com.guliash.parser.exceptions.VariableNotFoundException;
 import com.guliash.parser.stemmer.Stemmer;
 
 import java.util.ArrayList;
@@ -18,19 +18,45 @@ public class VariablesResolver {
     private List<? extends StringVariable> variables;
     private Evaluator evaluator;
 
+    public static class CyclicVariablesDependencyException extends RuntimeException {
+
+        private String firstName, secondName;
+
+        public CyclicVariablesDependencyException(String firstName, String secondName) {
+            this.firstName = firstName;
+            this.secondName = secondName;
+        }
+
+        @Override
+        public String getMessage() {
+            return String.format("Cyclic dependency found for variables %s and %s", firstName, secondName);
+        }
+
+        public String getFirstName() {
+            return firstName;
+        }
+
+        public String getSecondName() {
+            return secondName;
+        }
+    }
+
+
     private enum State {
         ACTIVE, NOT_VISITED, VISITED
     }
 
-    public VariablesResolver(List<? extends StringVariable> variables, Evaluator evaluator) throws IllegalArgumentException {
+    public VariablesResolver(List<? extends StringVariable> variables, Evaluator evaluator)
+            throws Verify.BadVariableException,
+            Verify.VariableClashesWithConstantException,
+            Verify.NotUniqueVariablesException {
+
         this.variables = variables;
         this.evaluator = evaluator;
-        if (!Verify.checkVariablesUnique(variables)) {
-            throw new IllegalArgumentException("variables are not unique");
-        }
-        if (Verify.variablesNamesClashWithConstants(variables, evaluator)) {
-            throw new IllegalArgumentException("variables clashes with constants");
-        }
+
+        Verify.checkVariablesCorrectness(variables);
+        Verify.checkVariablesDoNotClashWithConstants(variables, evaluator);
+        Verify.checkVariablesUnique(variables);
     }
 
     /**
@@ -39,7 +65,8 @@ public class VariablesResolver {
      *
      * @return topologically sorted variables
      */
-    public List<StringVariable> resolveDependencies() throws IllegalArgumentException {
+    public List<StringVariable> resolveDependencies() throws VariableNotFoundException,
+            CyclicVariablesDependencyException {
         Map<StringVariable, Set<StringVariable>> dependencyGraph = new HashMap<>();
         for (StringVariable variable : variables) {
             dependencyGraph.put(variable, findDependencies(variable));
@@ -63,7 +90,8 @@ public class VariablesResolver {
     }
 
     private void dfs(Map<StringVariable, Set<StringVariable>> graph, StringVariable current,
-                     Map<StringVariable, State> stateMap, List<StringVariable> topologicallySortedList) {
+                     Map<StringVariable, State> stateMap, List<StringVariable> topologicallySortedList)
+            throws CyclicVariablesDependencyException {
         stateMap.put(current, State.ACTIVE);
         for (StringVariable adjVar : graph.get(current)) {
             State state = stateMap.get(adjVar);
@@ -83,10 +111,10 @@ public class VariablesResolver {
      *
      * @param variable variable to find dependencies in
      * @return set of dependencies
-     * @throws IllegalArgumentException if expression contains not correct lexemes or dependency for the
+     * @throws VariableNotFoundException if expression contains not correct lexemes or dependency for the
      *                                  variable can't be found in {@link VariablesResolver#variables}
      */
-    public Set<StringVariable> findDependencies(StringVariable variable) throws IllegalArgumentException {
+    public Set<StringVariable> findDependencies(StringVariable variable) throws VariableNotFoundException {
         Stemmer stemmer = new Stemmer(variable.getValue());
         stemmer.start();
         Set<String> dependencies = new HashSet<>();
@@ -112,7 +140,7 @@ public class VariablesResolver {
                 }
             }
             if (!found) {
-                throw new IllegalArgumentException(String.format("Can't find isCorrectVariable %s", name));
+                throw new VariableNotFoundException(name);
             }
         }
         return result;

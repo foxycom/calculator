@@ -1,7 +1,5 @@
 package com.guliash.parser.stemmer;
 
-import com.guliash.parser.Verify;
-
 public class Stemmer {
 
     private String s;
