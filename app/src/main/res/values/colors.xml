@@ -4,6 +4,8 @@
     <color name="md_grey_800">#424242</color>
     <color name="md_grey_900">#212121</color>
     <color name="md_black_1000">#000000</color>
+    <color name="md_grey_600">#616161</color>
+    <color name="md_grey_500">#9E9E9E</color>
 
     <color name="colorPrimary">@color/md_grey_900</color>
     <color name="colorPrimaryDark">@color/md_black_1000</color>

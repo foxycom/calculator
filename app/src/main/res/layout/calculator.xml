@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:app="http://schemas.android.com/apk/res-auto"
               android:layout_width="match_parent"
               android:layout_height="match_parent"
               android:orientation="vertical">
@@ -9,6 +10,10 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:paddingBottom="@dimen/activity_vertical_margin"
+        android:paddingEnd="@dimen/activity_horizontal_margin"
+        android:paddingLeft="@dimen/activity_horizontal_margin"
+        android:paddingRight="@dimen/activity_horizontal_margin"
+        android:paddingStart="@dimen/activity_horizontal_margin"
         android:paddingTop="@dimen/activity_vertical_margin">
 
         <LinearLayout
@@ -20,18 +25,18 @@
                 android:id="@+id/input_field"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:hint="@string/expression"
                 android:layout_weight="1"
-                android:maxLines="3"
-                android:inputType="textNoSuggestions"/>
+                android:hint="@string/expression"
+                android:inputType="textNoSuggestions"
+                android:maxLines="3"/>
 
             <ImageView
                 android:id="@+id/backspace"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
-                android:src="@drawable/backspace"
                 android:contentDescription="@string/remove_symbol"
-                android:scaleType="center"/>
+                android:scaleType="center"
+                android:src="@drawable/backspace"/>
         </LinearLayout>
 
         <LinearLayout
@@ -44,9 +49,9 @@
                 style="@android:style/TextAppearance.Medium"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
                 android:layout_weight="1"
                 android:hint="@string/result"
-                android:layout_gravity="center_vertical"
                 android:textIsSelectable="true"/>
 
             <ImageView
@@ -54,29 +59,29 @@
                 android:layout_width="40dp"
                 android:layout_height="40dp"
                 android:clickable="true"
-                android:src="@drawable/equals_button"
                 android:contentDescription="@string/calculate"
-                android:scaleType="center"/>
+                android:scaleType="center"
+                android:src="@drawable/equals_button"/>
         </LinearLayout>
     </LinearLayout>
 
-    <LinearLayout
-        android:orientation="vertical"
+    <View
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:id="@+id/variables_layout">
+        android:layout_height="0dp"
+        android:layout_weight="1"/>
 
-        <android.support.v7.widget.RecyclerView
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1"
-            android:id="@+id/variables_rv"
-            android:scrollbars="vertical"/>
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/variables_list"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+    </android.support.v7.widget.RecyclerView>
 
-        <Button
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/add_variable"
-            android:id="@+id/add_variable_button"/>
-    </LinearLayout>
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/add_variable"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        android:src="@drawable/ic_plus_white_24dp"
+        app:layout_anchor="@id/variables_list"
+        app:layout_anchorGravity="top|right|end"/>
 </LinearLayout>

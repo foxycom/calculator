@@ -25,4 +25,8 @@
         <item name="android:textColor">@color/text_secondary</item>
     </style>
 
+    <style name="VariableStyle" parent="TextAppearance.AppCompat.Medium">
+        <item name="android:background">@drawable/variable</item>
+    </style>
+
 </resources>
