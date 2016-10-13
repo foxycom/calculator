@@ -3,6 +3,7 @@ package com.guliash.calculator.ui.fragments;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.view.ViewCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -20,6 +21,7 @@ import com.guliash.calculator.structures.CalculatorDataSet;
 import com.guliash.calculator.structures.StringVariableWrapper;
 import com.guliash.calculator.ui.adapters.VariablesAdapter;
 import com.guliash.calculator.ui.adapters.VariablesAdapterRemoveUse;
+import com.guliash.calculator.ui.decorations.VariableListItemDecoration;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -37,6 +39,8 @@ public class CalculatorFragment extends Fragment implements VariablesAdapter.Cal
     private static final List<StringVariableWrapper> DEFAULT_VARIABLES_LIST =
             Arrays.asList(new StringVariableWrapper("x", "0"), new StringVariableWrapper("y", "0"));
 
+    private static final long VARIABLE_FIELDS_ANIM_DURATION = 500;
+
     @BindView(R.id.input_field)
     EditText mInputField;
 
@@ -45,6 +49,15 @@ public class CalculatorFragment extends Fragment implements VariablesAdapter.Cal
 
     @BindView(R.id.variables_list)
     RecyclerView mVariablesList;
+
+    @BindView(R.id.variable_fields_container)
+    ViewGroup mVariableFieldsContainer;
+
+    @BindView(R.id.variable_name)
+    EditText mVariableNameInput;
+
+    @BindView(R.id.variable_value)
+    EditText mVariableValueInput;
 
     @Inject
     Calculator mCalculator;
@@ -157,11 +170,30 @@ public class CalculatorFragment extends Fragment implements VariablesAdapter.Cal
     @Override
     public void onActivated(int pos) {
         Log.e("TAG", "ON ACTIVATED");
+        if (mVariableFieldsContainer.getVisibility() != View.VISIBLE) {
+            ViewCompat.animate(mVariableFieldsContainer).cancel();
+            ViewCompat.setTranslationX(mVariableFieldsContainer, mVariableFieldsContainer.getWidth());
+
+            mVariableFieldsContainer.setVisibility(View.VISIBLE);
+            ViewCompat.animate(mVariableFieldsContainer)
+                    .translationX(0f)
+                    .setDuration(VARIABLE_FIELDS_ANIM_DURATION);
+        }
     }
 
     @Override
     public void onDeactivated(int pos) {
         Log.e("TAG", "ON DEACTIVATED");
+        ViewCompat.animate(mVariableFieldsContainer).cancel();
+        ViewCompat.animate(mVariableFieldsContainer)
+                .translationX(mVariableFieldsContainer.getWidth())
+                .setDuration(VARIABLE_FIELDS_ANIM_DURATION)
+                .withEndAction(new Runnable() {
+                    @Override
+                    public void run() {
+                        mVariableFieldsContainer.setVisibility(View.INVISIBLE);
+                    }
+                });
     }
 
     @Override
