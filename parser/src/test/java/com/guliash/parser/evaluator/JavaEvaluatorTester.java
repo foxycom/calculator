@@ -180,7 +180,7 @@ public class JavaEvaluatorTester extends BaseEvaluatorTester {
 
     @Test
     public void evaluatorHasSignum() {
-        assertEquals(signum(args1.get(0)), evaluator.evaluateFunction("signum", args1), EPS);
+        assertEquals(signum(args1.get(0)), evaluator.evaluateFunction("sgn", args1), EPS);
     }
 
     @Test

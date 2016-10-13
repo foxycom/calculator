@@ -133,5 +133,5 @@
 
     </RelativeLayout>
 
-
+    <include layout="@layout/keyboard"/>
 </LinearLayout>

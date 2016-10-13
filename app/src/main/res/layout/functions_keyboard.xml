@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+             android:layout_width="wrap_content"
+             android:layout_height="wrap_content">
+
+    <TableRow>
+
+        <Button
+            android:id="@+id/sin"
+            style="@style/KeyboardButton"
+            android:text="@string/sin"/>
+
+        <Button
+            android:id="@+id/cos"
+            style="@style/KeyboardButton"
+            android:text="@string/cos"/>
+
+        <Button
+            android:id="@+id/tan"
+            style="@style/KeyboardButton"
+            android:text="@string/tan"/>
+
+        <Button
+            android:id="@+id/cot"
+            style="@style/KeyboardButton"
+            android:text="@string/cot"/>
+
+        <Button
+            android:id="@+id/asin"
+            style="@style/KeyboardButton"
+            android:text="@string/asin"/>
+
+        <Button
+            android:id="@+id/acos"
+            style="@style/KeyboardButton"
+            android:text="@string/acos"/>
+
+        <Button
+            android:id="@+id/atan"
+            style="@style/KeyboardButton"
+            android:text="@string/atan"/>
+
+        <Button
+            android:id="@+id/acot"
+            style="@style/KeyboardButton"
+            android:text="@string/acot"/>
+    </TableRow>
+
+    <TableRow>
+
+        <Button
+            android:id="@+id/pow"
+            style="@style/KeyboardButton"
+            android:text="@string/pow"/>
+
+        <Button
+            android:id="@+id/sqrt"
+            style="@style/KeyboardButton"
+            android:text="@string/sqrt"/>
+
+        <Button
+            android:id="@+id/exp"
+            style="@style/KeyboardButton"
+            android:text="@string/exp"/>
+
+        <Button
+            android:id="@+id/fact"
+            style="@style/KeyboardButton"
+            android:text="@string/fact"/>
+
+        <Button
+            android:id="@+id/sinh"
+            style="@style/KeyboardButton"
+            android:text="@string/sinh"/>
+
+        <Button
+            android:id="@+id/cosh"
+            style="@style/KeyboardButton"
+            android:text="@string/cosh"/>
+
+        <Button
+            android:id="@+id/tanh"
+            style="@style/KeyboardButton"
+            android:text="@string/tanh"/>
+
+        <Button
+            android:id="@+id/coth"
+            style="@style/KeyboardButton"
+            android:text="@string/coth"/>
+    </TableRow>
+
+    <TableRow>
+
+        <Button
+            android:id="@+id/ln"
+            style="@style/KeyboardButton"
+            android:text="@string/ln"/>
+
+        <Button
+            android:id="@+id/log"
+            style="@style/KeyboardButton"
+            android:text="@string/log"/>
+
+        <Button
+            android:id="@+id/log10"
+            style="@style/KeyboardButton"
+            android:text="@string/log10"/>
+
+        <Button
+            android:id="@+id/abs"
+            style="@style/KeyboardButton"
+            android:text="@string/abs"/>
+        <Button
+            android:id="@+id/min"
+            style="@style/KeyboardButton"
+            android:text="@string/min"/>
+
+        <Button
+            android:id="@+id/max"
+            style="@style/KeyboardButton"
+            android:text="@string/max"/>
+
+        <Button
+            android:id="@+id/random"
+            style="@style/KeyboardButton"
+            android:text="@string/random"/>
+
+        <Button
+            android:id="@+id/mod"
+            style="@style/KeyboardButton"
+            android:text="@string/mod"/>
+    </TableRow>
+
+    <TableRow>
+
+        <Button
+            android:id="@+id/floor"
+            style="@style/KeyboardButton"
+            android:text="@string/floor"/>
+
+        <Button
+            android:id="@+id/ceil"
+            style="@style/KeyboardButton"
+            android:text="@string/ceil"/>
+
+        <Button
+            android:id="@+id/round"
+            style="@style/KeyboardButton"
+            android:text="@string/round"/>
+
+        <Button
+            android:id="@+id/sgn"
+            style="@style/KeyboardButton"
+            android:text="@string/sgn"/>
+    </TableRow>
+</TableLayout>

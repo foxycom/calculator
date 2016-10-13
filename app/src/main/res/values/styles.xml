@@ -29,4 +29,13 @@
         <item name="android:background">@drawable/variable</item>
     </style>
 
+    <style name="KeyboardButton">
+        <item name="android:lines">1</item>
+        <item name="android:ellipsize">end</item>
+        <item name="android:textSize">12sp</item>
+        <item name="android:state_selected">true</item>
+        <item name="android:layout_width">60dp</item>
+        <item name="android:layout_height">60dp</item>
+    </style>
+
 </resources>

@@ -108,17 +108,17 @@ public class MathTester extends BaseParserTester {
 
     @Test
     public void signumTest1() {
-        assertEquals(Math.signum(-0.5), calculate("signum(-0.5)"), EPS);
+        assertEquals(Math.signum(-0.5), calculate("sgn(-0.5)"), EPS);
     }
 
     @Test
     public void signumTest2() {
-        assertEquals(Math.signum(0.5), calculate("signum(0.5)"), EPS);
+        assertEquals(Math.signum(0.5), calculate("sgn(0.5)"), EPS);
     }
 
     @Test
     public void signumTest3() {
-        assertEquals(Math.signum(0), calculate("signum(0)"), EPS);
+        assertEquals(Math.signum(0), calculate("sgn(0)"), EPS);
     }
 
     @Test
