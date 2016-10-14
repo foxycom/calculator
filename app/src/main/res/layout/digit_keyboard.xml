@@ -1,77 +1,87 @@
 <?xml version="1.0" encoding="utf-8"?>
-<TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:layout_width="wrap_content"
-              android:layout_height="wrap_content">
-    <TableRow>
-        <Button
-            android:id="@+id/seven"
-            style="@style/KeyboardButton"
-            android:text="@string/seven"/>
-        <Button
-            android:id="@+id/eight"
-            style="@style/KeyboardButton"
-            android:text="@string/eight"/>
-        <Button
-            android:id="@+id/nine"
-            style="@style/KeyboardButton"
-            android:text="@string/nine"/>
-        <Button
-            android:id="@+id/div"
-            style="@style/KeyboardButton"
-            android:text="@string/div"/>
-    </TableRow>
-    <TableRow>
-        <Button
-            android:id="@+id/four"
-            style="@style/KeyboardButton"
-            android:text="@string/four"/>
-        <Button
-            android:id="@+id/five"
-            style="@style/KeyboardButton"
-            android:text="@string/five"/>
-        <Button
-            android:id="@+id/six"
-            style="@style/KeyboardButton"
-            android:text="@string/six"/>
-        <Button
-            android:id="@+id/mul"
-            style="@style/KeyboardButton"
-            android:text="@string/mul"/>
-    </TableRow>
-    <TableRow>
-        <Button
-            android:id="@+id/one"
-            style="@style/KeyboardButton"
-            android:text="@string/one"/>
-        <Button
-            android:id="@+id/two"
-            style="@style/KeyboardButton"
-            android:text="@string/two"/>
-        <Button
-            android:id="@+id/three"
-            style="@style/KeyboardButton"
-            android:text="@string/three"/>
-        <Button
-            android:id="@+id/minus"
-            style="@style/KeyboardButton"
-            android:text="@string/minus"/>
-    </TableRow>
-    <TableRow>
-        <Button
-            android:id="@+id/zero"
-            style="@style/KeyboardButton"
-            android:text="@string/zero"/>
-        <Button
-            android:id="@+id/point"
-            style="@style/KeyboardButton"
-            android:text="@string/point"/>
-        <Button
-            android:id="@+id/equals"
-            style="@style/KeyboardButton"
-            android:text="@string/equals"/>
-        <Button
-            android:id="@+id/plus"
-            style="@style/KeyboardButton"
-            android:text="@string/plus"/>
-    </TableRow>
-</TableLayout>
+<GridLayout xmlns:android="http://schemas.android.com/apk/res/android"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:columnCount="4"
+            android:orientation="horizontal">
+
+    <Button
+        android:id="@+id/seven"
+        style="@style/KeyboardButton"
+        android:text="@string/seven"/>
+
+    <Button
+        android:id="@+id/eight"
+        style="@style/KeyboardButton"
+        android:text="@string/eight"/>
+
+    <Button
+        android:id="@+id/nine"
+        style="@style/KeyboardButton"
+        android:text="@string/nine"/>
+
+    <Button
+        android:id="@+id/div"
+        style="@style/KeyboardButton"
+        android:text="@string/div"/>
+
+    <Button
+        android:id="@+id/four"
+        style="@style/KeyboardButton"
+        android:text="@string/four"/>
+
+    <Button
+        android:id="@+id/five"
+        style="@style/KeyboardButton"
+        android:text="@string/five"/>
+
+    <Button
+        android:id="@+id/six"
+        style="@style/KeyboardButton"
+        android:text="@string/six"/>
+
+    <Button
+        android:id="@+id/mul"
+        style="@style/KeyboardButton"
+        android:text="@string/mul"/>
+
+    <Button
+        android:id="@+id/one"
+        style="@style/KeyboardButton"
+        android:text="@string/one"/>
+
+    <Button
+        android:id="@+id/two"
+        style="@style/KeyboardButton"
+        android:text="@string/two"/>
+
+    <Button
+        android:id="@+id/three"
+        style="@style/KeyboardButton"
+        android:text="@string/three"/>
+
+    <Button
+        android:id="@+id/minus"
+        style="@style/KeyboardButton"
+        android:text="@string/minus"/>
+
+    <Button
+        android:id="@+id/zero"
+        style="@style/KeyboardButton"
+        android:text="@string/zero"/>
+
+    <Button
+        android:id="@+id/point"
+        style="@style/KeyboardButton"
+        android:text="@string/point"/>
+
+    <Button
+        android:id="@+id/equals"
+        style="@style/KeyboardButton"
+        android:text="@string/equals"/>
+
+    <Button
+        android:id="@+id/plus"
+        style="@style/KeyboardButton"
+        android:text="@string/plus"/>
+</GridLayout>
