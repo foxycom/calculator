@@ -1,7 +1,6 @@
 package com.guliash.calculator.ui.utils;
 
 import android.app.Activity;
-import android.content.Context;
 import android.os.Build;
 import android.text.InputType;
 import android.view.View;

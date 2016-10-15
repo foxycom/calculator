@@ -49,7 +49,7 @@ public class VariablesAdapter extends RecyclerView.Adapter<VariablesAdapter.View
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.variable_holder, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.variable_card, parent, false);
         final ViewHolder holder = new ViewHolder(view);
         holder.variable.setOnLongClickListener(new View.OnLongClickListener() {
             @Override

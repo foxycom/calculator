@@ -32,7 +32,7 @@ public class StringVariable {
 
     @Override
     public String toString() {
-        return getName() + " " + getValue();
+        return getName() + " = " + getValue();
     }
 
     public void setName(String name) {
