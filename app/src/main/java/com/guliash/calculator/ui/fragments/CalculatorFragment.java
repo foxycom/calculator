@@ -218,7 +218,15 @@ public class CalculatorFragment extends Fragment implements VariablesAdapter.Cal
     private void addKeyboardButtonsListeners(ViewGroup keyboard, View.OnClickListener listener) {
         for (int i = 0, count = keyboard.getChildCount(); i < count; i++) {
             View view = keyboard.getChildAt(i);
-            if (view instanceof Button && isPrintableKey(view)) {
+            if(!(view instanceof Button)) {
+                continue;
+            }
+            if(!isPrintableKey(view)) {
+                continue;
+            }
+            if(isConstant(view)) {
+                view.setOnClickListener(digitKeyboardClickListener);
+            } else {
                 view.setOnClickListener(listener);
             }
         }
@@ -226,6 +234,10 @@ public class CalculatorFragment extends Fragment implements VariablesAdapter.Cal
 
     private boolean isPrintableKey(View view) {
         return view.getId() != R.id.equals && view.getId() != R.id.del;
+    }
+
+    private boolean isConstant(View view) {
+        return view.getId() == R.id.pi || view.getId() == R.id.e;
     }
 
     @OnClick(R.id.equals)
