@@ -7,6 +7,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.guliash.calculator.R;
+import com.guliash.calculator.utils.Preconditions;
 import com.guliash.parser.StringVariable;
 
 import java.util.List;
@@ -28,14 +29,14 @@ public class VariablesAdapter extends RecyclerView.Adapter<VariablesAdapter.View
     }
 
     public interface Callbacks {
-        void onActivated(int pos);
+        void onActivated(int position);
 
-        void onDeactivated(int pos);
+        void onDeactivated(int position);
 
-        void onChosen(int pos);
+        void onChosen(int position);
     }
 
-    private static final int NO_ACTIVATED = -1;
+    public static final int NO_ACTIVATED = -1;
 
     private List<? extends StringVariable> variables;
     private Callbacks callbacks;
@@ -88,23 +89,52 @@ public class VariablesAdapter extends RecyclerView.Adapter<VariablesAdapter.View
 
     private void onLongClick(ViewHolder holder) {
         int pos = holder.getAdapterPosition();
+
         if(pos == RecyclerView.NO_POSITION) {
             return;
         }
 
-        holder.variable.setActivated(!holder.variable.isActivated());
-        int prevPos = activatedPosition;
         if(holder.variable.isActivated()) {
-            activatedPosition = pos;
-            callbacks.onActivated(pos);
+            deactivate(pos);
         } else {
-            activatedPosition = NO_ACTIVATED;
-            callbacks.onDeactivated(pos);
+            activate(pos);
+        }
+    }
+
+    public void clearActivation() {
+        if(activatedPosition == NO_ACTIVATED) {
+            return;
         }
 
-        if(prevPos != NO_ACTIVATED) {
-            VariablesAdapter.this.notifyItemChanged(prevPos);
+        deactivate(activatedPosition);
+    }
+
+    public void activate(int pos) {
+        Preconditions.assertNotEquals(pos, NO_ACTIVATED);
+
+        if(activatedPosition == pos) {
+            return;
         }
+
+        if(activatedPosition != NO_ACTIVATED) {
+            deactivate(activatedPosition);
+        }
+
+        activatedPosition = pos;
+
+        callbacks.onActivated(activatedPosition);
+
+        notifyItemChanged(activatedPosition);
+
+    }
+
+    public void deactivate(int pos) {
+        Preconditions.assertNotEquals(pos, NO_ACTIVATED);
+        Preconditions.assertEquals(pos, activatedPosition);
+
+        activatedPosition = NO_ACTIVATED;
+        notifyItemChanged(pos);
+        callbacks.onDeactivated(pos);
     }
 
 }

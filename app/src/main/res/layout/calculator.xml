@@ -27,16 +27,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:hint="@string/expression"
-                android:inputType="textNoSuggestions"
                 android:maxLines="3"/>
-
-            <ImageView
-                android:id="@+id/backspace"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:contentDescription="@string/remove_symbol"
-                android:scaleType="center"
-                android:src="@drawable/backspace"/>
         </LinearLayout>
 
         <LinearLayout
@@ -53,15 +44,6 @@
                 android:layout_weight="1"
                 android:hint="@string/result"
                 android:textIsSelectable="true"/>
-
-            <ImageView
-                android:id="@+id/equals_image_button"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:clickable="true"
-                android:contentDescription="@string/calculate"
-                android:scaleType="center"
-                android:src="@drawable/equals_button"/>
         </LinearLayout>
     </LinearLayout>
 
@@ -121,7 +103,7 @@
                         android:hint="@string/variable_name"/>
 
                     <ImageView
-                        android:id="@id/save"
+                        android:id="@+id/delete"
                         android:layout_width="36dp"
                         android:layout_height="36dp"
                         android:layout_alignParentEnd="true"
@@ -136,9 +118,9 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_toEndOf="@id/variable_name"
-                        android:layout_toLeftOf="@id/save"
+                        android:layout_toLeftOf="@id/delete"
                         android:layout_toRightOf="@id/variable_name"
-                        android:layout_toStartOf="@id/save"
+                        android:layout_toStartOf="@id/delete"
                         android:hint="@string/variable_value"/>
                 </RelativeLayout>
 

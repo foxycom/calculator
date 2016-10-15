@@ -1,87 +1,128 @@
 <?xml version="1.0" encoding="utf-8"?>
 <GridLayout xmlns:android="http://schemas.android.com/apk/res/android"
+            android:id="@+id/digit_keyboard"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:columnCount="4"
+            android:columnCount="5"
             android:orientation="horizontal">
 
     <Button
         android:id="@+id/seven"
         style="@style/KeyboardButton"
+        android:tag="@string/seven"
         android:text="@string/seven"/>
 
     <Button
         android:id="@+id/eight"
         style="@style/KeyboardButton"
+        android:tag="@string/eight"
         android:text="@string/eight"/>
 
     <Button
         android:id="@+id/nine"
         style="@style/KeyboardButton"
+        android:tag="@string/nine"
         android:text="@string/nine"/>
 
     <Button
         android:id="@+id/div"
         style="@style/KeyboardButton"
+        android:tag="@string/div"
         android:text="@string/div"/>
+
+    <Button
+        android:id="@+id/open_bracket"
+        style="@style/KeyboardButton"
+        android:tag="@string/open_bracket"
+        android:text="@string/open_bracket"/>
 
     <Button
         android:id="@+id/four"
         style="@style/KeyboardButton"
+        android:tag="@string/four"
         android:text="@string/four"/>
 
     <Button
         android:id="@+id/five"
         style="@style/KeyboardButton"
+        android:tag="@string/five"
         android:text="@string/five"/>
 
     <Button
         android:id="@+id/six"
         style="@style/KeyboardButton"
+        android:tag="@string/six"
         android:text="@string/six"/>
 
     <Button
         android:id="@+id/mul"
         style="@style/KeyboardButton"
+        android:tag="@string/mul"
         android:text="@string/mul"/>
+
+    <Button
+        android:id="@+id/close_bracket"
+        style="@style/KeyboardButton"
+        android:tag="@string/close_bracket"
+        android:text="@string/close_bracket"/>
 
     <Button
         android:id="@+id/one"
         style="@style/KeyboardButton"
+        android:tag="@string/one"
         android:text="@string/one"/>
 
     <Button
         android:id="@+id/two"
         style="@style/KeyboardButton"
+        android:tag="@string/two"
         android:text="@string/two"/>
 
     <Button
         android:id="@+id/three"
         style="@style/KeyboardButton"
+        android:tag="@string/three"
         android:text="@string/three"/>
 
     <Button
         android:id="@+id/minus"
         style="@style/KeyboardButton"
+        android:tag="@string/minus"
         android:text="@string/minus"/>
+
+    <Button
+        android:id="@+id/comma"
+        style="@style/KeyboardButton"
+        android:tag="@string/comma"
+        android:text="@string/comma"/>
 
     <Button
         android:id="@+id/zero"
         style="@style/KeyboardButton"
+        android:tag="@string/zero"
         android:text="@string/zero"/>
 
     <Button
         android:id="@+id/point"
         style="@style/KeyboardButton"
+        android:tag="@string/point"
         android:text="@string/point"/>
 
     <Button
         android:id="@+id/equals"
         style="@style/KeyboardButton"
+        android:tag="@string/empty"
         android:text="@string/equals"/>
 
     <Button
         android:id="@+id/plus"
         style="@style/KeyboardButton"
+        android:tag="@string/plus"
         android:text="@string/plus"/>
+
+    <Button
+        android:id="@+id/del"
+        style="@style/KeyboardButton"
+        android:tag="@string/empty"
+        android:text="@string/del"/>
 </GridLayout>
