@@ -42,3 +42,4 @@ obj/
 *.ipr
 *~
 *.swp
+keystore.properties

@@ -152,16 +152,16 @@
         android:text="@string/mod"/>
 
     <Button
-        android:id="@+id/floor"
+        android:id="@+id/pi"
         style="@style/KeyboardButton"
-        android:tag="@string/floor"
-        android:text="@string/floor"/>
+        android:tag="@string/pi"
+        android:text="@string/pi"/>
 
     <Button
-        android:id="@+id/ceil"
+        android:id="@+id/e"
         style="@style/KeyboardButton"
-        android:tag="@string/ceil"
-        android:text="@string/ceil"/>
+        android:tag="@string/e"
+        android:text="@string/e"/>
 
     <Button
         android:id="@+id/round"
@@ -174,4 +174,16 @@
         style="@style/KeyboardButton"
         android:tag="@string/sgn"
         android:text="@string/sgn"/>
+
+    <Button
+        android:id="@+id/floor"
+        style="@style/KeyboardButton"
+        android:tag="@string/floor"
+        android:text="@string/floor"/>
+
+    <Button
+        android:id="@+id/ceil"
+        style="@style/KeyboardButton"
+        android:tag="@string/ceil"
+        android:text="@string/ceil"/>
 </GridLayout>

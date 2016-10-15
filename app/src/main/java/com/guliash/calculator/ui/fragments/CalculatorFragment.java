@@ -295,6 +295,11 @@ public class CalculatorFragment extends Fragment implements VariablesAdapter.Cal
     }
 
     public void setDataset(CalculatorDataSet dataset) {
+
+        if(mActivatedVariable != VariablesAdapter.NO_ACTIVATED) {
+            onDeactivated(mActivatedVariable);
+        }
+
         mDataset = dataset;
         mInputField.setText(dataset.getExpression());
         mAdapter = new VariablesAdapter(mDataset.getVariables(), this);
