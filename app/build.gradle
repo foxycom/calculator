@@ -14,15 +14,18 @@ android {
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
 
-    Properties keystoreProps = new Properties()
-    keystoreProps.load(new FileInputStream(file("../keystore.properties")))
+    boolean keystorePropExists = file("../keystore.properties").exists()
+    if(keystorePropExists) {
+        Properties keystoreProps = new Properties()
+        keystoreProps.load(new FileInputStream(file("../keystore.properties")))
 
-    signingConfigs {
-        release {
-            storeFile file(keystoreProps['storeFile'])
-            storePassword keystoreProps['storePassword']
-            keyAlias keystoreProps['keyAlias']
-            keyPassword keystoreProps['keyPassword']
+        signingConfigs {
+            release {
+                storeFile file(keystoreProps['storeFile'])
+                storePassword keystoreProps['storePassword']
+                keyAlias keystoreProps['keyAlias']
+                keyPassword keystoreProps['keyPassword']
+            }
         }
     }
 
@@ -31,7 +34,9 @@ android {
             applicationIdSuffix '.debug'
         }
         release {
-            signingConfig signingConfigs.release
+            if(keystorePropExists) {
+                signingConfig signingConfigs.release
+            }
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
