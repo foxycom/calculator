@@ -43,7 +43,7 @@ public class JavaEvaluator implements Evaluator {
         MAX("max", 2),
         RANDOM("random", 0),
         ROUND("round", 1),
-        SIGNUM("signum", 1),
+        SIGNUM("sgn", 1),
         FACT("fact", 1),
         MOD("mod", 2);
 

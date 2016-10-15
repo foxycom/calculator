@@ -84,14 +84,6 @@ public class OpenActivity extends BaseActivity implements DatasetsAdapterCV.Call
     }
 
     @Override
-    public void onEdit(int position) {
-        Intent intent = new Intent(this, SaveActivity.class);
-        CalculatorDataSet dataset = mDatasets.get(position);
-        intent.putExtra(Constants.DATASET, dataset);
-        startActivityForResult(intent, Constants.SAVE_ACTIVITY_REQUEST_CODE);
-    }
-
-    @Override
     public void onUse(int position) {
         Intent intent = new Intent();
         intent.putExtra(Constants.DATASET, mDatasets.get(position));

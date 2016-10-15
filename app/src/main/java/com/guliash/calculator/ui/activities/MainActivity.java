@@ -2,7 +2,6 @@ package com.guliash.calculator.ui.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.app.FragmentManager;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -56,10 +55,12 @@ public class MainActivity extends BaseActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode == RESULT_OK) {
+            CalculatorFragment calculatorFragment = (CalculatorFragment) getSupportFragmentManager().
+                    findFragmentById(R.id.calculator_fragment);
             if (requestCode == Constants.OPEN_ACTIVITY_REQUEST_CODE) {
-                FragmentManager fragmentManager = getSupportFragmentManager();
-                CalculatorFragment calculatorFragment = (CalculatorFragment) fragmentManager.
-                        findFragmentById(R.id.calculator_fragment);
+                calculatorFragment.setDataset((CalculatorDataSet) data.getParcelableExtra(Constants.DATASET));
+            }
+            if (requestCode == Constants.SAVE_ACTIVITY_REQUEST_CODE) {
                 calculatorFragment.setDataset((CalculatorDataSet) data.getParcelableExtra(Constants.DATASET));
             }
         }
@@ -72,11 +73,10 @@ public class MainActivity extends BaseActivity {
 
     private void showSaveActivity() {
         Intent intent = new Intent(this, SaveActivity.class);
-        FragmentManager fragmentManager = getSupportFragmentManager();
         CalculatorFragment fragment = (CalculatorFragment)
-                fragmentManager.findFragmentById(R.id.calculator_fragment);
+                getSupportFragmentManager().findFragmentById(R.id.calculator_fragment);
         intent.putExtra(Constants.DATASET, fragment.getDataset());
-        startActivity(intent);
+        startActivityForResult(intent, Constants.SAVE_ACTIVITY_REQUEST_CODE);
     }
 
     private void showHelpActivity() {

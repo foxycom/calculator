@@ -25,8 +25,6 @@ public class DatasetsAdapterCV extends RecyclerView.Adapter<DatasetsAdapterCV.Da
     public interface Callbacks {
         void onRemove(int position);
 
-        void onEdit(int position);
-
         void onUse(int position);
     }
 
@@ -104,9 +102,6 @@ public class DatasetsAdapterCV extends RecyclerView.Adapter<DatasetsAdapterCV.Da
                 switch (item.getItemId()) {
                     case R.id.use:
                         mListener.onUse(position);
-                        break;
-                    case R.id.edit:
-                        mListener.onEdit(position);
                         break;
                     case R.id.delete:
                         mListener.onRemove(position);

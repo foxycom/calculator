@@ -13,9 +13,14 @@ import com.guliash.parser.AngleUnits;
 
 import javax.inject.Inject;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
 public class SettingsActivity extends BaseActivity {
 
-    private RadioGroup angleGroup;
+
+    @BindView(R.id.angles)
+    RadioGroup angleGroup;
 
     @Inject
     AppSettings mAppSettings;
@@ -24,7 +29,7 @@ public class SettingsActivity extends BaseActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_settings);
-
+        ButterKnife.bind(this);
         App.get(this).getAppComponent().inject(this);
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -37,7 +42,6 @@ public class SettingsActivity extends BaseActivity {
             }
         });
 
-        angleGroup = (RadioGroup) findViewById(R.id.angles);
         setChecked();
         angleGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
