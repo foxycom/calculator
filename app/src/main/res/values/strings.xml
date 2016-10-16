@@ -6,7 +6,6 @@
     <string name="rad">RAD</string>
     <string name="grad">GRAD</string>
 
-    <string name="add_variable">Add variable</string>
     <string name="variable_name">Name</string>
     <string name="variable_value">Value</string>
     <string name="result">Result</string>
@@ -31,7 +30,6 @@
 
     <!--WARNINGS-->
     <string name="name_is_empty">Name must not be empty</string>
-    <string name="expression_is_empty">Expression is empty</string>
     <string name="variable_name_not_correct">Variable name \"%s\" not correct. Check help for name conventions please.</string>
     <string name="variable_name_clashes_constant">Variable name \"%s\" clashes with constant name.</string>
     <string name="variables_names_not_unique">Variables\' names are not unique</string>
@@ -62,9 +60,7 @@
     <!--REVIEW-->
 
     <!--CONTENT DESCRIPTION-->
-    <string name="remove_symbol">Remove symbol</string>
-    <string name="calculate">Calculate</string>
-    <string name="overflow_menu">Overflow menu</string>
+    <string name="menu">Menu</string>
     <!--CONTENT DESCRIPTION-->
 
     <!--HELP-->

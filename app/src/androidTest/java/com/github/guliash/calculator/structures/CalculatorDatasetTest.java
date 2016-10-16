@@ -12,9 +12,6 @@ import org.junit.runner.RunWith;
 
 import java.util.ArrayList;
 
-/**
- * Created by guliash on 11.07.16.
- */
 @RunWith(AndroidJUnit4.class)
 public class CalculatorDatasetTest {
 

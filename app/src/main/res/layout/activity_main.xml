@@ -5,8 +5,7 @@
               android:id="@+id/main_layout">
 
     <include
-        layout="@layout/toolbar"
-        android:id="@+id/toolbar">
+        layout="@layout/toolbar">
     </include>
 
     <fragment

@@ -11,11 +11,9 @@ public class AppSettingsImpl implements AppSettings {
     private static final String ANGLE_UNITS = "angle";
     private static final String REVIEW = "review";
 
-    private final Context mContext;
     private final SharedPreferences mPreferences;
 
     public AppSettingsImpl(Context context) {
-        mContext = context;
         mPreferences = context.getSharedPreferences(APP_PREFERENCES, Context.MODE_PRIVATE);
     }
 
