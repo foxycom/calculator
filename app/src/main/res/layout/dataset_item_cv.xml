@@ -53,7 +53,7 @@
                 android:layout_alignParentRight="true"
                 android:layout_alignParentEnd="true"
                 android:background="@null"
-                android:contentDescription="@string/overflow_menu"
+                android:contentDescription="@string/menu"
                 android:src="@drawable/dots_button"/>
 
             <TextView

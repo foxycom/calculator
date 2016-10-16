@@ -1,10 +1,12 @@
 package com.guliash.calculator.ui.activities;
 
+import android.annotation.SuppressLint;
 import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AppCompatActivity;
 
 import com.guliash.calculator.ui.fragments.AlertDialogFragment;
 
+@SuppressLint("Registered")
 public class BaseActivity extends AppCompatActivity {
 
     protected static final String DIALOG_TAG = "dialog";

@@ -13,4 +13,4 @@ jdk:
   - oraclejdk8
 
 script:
-  - ./gradlew testDebugUnitTest
+  - ./gradlew check

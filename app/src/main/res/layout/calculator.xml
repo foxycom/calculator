@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
               xmlns:app="http://schemas.android.com/apk/res-auto"
+              xmlns:tools="http://schemas.android.com/tools"
               android:layout_width="match_parent"
               android:layout_height="match_parent"
               android:orientation="vertical">
@@ -32,7 +33,9 @@
             android:layout_gravity="center_vertical"
             android:hint="@string/result"
             android:paddingLeft="2dp"
-            android:textIsSelectable="true"/>
+            android:paddingStart="2dp"
+            android:textIsSelectable="true"
+            tools:ignore="RtlSymmetry"/>
     </LinearLayout>
 
     <RelativeLayout
@@ -43,7 +46,8 @@
         <ScrollView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true">
+            android:layout_alignParentBottom="true"
+            tools:ignore="UselessParent">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -60,7 +64,9 @@
                         android:layout_height="wrap_content"
                         android:clipToPadding="false"
                         android:paddingRight="64dp"
-                        app:paddingEnd="64dp">
+                        android:paddingEnd="64dp"
+                        app:paddingEnd="64dp"
+                        tools:ignore="RtlSymmetry">
                     </android.support.v7.widget.RecyclerView>
 
                     <android.support.design.widget.FloatingActionButton
@@ -92,6 +98,7 @@
 
                     <ImageView
                         android:id="@+id/delete"
+                        android:contentDescription="@string/delete"
                         android:layout_width="36dp"
                         android:layout_height="36dp"
                         android:layout_alignParentEnd="true"

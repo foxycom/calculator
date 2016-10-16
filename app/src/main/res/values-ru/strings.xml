@@ -8,7 +8,6 @@
     <string name="rad">Радианы</string>
     <string name="grad">Грады</string>
 
-    <string name="add_variable">Добавить переменную</string>
     <string name="variable_name">Имя</string>
     <string name="variable_value">Значение</string>
     <string name="result">Результат</string>
@@ -34,7 +33,6 @@
 
     <!-- WARNINGS -->
     <string name="name_is_empty">Имя не должно быть пустым</string>
-    <string name="expression_is_empty">Введите выражение</string>
     <string name="variable_name_not_correct">Имя переменной \"%s\" неверное. Загляните в справку чтобы увидеть формат имени.</string>
     <string name="variable_name_clashes_constant">Имя переменной \"%s\" совпадает с именем константы.</string>
     <string name="variables_names_not_unique">Имена переменных не различны</string>
@@ -66,8 +64,6 @@
     <!--REVIEW-->
 
     <!--CONTENT DESCRIPTION-->
-    <string name="remove_symbol">Удалить символ</string>
-    <string name="calculate">Посчитать</string>
-    <string name="overflow_menu">Доп. меню</string>
+    <string name="menu">Меню</string>
     <!--CONTENT DESCRIPTION-->
 </resources>
