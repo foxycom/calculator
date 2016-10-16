@@ -1,12 +1,10 @@
 package com.guliash.parser;
 
-import com.guliash.parser.exceptions.ArithmeticParserException;
+import com.guliash.parser.exceptions.ParserException;
 import com.guliash.parser.stemmer.StemmerBadSymbolException;
 import com.guliash.parser.stemmer.VerifyAssertionException;
 
 import org.junit.Test;
-
-import java.util.ArrayList;
 
 import static org.junit.Assert.assertEquals;
 
@@ -32,17 +30,17 @@ public class BasicTester extends BaseParserTester {
         assertEquals(1e+9 + 1e-9, calculate("1e+9 + 1e-9"), EPS);
     }
 
-    @Test(expected = ArithmeticParserException.class)
+    @Test(expected = ParserException.class)
     public void badBracket1() {
         calculate("1e9 + 1 + 20 + 1e-9 + ()");
     }
 
-    @Test(expected = ArithmeticParserException.class)
+    @Test(expected = ParserException.class)
     public void badBracket2() {
         calculate("((((((((()))))))))");
     }
 
-    @Test(expected = ArithmeticParserException.class)
+    @Test(expected = ParserException.class)
     public void badBracket3() {
         calculate("))((");
     }
@@ -57,7 +55,7 @@ public class BasicTester extends BaseParserTester {
         calculate("(([]))");
     }
 
-    @Test(expected = ArithmeticParserException.class)
+    @Test(expected = ParserException.class)
     public void badBracket6() {
         calculate("((()))((()))(()()()");
     }
@@ -122,12 +120,12 @@ public class BasicTester extends BaseParserTester {
         assertEquals(-1, calculate("1+-+2"), EPS);
     }
 
-    @Test(expected = ArithmeticParserException.class)
+    @Test(expected = ParserException.class)
     public void operatorsTest3() {
         calculate("1**2");
     }
 
-    @Test(expected = ArithmeticParserException.class)
+    @Test(expected = ParserException.class)
     public void operatorsTest4() {
         calculate("1*/2");
     }
@@ -142,12 +140,12 @@ public class BasicTester extends BaseParserTester {
         assertEquals(2, calculate("1*--2"), EPS);
     }
 
-    @Test(expected = ArithmeticParserException.class)
+    @Test(expected = ParserException.class)
     public void operatorsTest7() {
         calculate("1++*2");
     }
 
-    @Test(expected = ArithmeticParserException.class)
+    @Test(expected = ParserException.class)
     public void operatorsTest8() {
         calculate("1+*2");
     }
@@ -164,16 +162,11 @@ public class BasicTester extends BaseParserTester {
 
     @Test(expected = Exception.class)
     public void betweenTwoWordsNoSpacesAllowed() {
-        ArrayList<StringVariable> variables = new ArrayList<>();
-        variables.add(new StringVariable("$_31dasd", Double.toString(0d)));
-        variables.add(new StringVariable("faf31fa_", Double.toString(0d)));
         calculate("$_31dasd faf31fa_");
     }
 
     @Test(expected = Exception.class)
     public void illegalCharactersInWordNotAllowed() {
-        ArrayList<StringVariable> variables = new ArrayList<>();
-        variables.add(new StringVariable("f&4f^af31fa_", Double.toString(0d)));
         calculate("f&4f^af31fa_");
     }
 

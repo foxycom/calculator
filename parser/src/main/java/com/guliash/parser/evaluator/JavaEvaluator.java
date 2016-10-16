@@ -1,19 +1,20 @@
 package com.guliash.parser.evaluator;
 
-import com.guliash.parser.Angle;
+import com.guliash.parser.AngleUnits;
 import com.guliash.parser.Functions;
 
 import java.util.List;
+import java.util.Locale;
 
 public class JavaEvaluator implements Evaluator {
 
-    private Angle angleUnits;
+    private AngleUnits angleUnits;
 
-    public JavaEvaluator(Angle angleUnits) {
+    public JavaEvaluator(AngleUnits angleUnits) {
         this.angleUnits = angleUnits;
     }
 
-    enum Function {
+    public enum Function {
         SIN("sin", 1),
         COS("cos", 1),
         TAN("tan", 1),
@@ -42,7 +43,7 @@ public class JavaEvaluator implements Evaluator {
         MAX("max", 2),
         RANDOM("random", 0),
         ROUND("round", 1),
-        SIGNUM("signum", 1),
+        SIGNUM("sgn", 1),
         FACT("fact", 1),
         MOD("mod", 2);
 
@@ -60,7 +61,7 @@ public class JavaEvaluator implements Evaluator {
         }
     }
 
-    enum Constant {
+    public enum Constant {
 
         PI("pi"), E("e");
 
@@ -68,6 +69,10 @@ public class JavaEvaluator implements Evaluator {
 
         Constant(String name) {
             this.name = name;
+        }
+
+        public String getName() {
+            return name;
         }
 
         @Override
@@ -79,39 +84,39 @@ public class JavaEvaluator implements Evaluator {
     @Override
     public double evaluateFunction(String name, List<Double> args) throws IllegalArgumentException {
 
-        if(name == null || args == null) {
+        if (name == null || args == null) {
             throw new IllegalArgumentException("Illegal arguments for evaluateFunction");
         }
 
-        for(Function function : Function.values()) {
-            if(function.name.equals(name) && args.size() == function.cntOfArgs) {
+        for (Function function : Function.values()) {
+            if (function.name.equals(name) && args.size() == function.cntOfArgs) {
                 return evaluateFunction(function, args);
             }
         }
 
-        throw new IllegalArgumentException(String.format("Function %s not found with %d arguments",
+        throw new IllegalArgumentException(String.format(Locale.ENGLISH, "Function %s not found with %d arguments",
                 name, args.size()));
 
     }
 
-    public double evaluateFunction(Function function, List<Double> args) throws IllegalArgumentException {
+    private double evaluateFunction(Function function, List<Double> args) throws IllegalArgumentException {
         switch (function) {
             case SIN:
-                return Math.sin(Functions.convertAngles(args.get(0), angleUnits, Angle.RAD));
+                return Math.sin(Functions.convertAngles(args.get(0), angleUnits, AngleUnits.RAD));
             case COS:
-                return Math.cos(Functions.convertAngles(args.get(0), angleUnits, Angle.RAD));
+                return Math.cos(Functions.convertAngles(args.get(0), angleUnits, AngleUnits.RAD));
             case TAN:
-                return Math.tan(Functions.convertAngles(args.get(0), angleUnits, Angle.RAD));
+                return Math.tan(Functions.convertAngles(args.get(0), angleUnits, AngleUnits.RAD));
             case COT:
-                return Functions.cot(Functions.convertAngles(args.get(0), angleUnits, Angle.RAD));
+                return Functions.cot(Functions.convertAngles(args.get(0), angleUnits, AngleUnits.RAD));
             case ASIN:
-                return Functions.convertAngles(Math.asin(args.get(0)), Angle.RAD, angleUnits);
+                return Functions.convertAngles(Math.asin(args.get(0)), AngleUnits.RAD, angleUnits);
             case ACOS:
-                return Functions.convertAngles(Math.acos(args.get(0)), Angle.RAD, angleUnits);
+                return Functions.convertAngles(Math.acos(args.get(0)), AngleUnits.RAD, angleUnits);
             case ATAN:
-                return Functions.convertAngles(Math.atan(args.get(0)), Angle.RAD, angleUnits);
+                return Functions.convertAngles(Math.atan(args.get(0)), AngleUnits.RAD, angleUnits);
             case ACOT:
-                return Functions.convertAngles(Functions.acot(args.get(0)), Angle.RAD, angleUnits);
+                return Functions.convertAngles(Functions.acot(args.get(0)), AngleUnits.RAD, angleUnits);
             case SINH:
                 return Math.sinh(args.get(0));
             case COSH:
@@ -160,14 +165,13 @@ public class JavaEvaluator implements Evaluator {
     }
 
 
-
     @Override
     public double evaluateConstant(String name) throws IllegalArgumentException {
-        if(name == null) {
+        if (name == null) {
             throw new IllegalArgumentException("Illegal argument for evaluateConstant");
         }
-        for(Constant constant : Constant.values()) {
-            if(constant.name.equals(name)) {
+        for (Constant constant : Constant.values()) {
+            if (constant.name.equals(name)) {
                 return evaluateConstant(constant);
             }
         }
@@ -176,8 +180,8 @@ public class JavaEvaluator implements Evaluator {
 
     @Override
     public boolean hasFunction(String name, List<Double> args) {
-        for(Function function : Function.values()) {
-            if(function.name.equals(name) && function.cntOfArgs == args.size()) {
+        for (Function function : Function.values()) {
+            if (function.name.equals(name) && function.cntOfArgs == args.size()) {
                 return true;
             }
         }
@@ -186,16 +190,16 @@ public class JavaEvaluator implements Evaluator {
 
     @Override
     public boolean hasConstant(String name) {
-        for(Constant constant : Constant.values()) {
-            if(constant.name.equals(name)) {
+        for (Constant constant : Constant.values()) {
+            if (constant.name.equals(name)) {
                 return true;
             }
         }
         return false;
     }
 
-    public double evaluateConstant(Constant constant) throws IllegalArgumentException {
-        switch(constant) {
+    private double evaluateConstant(Constant constant) throws IllegalArgumentException {
+        switch (constant) {
             case PI:
                 return Math.PI;
             case E:

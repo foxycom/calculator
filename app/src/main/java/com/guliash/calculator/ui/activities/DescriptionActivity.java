@@ -13,18 +13,30 @@ import com.guliash.calculator.structures.Topic;
 import java.util.ArrayList;
 import java.util.List;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
 public class DescriptionActivity extends BaseActivity {
 
-    private TextView mDescText, mNameText, mExamplesText;
+    public static final String TOPIC = "topic";
 
     private Topic mTopic;
 
-    public static final String TOPIC = "topic";
+    @BindView(R.id.name)
+    TextView mNameText;
+
+    @BindView(R.id.desc)
+    TextView mDescText;
+
+    @BindView(R.id.examples)
+    TextView mExamplesText;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_desc);
+
+        ButterKnife.bind(this);
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -39,18 +51,14 @@ public class DescriptionActivity extends BaseActivity {
         Bundle args = (savedInstanceState != null ? savedInstanceState : getIntent().getExtras());
 
         mTopic = args.getParcelable(TOPIC);
-
-        mNameText = (TextView)findViewById(R.id.name);
-        mDescText = (TextView)findViewById(R.id.desc);
-        mExamplesText = (TextView) findViewById(R.id.examples);
     }
 
     @Override
     protected void onStart() {
         super.onStart();
 
-        mNameText.setText(mTopic.name);
-        mDescText.setText(mTopic.description);
+        mNameText.setText(mTopic.getName());
+        mDescText.setText(mTopic.getDescription());
         mExamplesText.setText(TextUtils.join("\n\n", transformExamples()));
     }
 
@@ -62,8 +70,8 @@ public class DescriptionActivity extends BaseActivity {
 
     private List<String> transformExamples() {
         List<String> examples = new ArrayList<>();
-        for(String example : mTopic.examples) {
-            examples.add("●  " + example);
+        for (String example : mTopic.getExamples()) {
+            examples.add(String.format(getString(R.string.topic_fmt), example));
         }
         return examples;
     }

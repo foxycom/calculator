@@ -8,25 +8,39 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 
+import com.guliash.calculator.App;
 import com.guliash.calculator.Constants;
-import com.guliash.calculator.DBHelper;
 import com.guliash.calculator.R;
-import com.guliash.calculator.structures.CalculatorDataset;
+import com.guliash.calculator.storage.Storage;
+import com.guliash.calculator.structures.CalculatorDataSet;
 import com.guliash.calculator.ui.adapters.DatasetsAdapterCV;
 
-import java.util.ArrayList;
+import java.util.List;
+
+import javax.inject.Inject;
+
+import butterknife.BindView;
+import butterknife.ButterKnife;
 
 public class OpenActivity extends BaseActivity implements DatasetsAdapterCV.Callbacks {
 
-    private ArrayList<CalculatorDataset> mDatasets;
-    private DBHelper mDbHelper;
-    private RecyclerView mRecyclerView;
+    private List<CalculatorDataSet> mDatasets;
     private DatasetsAdapterCV mAdapter;
+
+    @BindView(R.id.datasets_list)
+    RecyclerView mRecyclerView;
+
+    @Inject
+    Storage mStorage;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_open);
+
+        ButterKnife.bind(this);
+        App.get(this).getAppComponent().inject(this);
+
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         toolbar.setNavigationIcon(R.drawable.back_button);
@@ -37,16 +51,13 @@ public class OpenActivity extends BaseActivity implements DatasetsAdapterCV.Call
             }
         });
 
-        mDbHelper = new DBHelper(this);
-
-        mRecyclerView = (RecyclerView)findViewById(R.id.rv);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
     }
 
     @Override
     protected void onStart() {
         super.onStart();
-        mDatasets = mDbHelper.getDatasets();
+        mDatasets = mStorage.getDataSets();
         mAdapter = new DatasetsAdapterCV(mDatasets, this);
         mRecyclerView.setAdapter(mAdapter);
     }
@@ -54,9 +65,9 @@ public class OpenActivity extends BaseActivity implements DatasetsAdapterCV.Call
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if(resultCode == RESULT_OK) {
-            if(requestCode == Constants.SAVE_ACTIVITY_REQUEST_CODE) {
-                mDatasets = mDbHelper.getDatasets();
+        if (resultCode == RESULT_OK) {
+            if (requestCode == Constants.SAVE_ACTIVITY_REQUEST_CODE) {
+                mDatasets = mStorage.getDataSets();
                 mAdapter = new DatasetsAdapterCV(mDatasets, this);
                 mRecyclerView.setAdapter(mAdapter);
             }
@@ -65,19 +76,11 @@ public class OpenActivity extends BaseActivity implements DatasetsAdapterCV.Call
 
     @Override
     public void onRemove(int position) {
-        CalculatorDataset dataset = mDatasets.get(position);
-        mDbHelper.deleteData(dataset.datasetName);
+        CalculatorDataSet dataset = mDatasets.get(position);
+        mStorage.deleteDataSet(dataset);
         mDatasets.remove(position);
         mAdapter.notifyItemRemoved(position);
         mAdapter.notifyItemRangeChanged(position, mDatasets.size() - position);
-    }
-
-    @Override
-    public void onEdit(int position) {
-        Intent intent = new Intent(this, SaveActivity.class);
-        CalculatorDataset dataset = mDatasets.get(position);
-        intent.putExtra(Constants.DATASET, dataset);
-        startActivityForResult(intent, Constants.SAVE_ACTIVITY_REQUEST_CODE);
     }
 
     @Override

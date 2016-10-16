@@ -2,14 +2,13 @@ package com.guliash.calculator.ui.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.app.FragmentManager;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
 import com.guliash.calculator.Constants;
 import com.guliash.calculator.R;
-import com.guliash.calculator.structures.CalculatorDataset;
+import com.guliash.calculator.structures.CalculatorDataSet;
 import com.guliash.calculator.ui.fragments.CalculatorFragment;
 
 public class MainActivity extends BaseActivity {
@@ -33,16 +32,16 @@ public class MainActivity extends BaseActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
-        if(id == R.id.open) {
+        if (id == R.id.open) {
             showOpenActivity();
         }
-        if(id == R.id.save) {
+        if (id == R.id.save) {
             showSaveActivity();
         }
-        if(id == R.id.help) {
+        if (id == R.id.help) {
             showHelpActivity();
         }
-        if(id == R.id.settings) {
+        if (id == R.id.settings) {
             showSettingsActivity();
         }
         return super.onOptionsItemSelected(item);
@@ -55,12 +54,14 @@ public class MainActivity extends BaseActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if(resultCode == RESULT_OK) {
-            if(requestCode == Constants.OPEN_ACTIVITY_REQUEST_CODE) {
-                FragmentManager fragmentManager = getSupportFragmentManager();
-                CalculatorFragment calculatorFragment = (CalculatorFragment)fragmentManager.
-                        findFragmentById(R.id.calculator_fragment);
-                calculatorFragment.setDataset((CalculatorDataset)data.getParcelableExtra(Constants.DATASET));
+        if (resultCode == RESULT_OK) {
+            CalculatorFragment calculatorFragment = (CalculatorFragment) getSupportFragmentManager().
+                    findFragmentById(R.id.calculator_fragment);
+            if (requestCode == Constants.OPEN_ACTIVITY_REQUEST_CODE) {
+                calculatorFragment.setDataset((CalculatorDataSet) data.getParcelableExtra(Constants.DATASET));
+            }
+            if (requestCode == Constants.SAVE_ACTIVITY_REQUEST_CODE) {
+                calculatorFragment.setDataset((CalculatorDataSet) data.getParcelableExtra(Constants.DATASET));
             }
         }
     }
@@ -72,11 +73,10 @@ public class MainActivity extends BaseActivity {
 
     private void showSaveActivity() {
         Intent intent = new Intent(this, SaveActivity.class);
-        FragmentManager fragmentManager = getSupportFragmentManager();
         CalculatorFragment fragment = (CalculatorFragment)
-                fragmentManager.findFragmentById(R.id.calculator_fragment);
+                getSupportFragmentManager().findFragmentById(R.id.calculator_fragment);
         intent.putExtra(Constants.DATASET, fragment.getDataset());
-        startActivity(intent);
+        startActivityForResult(intent, Constants.SAVE_ACTIVITY_REQUEST_CODE);
     }
 
     private void showHelpActivity() {

@@ -7,8 +7,9 @@ import java.util.ArrayList;
 
 public class Topic implements Parcelable {
 
-    public String name, description;
-    public ArrayList<String> examples;
+    private String name;
+    private String description;
+    private ArrayList<String> examples;
 
     public Topic(String name, String description, ArrayList<String> examples) {
         this.name = name;
@@ -36,7 +37,7 @@ public class Topic implements Parcelable {
 
     @Override
     public String toString() {
-        return name;
+        return getName();
     }
 
     @Override
@@ -46,8 +47,20 @@ public class Topic implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
-        dest.writeString(name);
-        dest.writeString(description);
-        dest.writeStringList(examples);
+        dest.writeString(getName());
+        dest.writeString(getDescription());
+        dest.writeStringList(getExamples());
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public ArrayList<String> getExamples() {
+        return examples;
     }
 }

@@ -1,7 +1,5 @@
 package com.guliash.parser;
 
-import com.guliash.parser.exceptions.CyclicVariablesDependencyException;
-
 import org.junit.Test;
 
 import java.util.ArrayList;
@@ -182,7 +180,7 @@ public class VariablesTester extends BaseParserTester {
         assertEquals(a + b / c + d, calculate("a + b / c + d", variables), EPS);
     }
 
-    @Test(expected = CyclicVariablesDependencyException.class)
+    @Test(expected = VariablesResolver.CyclicVariablesDependencyException.class)
     public void variablesCannotDependCyclically() {
         List<StringVariable> variables = new ArrayList<>();
         variables.add(new StringVariable("x", "y"));

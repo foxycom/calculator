@@ -16,6 +16,6 @@ public class WordNotFoundException extends RuntimeException {
 
     @Override
     public String getMessage() {
-        return String.format(Locale.US, "Can't find word %s", word);
+        return String.format(Locale.ENGLISH, "Can't find word %s", word);
     }
 }

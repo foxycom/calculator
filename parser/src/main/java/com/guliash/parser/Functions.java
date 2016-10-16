@@ -1,49 +1,51 @@
 package com.guliash.parser;
 
+import java.util.Locale;
+
 public class Functions {
 
     public static double factorial(double n) throws IllegalArgumentException {
-        if(n < 0) {
-            throw new IllegalArgumentException(String.format("Negative %f arg for factorial", n));
+        if (n < 0) {
+            throw new IllegalArgumentException(String.format(Locale.ENGLISH, "Negative %f arg for factorial", n));
         }
         double res = 1;
-        for(double i = 2; i <= n; i++) {
+        for (double i = 2; i <= n; i++) {
             res *= i;
         }
         return res;
     }
 
     public static double mod(double a, double b) {
-        if(a < 0) {
+        if (a < 0) {
             a = a % b;
             a += b;
         }
         return a % b;
     }
 
-    public static double convertAngles(double angle, Angle from, Angle to) {
-        if(from == Angle.DEG) {
-            if(to == Angle.DEG) {
+    public static double convertAngles(double angle, AngleUnits from, AngleUnits to) {
+        if (from == AngleUnits.DEG) {
+            if (to == AngleUnits.DEG) {
                 return angle;
-            } else if(to == Angle.RAD) {
+            } else if (to == AngleUnits.RAD) {
                 return angle * Math.PI / 180.0;
-            } else if(to == Angle.GRAD) {
+            } else if (to == AngleUnits.GRAD) {
                 return angle / 0.9;
             }
-        } else if(from == Angle.RAD) {
-            if(to == Angle.DEG) {
+        } else if (from == AngleUnits.RAD) {
+            if (to == AngleUnits.DEG) {
                 return angle * 180.0 / Math.PI;
-            } else if(to == Angle.RAD) {
+            } else if (to == AngleUnits.RAD) {
                 return angle;
-            } else if(to == Angle.GRAD) {
+            } else if (to == AngleUnits.GRAD) {
                 return angle / (Math.PI / 200);
             }
-        } else if(from == Angle.GRAD) {
-            if(to == Angle.DEG) {
+        } else if (from == AngleUnits.GRAD) {
+            if (to == AngleUnits.DEG) {
                 return 0.9 * angle;
-            } else if(to == Angle.RAD) {
+            } else if (to == AngleUnits.RAD) {
                 return (Math.PI / 200) * angle;
-            } else if(to == Angle.GRAD) {
+            } else if (to == AngleUnits.GRAD) {
                 return angle;
             }
         }
@@ -51,9 +53,10 @@ public class Functions {
     }
 
     /**
-     * Acot in rads
-     * @param val
-     * @return acot in rads
+     * Calculates arccotangent in rads
+     *
+     * @param val value
+     * @return arccotangent in rads
      */
     public static double acot(double val) {
         return Math.PI / 2 - Math.atan(val);

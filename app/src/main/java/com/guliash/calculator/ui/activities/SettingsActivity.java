@@ -6,17 +6,31 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.RadioGroup;
 
+import com.guliash.calculator.App;
 import com.guliash.calculator.R;
-import com.guliash.parser.Angle;
+import com.guliash.calculator.state.AppSettings;
+import com.guliash.parser.AngleUnits;
+
+import javax.inject.Inject;
+
+import butterknife.BindView;
+import butterknife.ButterKnife;
 
 public class SettingsActivity extends BaseActivity {
 
-    private RadioGroup angleGroup;
+
+    @BindView(R.id.angles)
+    RadioGroup angleGroup;
+
+    @Inject
+    AppSettings mAppSettings;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_settings);
+        ButterKnife.bind(this);
+        App.get(this).getAppComponent().inject(this);
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -28,20 +42,19 @@ public class SettingsActivity extends BaseActivity {
             }
         });
 
-        angleGroup = (RadioGroup)findViewById(R.id.angles);
         setChecked();
         angleGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
-                switch(checkedId) {
+                switch (checkedId) {
                     case R.id.deg:
-                        getApp().saveAngleUnit(Angle.DEG);
+                        mAppSettings.saveAngleUnits(AngleUnits.DEG);
                         break;
                     case R.id.rad:
-                        getApp().saveAngleUnit(Angle.RAD);
+                        mAppSettings.saveAngleUnits(AngleUnits.RAD);
                         break;
                     case R.id.grad:
-                        getApp().saveAngleUnit(Angle.GRAD);
+                        mAppSettings.saveAngleUnits(AngleUnits.GRAD);
                         break;
                 }
             }
@@ -49,8 +62,8 @@ public class SettingsActivity extends BaseActivity {
     }
 
     private void setChecked() {
-        Angle angle = getApp().angleUnits;
-        switch (angle) {
+        AngleUnits angleUnits = mAppSettings.getAngleUnits();
+        switch (angleUnits) {
             case DEG:
                 angleGroup.check(R.id.deg);
                 break;

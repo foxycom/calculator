@@ -3,40 +3,59 @@ package com.guliash.calculator.ui.activities;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.view.View;
-import android.widget.Button;
+import android.widget.ArrayAdapter;
 import android.widget.EditText;
+import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import com.guliash.calculator.App;
 import com.guliash.calculator.Constants;
-import com.guliash.calculator.DBHelper;
 import com.guliash.calculator.Helper;
 import com.guliash.calculator.R;
-import com.guliash.calculator.structures.CalculatorDataset;
-import com.guliash.calculator.structures.StringVariableWrapper;
-import com.guliash.calculator.ui.adapters.VariablesAdapterRemove;
+import com.guliash.calculator.state.AppSettings;
+import com.guliash.calculator.storage.Storage;
+import com.guliash.calculator.structures.CalculatorDataSet;
 import com.guliash.calculator.ui.fragments.AlertDialogFragment;
 
-public class SaveActivity extends BaseActivity implements VariablesAdapterRemove.Callbacks,
-        AlertDialogFragment.Callbacks {
+import javax.inject.Inject;
 
-    private EditText mExpressionEditText, mDatasetNameEditText;
-    private VariablesAdapterRemove mAdapter;
-    private CalculatorDataset mDataset;
-    private DBHelper mDbHelper;
-    private RecyclerView mVariablesRV;
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
+
+public class SaveActivity extends BaseActivity implements AlertDialogFragment.Callbacks {
 
     private static final int DIALOG_REVIEW_ID = 1;
     private static final int DIALOG_DATASET_UNIQUE = 2;
+
+    @BindView(R.id.dataset_name)
+    EditText mName;
+
+    @BindView(R.id.expression)
+    TextView mExpression;
+
+    @BindView(R.id.variables)
+    ListView mVariables;
+
+    private CalculatorDataSet mDataset;
+
+    @Inject
+    Storage mStorage;
+
+    @Inject
+    AppSettings mAppSettings;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_save);
+
+        ButterKnife.bind(this);
+        App.get(this).getAppComponent().inject(this);
 
         Bundle args = (savedInstanceState != null ? savedInstanceState : getIntent().getExtras());
         mDataset = args.getParcelable(Constants.DATASET);
@@ -50,88 +69,42 @@ public class SaveActivity extends BaseActivity implements VariablesAdapterRemove
                 onBackPressed();
             }
         });
-
-        Button addButton = (Button) findViewById(R.id.add);
-        Button saveButton = (Button) findViewById(R.id.save);
-        addButton.setOnClickListener(mAddVariableClickListener);
-        saveButton.setOnClickListener(mSaveClickListener);
-
-        mExpressionEditText = (EditText)findViewById(R.id.expression);
-        mDatasetNameEditText = (EditText)findViewById(R.id.dataset_name);
-
-        mVariablesRV = (RecyclerView) findViewById(R.id.variables_rv);
-        mVariablesRV.setLayoutManager(new LinearLayoutManager(this));
-
-        mDbHelper = new DBHelper(this);
     }
 
     @Override
     protected void onStart() {
         super.onStart();
 
-        mExpressionEditText.setText(mDataset.expression);
-        mDatasetNameEditText.setText(mDataset.datasetName);
+        mExpression.setText(mDataset.getExpression());
+        mName.setText(mDataset.getName());
+        mVariables.setAdapter(new ArrayAdapter<>(this, R.layout.variable_data, mDataset.getVariables()));
 
-        mAdapter = new VariablesAdapterRemove(mDataset.variables, this);
-        mVariablesRV.setAdapter(mAdapter);
     }
 
     @Override
     protected void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
-        mDataset.expression = mExpressionEditText.getText().toString();
-        mDataset.datasetName = mDatasetNameEditText.getText().toString();
+        mDataset.setName(mName.getText().toString());
         outState.putParcelable(Constants.DATASET, mDataset);
     }
 
-    private View.OnClickListener mAddVariableClickListener = new View.OnClickListener() {
-        @Override
-        public void onClick(View v) {
-            mDataset.variables.add(new StringVariableWrapper("", "0"));
-            mAdapter.notifyItemInserted(mDataset.variables.size() - 1);
+    @OnClick(R.id.save)
+    void onSaveClick() {
+        mDataset.setName(mName.getText().toString());
+        if (TextUtils.isEmpty(mDataset.getName())) {
+            Toast.makeText(getApplicationContext(), R.string.name_is_empty, Toast.LENGTH_SHORT).
+                    show();
+            return;
         }
-    };
-
-    private View.OnClickListener mSaveClickListener = new View.OnClickListener() {
-        @Override
-        public void onClick(View v) {
-            mDataset.datasetName = mDatasetNameEditText.getText().toString();
-            mDataset.expression = mExpressionEditText.getText().toString();
-            if(TextUtils.isEmpty(mDataset.datasetName)) {
-                Toast.makeText(getApplicationContext(), R.string.name_is_empty, Toast.LENGTH_SHORT).
-                        show();
-                return;
-            }
-            if(mDbHelper.getIdOfRowWithName(mDataset.datasetName) != -1) {
-                showAlertDialog(getString(R.string.dialog_error),
-                        getString(R.string.unique_dataset_name_error, mDataset.datasetName),
-                        getString(R.string.OK), getString(R.string.NO), null, true, DIALOG_DATASET_UNIQUE);
-            } else {
-                mDataset.timestamp = Helper.getCurrentTimestamp();
-                mDbHelper.addDataset(mDataset);
-                setResult(RESULT_OK);
-                if(showReviewDialogIfNeed()) {
-                    finish();
-                }
-            }
+        if (mStorage.hasDataSet(mDataset)) {
+            showAlertDialog(getString(R.string.dialog_error),
+                    getString(R.string.unique_dataset_name_error, mDataset.getName()),
+                    getString(R.string.OK), getString(R.string.NO), null, true, DIALOG_DATASET_UNIQUE);
+        } else {
+            mDataset.setTimestamp(Helper.getCurrentTimestamp());
+            mStorage.addDataSet(mDataset);
+            showReviewIfNeedOrFinishOtherwise();
         }
-    };
-
-    @Override
-    public void onVariableRemove(int position) {
-        mDataset.variables.remove(position);
-        mAdapter.notifyItemRemoved(position);
-        mAdapter.notifyItemRangeChanged(position, mDataset.variables.size());
-    }
-
-    private boolean showReviewDialogIfNeed() {
-        boolean reviewed = getApp().getBooleanField(Constants.REVIEW, false);
-        if(!reviewed) {
-            showAlertDialog(getString(R.string.review_title), getString(R.string.review_message),
-                    getString(R.string.review_positive), getString(R.string.review_negative), null, true,
-                    DIALOG_REVIEW_ID);
-        }
-        return reviewed;
     }
 
     private void openReview() {
@@ -150,26 +123,44 @@ public class SaveActivity extends BaseActivity implements VariablesAdapterRemove
     public void onPositive(int id) {
         switch (id) {
             case DIALOG_REVIEW_ID:
-                getApp().setBooleanField(Constants.REVIEW, true);
+                mAppSettings.shownReviewInvite();
                 openReview();
-                finish();
+                finishResultOk();
                 break;
             case DIALOG_DATASET_UNIQUE:
-                mDbHelper.updateData(mDataset);
-                setResult(RESULT_OK);
-                if(showReviewDialogIfNeed()) {
-                    finish();
-                }
+                mStorage.updateDataSet(mDataset);
+                showReviewIfNeedOrFinishOtherwise();
                 break;
         }
+    }
+
+    private void showReviewIfNeedOrFinishOtherwise() {
+        if (mAppSettings.isReviewInviteShown()) {
+            finishResultOk();
+        } else {
+            showReviewDialog();
+        }
+    }
+
+    private void finishResultOk() {
+        Intent intent = new Intent();
+        intent.putExtra(Constants.DATASET, mDataset);
+        setResult(RESULT_OK, intent);
+        finish();
+    }
+
+    private void showReviewDialog() {
+        showAlertDialog(getString(R.string.review_title), getString(R.string.review_message),
+                getString(R.string.review_positive), getString(R.string.review_negative), null, true,
+                DIALOG_REVIEW_ID);
     }
 
     @Override
     public void onNegative(int id) {
         switch (id) {
             case DIALOG_REVIEW_ID:
-                getApp().setBooleanField(Constants.REVIEW, true);
-                finish();
+                mAppSettings.shownReviewInvite();
+                finishResultOk();
                 break;
         }
     }

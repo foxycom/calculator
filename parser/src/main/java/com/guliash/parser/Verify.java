@@ -1,56 +1,115 @@
 package com.guliash.parser;
 
 import com.guliash.parser.evaluator.Evaluator;
+import com.guliash.parser.stemmer.Stemmer;
 
-import java.util.Collection;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 public class Verify {
 
-    public static boolean variable(StringVariable variable) {
-        String name = variable.name;
-        if(name == null || name.length() == 0) {
+    public static class BadVariableException extends RuntimeException {
+
+        private StringVariable variable;
+
+        public BadVariableException(StringVariable variable) {
+            this.variable = variable;
+        }
+
+        public StringVariable getVariable() {
+            return variable;
+        }
+
+        @Override
+        public String getMessage() {
+            return String.format("Bad variable named '%s'", variable.getName());
+        }
+    }
+
+    public static class VariableClashesWithConstantException extends RuntimeException {
+        private StringVariable variable;
+
+        public VariableClashesWithConstantException(StringVariable variable) {
+            this.variable = variable;
+        }
+
+        public StringVariable getVariable() {
+            return variable;
+        }
+
+        @Override
+        public String getMessage() {
+            return String.format("Variable '%s' clashes with constant", variable.getName());
+        }
+    }
+
+    public static class NotUniqueVariablesException extends RuntimeException {
+        private String collisionName;
+
+        public NotUniqueVariablesException(String collisionName) {
+            this.collisionName = collisionName;
+        }
+
+        public String getCollisionName() {
+            return collisionName;
+        }
+
+        @Override
+        public String getMessage() {
+            return String.format("Two or more variables with the name '%s'", collisionName);
+        }
+    }
+
+    public static void checkVariablesCorrectness(List<? extends StringVariable> variables)
+            throws BadVariableException {
+        for(StringVariable variable : variables) {
+            if(!isCorrectVariable(variable)) {
+                throw new BadVariableException(variable);
+            }
+        }
+    }
+
+    public static boolean isCorrectVariable(StringVariable variable) {
+        String name = variable.getName();
+        if (name == null || name.length() == 0) {
             return false;
         }
-        if(!isWordOnlyCharacter(name.charAt(0))) {
+        if (!Stemmer.isWordOnlyCharacter(name.charAt(0))) {
             return false;
         }
-        for(int i = 0; i < name.length(); i++) {
+        for (int i = 0; i < name.length(); i++) {
             char ch = name.charAt(i);
-            if(!isWordOnlyCharacter(ch) && !Character.isDigit(ch)) {
+            if (!Stemmer.isWordOnlyCharacter(ch) && !Character.isDigit(ch)) {
                 return false;
             }
         }
         return true;
+    }
+
+    public static void checkVariablesDoNotClashWithConstants(
+            List<? extends StringVariable> variables, Evaluator evaluator)
+            throws VariableClashesWithConstantException {
+        for(StringVariable variable : variables) {
+            if(variableNameClashesWithConstants(variable, evaluator)) {
+                throw new VariableClashesWithConstantException(variable);
+            }
+        }
     }
 
     public static boolean variableNameClashesWithConstants(StringVariable variable, Evaluator evaluator) {
-        return evaluator.hasConstant(variable.name);
+        return evaluator.hasConstant(variable.getName());
     }
 
-    public static boolean variablesNamesClashWithConstants(Collection<StringVariable> variables, Evaluator evaluator) {
-        for(StringVariable variable : variables) {
-            if(variableNameClashesWithConstants(variable, evaluator)) {
-                return true;
-            }
-        }
-        return false;
-    }
-
-    public static boolean isWordOnlyCharacter(char ch) {
-        return Character.isLetter(ch) || ch == '$' || ch == '_';
-    }
-
-    public static boolean checkVariablesUnique(Collection<? extends StringVariable> variables) {
+    public static void checkVariablesUnique(List<? extends StringVariable> variables)
+            throws NotUniqueVariablesException {
         Set<StringVariable> variableSet = new HashSet<>();
-        for(StringVariable variable : variables) {
-            if(variableSet.contains(variable)) {
-                return false;
+        for (StringVariable variable : variables) {
+            if (variableSet.contains(variable)) {
+                throw new NotUniqueVariablesException(variable.getName());
             }
             variableSet.add(variable);
         }
-        return true;
     }
 
 }

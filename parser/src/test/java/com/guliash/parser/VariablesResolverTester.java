@@ -2,7 +2,7 @@ package com.guliash.parser;
 
 import com.guliash.parser.evaluator.Evaluator;
 import com.guliash.parser.evaluator.JavaEvaluator;
-import com.guliash.parser.exceptions.CyclicVariablesDependencyException;
+import com.guliash.parser.exceptions.VariableNotFoundException;
 
 import org.junit.Test;
 
@@ -18,7 +18,7 @@ public class VariablesResolverTester {
     @Test
     public void canFindDependencyForVariable() {
         List<StringVariable> variables = new ArrayList<>();
-        Evaluator evaluator = new JavaEvaluator(Angle.RAD);
+        Evaluator evaluator = new JavaEvaluator(AngleUnits.RAD);
 
         StringVariable x = new StringVariable("x", "x + y + z + d + w");
         StringVariable y = new StringVariable("y", "1");
@@ -41,13 +41,15 @@ public class VariablesResolverTester {
         assertEquals(need, resolver.findDependencies(x));
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test(expected = VariableNotFoundException.class)
     public void willThrowExceptionIfCannotFindDependencyForVariable() {
         List<StringVariable> variables = new ArrayList<>();
-        Evaluator evaluator = new JavaEvaluator(Angle.RAD);
+        Evaluator evaluator = new JavaEvaluator(AngleUnits.RAD);
 
         StringVariable x = new StringVariable("x", "y + z");
         StringVariable y = new StringVariable("y", "1");
+        variables.add(x);
+        variables.add(y);
 
         VariablesResolver resolver = new VariablesResolver(variables, evaluator);
         resolver.findDependencies(x);
@@ -56,7 +58,7 @@ public class VariablesResolverTester {
     @Test
     public void willNotTakeFunctionAsDependency() {
         List<StringVariable> variables = new ArrayList<>();
-        Evaluator evaluator = new JavaEvaluator(Angle.RAD);
+        Evaluator evaluator = new JavaEvaluator(AngleUnits.RAD);
 
         StringVariable x = new StringVariable("x", "y + sin(y)");
         StringVariable y = new StringVariable("y", "1");
@@ -73,7 +75,7 @@ public class VariablesResolverTester {
     @Test
     public void willNotTakeConstant() {
         List<StringVariable> variables = new ArrayList<>();
-        Evaluator evaluator = new JavaEvaluator(Angle.RAD);
+        Evaluator evaluator = new JavaEvaluator(AngleUnits.RAD);
 
         StringVariable x = new StringVariable("x", "y + pi");
         StringVariable y = new StringVariable("y", "1");
@@ -87,10 +89,10 @@ public class VariablesResolverTester {
         assertEquals(need, resolver.findDependencies(x));
     }
 
-    @Test(expected = CyclicVariablesDependencyException.class)
+    @Test(expected = VariablesResolver.CyclicVariablesDependencyException.class)
     public void checkThatCycleIsDetected() {
         List<StringVariable> variables = new ArrayList<>();
-        Evaluator evaluator = new JavaEvaluator(Angle.RAD);
+        Evaluator evaluator = new JavaEvaluator(AngleUnits.RAD);
 
         StringVariable x = new StringVariable("x", "y + z");
         StringVariable y = new StringVariable("y", "z");
@@ -106,7 +108,7 @@ public class VariablesResolverTester {
     @Test
     public void willNotThrowForNotOrientedCycle() {
         List<StringVariable> variables = new ArrayList<>();
-        Evaluator evaluator = new JavaEvaluator(Angle.RAD);
+        Evaluator evaluator = new JavaEvaluator(AngleUnits.RAD);
 
         StringVariable x = new StringVariable("x", "sin(y) + abs(z)");
         StringVariable y = new StringVariable("y", "cos(f) * floor(g)");
@@ -124,10 +126,10 @@ public class VariablesResolverTester {
         new VariablesResolver(variables, evaluator).resolveDependencies();
     }
 
-    @Test(expected = CyclicVariablesDependencyException.class)
+    @Test(expected = VariablesResolver.CyclicVariablesDependencyException.class)
     public void willFailOnLoop() {
         List<StringVariable> variables = new ArrayList<>();
-        Evaluator evaluator = new JavaEvaluator(Angle.RAD);
+        Evaluator evaluator = new JavaEvaluator(AngleUnits.RAD);
         StringVariable x = new StringVariable("x", "x");
         variables.add(x);
         new VariablesResolver(variables, evaluator).resolveDependencies();

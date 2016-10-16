@@ -1,6 +1,6 @@
 package com.guliash.parser.evaluator;
 
-import com.guliash.parser.Angle;
+import com.guliash.parser.AngleUnits;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -44,7 +44,7 @@ public class JavaEvaluatorTester extends BaseEvaluatorTester {
 
     @Before
     public void setUp() {
-        evaluator = new JavaEvaluator(Angle.RAD);
+        evaluator = new JavaEvaluator(AngleUnits.RAD);
         args0 = new ArrayList<>();
         args1 = new ArrayList<>();
         args1.add(25d);
@@ -180,7 +180,7 @@ public class JavaEvaluatorTester extends BaseEvaluatorTester {
 
     @Test
     public void evaluatorHasSignum() {
-        assertEquals(signum(args1.get(0)), evaluator.evaluateFunction("signum", args1), EPS);
+        assertEquals(signum(args1.get(0)), evaluator.evaluateFunction("sgn", args1), EPS);
     }
 
     @Test

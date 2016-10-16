@@ -13,45 +13,60 @@ import android.widget.TextView;
 
 import com.guliash.calculator.Helper;
 import com.guliash.calculator.R;
-import com.guliash.calculator.structures.CalculatorDataset;
+import com.guliash.calculator.structures.CalculatorDataSet;
 
 import java.util.List;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
 public class DatasetsAdapterCV extends RecyclerView.Adapter<DatasetsAdapterCV.DatasetViewHolder> {
-
-    @Nullable private List<CalculatorDataset> mObjects;
-    @NonNull private Callbacks mListener;
-
-    public static class DatasetViewHolder extends RecyclerView.ViewHolder {
-        public TextView nameTextView, dateTextView, expTextView, varTextView;
-        public ImageButton overflowButton;
-        public DatasetViewHolder(View view) {
-            super(view);
-            nameTextView = (TextView)view.findViewById(R.id.dataset_name);
-            dateTextView = (TextView)view.findViewById(R.id.date);
-            expTextView = (TextView)view.findViewById(R.id.expression);
-            varTextView = (TextView)view.findViewById(R.id.variables);
-            overflowButton = (ImageButton)view.findViewById(R.id.overflow_button);
-        }
-    }
 
     public interface Callbacks {
         void onRemove(int position);
-        void onEdit(int position);
+
         void onUse(int position);
     }
 
-    public DatasetsAdapterCV(@Nullable List<CalculatorDataset> objects, @NonNull Callbacks listener) {
-        this.mObjects = objects;
+    @Nullable
+    private List<CalculatorDataSet> mDatasets;
+    @NonNull
+    private Callbacks mListener;
+
+    static class DatasetViewHolder extends RecyclerView.ViewHolder {
+
+        @BindView(R.id.dataset_name)
+        TextView name;
+
+        @BindView(R.id.date)
+        TextView date;
+
+        @BindView(R.id.expression)
+        TextView expression;
+
+        @BindView(R.id.variables)
+        TextView variables;
+
+        @BindView(R.id.overflow_button)
+        ImageButton overflow;
+
+        DatasetViewHolder(View view) {
+            super(view);
+            ButterKnife.bind(this, view);
+        }
+    }
+
+    public DatasetsAdapterCV(@Nullable List<CalculatorDataSet> datasets, @NonNull Callbacks listener) {
+        this.mDatasets = datasets;
         this.mListener = listener;
     }
 
     @Override
     public DatasetsAdapterCV.DatasetViewHolder onCreateViewHolder(ViewGroup parent, final int viewType) {
-        final DatasetViewHolder viewHolder =  new DatasetViewHolder(
+        final DatasetViewHolder viewHolder = new DatasetViewHolder(
                 LayoutInflater.from(parent.getContext()).inflate(R.layout.dataset_item_cv, parent,
                         false));
-        viewHolder.overflowButton.setOnClickListener(new View.OnClickListener() {
+        viewHolder.overflow.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 showPopup(viewHolder);
@@ -62,34 +77,31 @@ public class DatasetsAdapterCV extends RecyclerView.Adapter<DatasetsAdapterCV.Da
 
     @Override
     public void onBindViewHolder(DatasetsAdapterCV.DatasetViewHolder holder, final int position) {
-        CalculatorDataset dataset = mObjects.get(position);
-        holder.nameTextView.setText(dataset.datasetName);
-        holder.varTextView.setText(Helper.variablesToString(dataset.variables));
-        holder.expTextView.setText(dataset.expression);
-        holder.dateTextView.setText(Helper.getFormattedDate(dataset.timestamp));
+        CalculatorDataSet dataset = mDatasets.get(position);
+        holder.name.setText(dataset.getName());
+        holder.variables.setText(Helper.variablesToString(dataset.getVariables()));
+        holder.expression.setText(dataset.getExpression());
+        holder.date.setText(Helper.getFormattedDate(dataset.getTimestamp()));
     }
 
     @Override
     public int getItemCount() {
-        return mObjects == null ? 0 : mObjects.size();
+        return mDatasets == null ? 0 : mDatasets.size();
     }
 
     private void showPopup(final DatasetViewHolder viewHolder) {
         final PopupMenu popupMenu = new PopupMenu(viewHolder.itemView.getContext(),
-                viewHolder.overflowButton);
+                viewHolder.overflow);
         popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
             @Override
             public boolean onMenuItemClick(MenuItem item) {
                 int position = viewHolder.getAdapterPosition();
-                if(position == RecyclerView.NO_POSITION) {
+                if (position == RecyclerView.NO_POSITION) {
                     return false;
                 }
                 switch (item.getItemId()) {
                     case R.id.use:
                         mListener.onUse(position);
-                        break;
-                    case R.id.edit:
-                        mListener.onEdit(position);
                         break;
                     case R.id.delete:
                         mListener.onRemove(position);

@@ -4,21 +4,18 @@ import java.util.Locale;
 
 public class InvalidNumberException extends RuntimeException {
 
-    /**
-     * Error position
-     */
-    private int position;
+    private int errorPosition;
 
-    public InvalidNumberException(int position) {
-        this.position = position;
+    public InvalidNumberException(int errorPosition) {
+        this.errorPosition = errorPosition;
     }
 
     @Override
     public String getMessage() {
-        return String.format(Locale.US, "Symbol wasn't expected at pos %d", position);
+        return String.format(Locale.ENGLISH, "Symbol wasn't expected at pos %d", errorPosition);
     }
 
-    public int getPosition() {
-        return position;
+    public int getErrorPosition() {
+        return errorPosition;
     }
 }

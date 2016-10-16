@@ -12,7 +12,7 @@ public class VariableNotFoundException extends RuntimeException {
 
     @Override
     public String getMessage() {
-        return String.format(Locale.US, "Variable %s was not found", name);
+        return String.format(Locale.ENGLISH, "Variable %s was not found", name);
     }
 
     public String getName() {
