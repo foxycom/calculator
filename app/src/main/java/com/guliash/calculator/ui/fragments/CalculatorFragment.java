@@ -249,7 +249,7 @@ public class CalculatorFragment extends Fragment implements VariablesAdapter.Cal
         Calculator.CalculateResult result = mCalculator.calculate(expression, variables);
 
         if (result.isSuccess()) {
-            mResultField.setText(String.format(Locale.ENGLISH, "%f", result.getValue()));
+            mResultField.setText(String.format(Locale.ENGLISH, "%.10f", result.getValue()));
         } else {
             mResultField.setText(result.getErrorMessage());
         }
