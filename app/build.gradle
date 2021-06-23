@@ -7,7 +7,7 @@ android {
 
     defaultConfig {
         applicationId "com.guliash.calculator"
-        minSdkVersion 15
+        minSdkVersion 23
         targetSdkVersion 24
         versionCode 4
         versionName "2.1"
