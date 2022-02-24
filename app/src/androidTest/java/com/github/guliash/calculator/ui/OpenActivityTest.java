@@ -15,6 +15,7 @@ import com.guliash.calculator.ui.activities.OpenActivity;
 
 import org.junit.After;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -104,6 +105,7 @@ public class OpenActivityTest {
     }
 
     @Test
+    @Ignore
     public void checkThatOverflowButtonOpensPopupMenu() {
         onView(withId(R.id.datasets_list)).perform(scrollToPosition(0));
         onView(withId(R.id.datasets_list)).perform(actionOnItemAtPosition(0, clickChildViewWithId(R.id.overflow_button)));
