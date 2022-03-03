@@ -1,0 +1,11 @@
+com.github.guliash.calculator.ui.MainActivityTest checkHelpMenuItemStartsHelpActivity
+com.github.guliash.calculator.ui.MainActivityTest checkSaveMenuItemStartsSaveActivity
+com.github.guliash.calculator.ui.MainActivityTest checkSettingsMenuItemStartsSettingsActivity
+com.github.guliash.calculator.ui.MainActivityTest checkOpenMenuItemStartsOpenActivity
+com.github.guliash.calculator.ui.OpenActivityTest checkThatDatasetExpressionDisplayedCorrectly
+com.github.guliash.calculator.ui.OpenActivityTest checkThatDatasetTimestampDisplayedCorrectly
+com.github.guliash.calculator.ui.OpenActivityTest checkThatDatasetVariablesDisplayedCorrectly
+com.github.guliash.calculator.ui.OpenActivityTest checkThatRemoveWorks
+com.github.guliash.calculator.ui.OpenActivityTest checkThatDatasetsAreDisplayed
+com.github.guliash.calculator.ui.SaveActivityTest testThatNameCorrectlyShown
+com.github.guliash.calculator.ui.SaveActivityTest testThatExpressionCorrectlyShown
